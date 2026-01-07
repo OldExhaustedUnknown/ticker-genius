@@ -1,0 +1,28 @@
+# Ticker-Genius Rebuild Rules
+
+## Core Principles
+1. **Data Quality First** - 3-state: CONFIRMED / EMPTY / UNKNOWN
+2. **Pipeline-centric** - Ticker -> Pipelines -> PDUFA Events
+3. **Reference Only** - Legacy repo (D:\Stock) is for reference, not copying
+4. **Rebuild, Not Refactor** - Build from scratch with quality focus
+
+## Current Status
+- M0: Schemas ✅ (src/tickergenius/schemas/)
+- M1: Migration ✅ (scripts/migrate_v12_to_pipeline.py)
+- M2: Validation (NEXT)
+
+## Key Files
+- HANDOFF.md: Complete project status and roadmap
+- src/tickergenius/schemas/: Pydantic models (3-state StatusField)
+- data/pipelines/by_ticker/: Migrated data (245 tickers)
+
+## Code Style
+- Python 3.11+
+- Type hints required
+- Pydantic for data models
+- Korean comments OK
+
+## Testing
+```bash
+pytest tests/test_schemas.py -v
+```
