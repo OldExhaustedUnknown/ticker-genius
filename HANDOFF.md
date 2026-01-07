@@ -144,13 +144,16 @@ Location: `src/tickergenius/schemas/`
 
 ## Next Steps (M1-M5)
 
-### M1: Migration Script (NEXT)
+### M1: Migration Script ✅ DONE
 ```
-pdufa_ml_dataset_v12.json → Pipeline structure
-- Filter: 2020+ only
-- Convert null → StatusField.unknown()
-- Group by ticker/drug/indication
+scripts/migrate_v12_to_pipeline.py
+- Input: pdufa_ml_dataset_v12.json (586 cases)
 - Output: data/pipelines/by_ticker/{TICKER}.json
+- Results:
+  - 582 cases (2020+ only, 4 filtered)
+  - 558 pipelines
+  - 245 tickers
+  - 3-state StatusField 변환 완료
 ```
 
 ### M2: Validation System
@@ -401,4 +404,4 @@ Python 3.11+
 
 ---
 
-**Status**: Ready for M1 (Migration Script)
+**Status**: M1 Complete → Ready for M2 (Validation System)
