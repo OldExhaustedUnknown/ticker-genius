@@ -1,13 +1,20 @@
-# Ticker-Genius V4
+# Ticker-Genius
 
-Biotech PDUFA approval probability analysis system.
+Comprehensive stock analysis system.
+
+## Scope
+
+- **Biotech/PDUFA**: FDA approval probability, CRL analysis
+- **Momentum**: Surge detection, accumulation patterns
+- **Tech**: Growth stock analysis
+- **General**: Market analysis, short interest
 
 ## Status
 
-**Phase**: M0 Complete (Schemas)  
-**Next**: M1 (Migration Script)
+**Current Phase**: Schema Design Complete  
+**Next**: Migration Script
 
-## Key Features
+## Key Features (Biotech Module)
 
 - **3-State Data Classification**: CONFIRMED / EMPTY / UNKNOWN
 - **Pipeline-based Structure**: Ticker → Pipelines → PDUFA Events
