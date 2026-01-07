@@ -11,10 +11,23 @@
 Comprehensive stock analysis system rebuild.
 
 ### Modules (Planned)
+
+**Analysis**
 - **Biotech/PDUFA**: FDA approval probability, CRL analysis (current focus)
-- **Momentum**: Surge detection, accumulation patterns
-- **Tech**: Growth stock analysis  
-- **General**: Market analysis, short interest
+- **Surge Detection**: 급등주 실시간 탐지, 거래량 급증 알림
+- **Accumulation**: 매집 포착, 세력 매집 패턴 분석
+- **Tech/Growth**: 기술주, 성장주 분석
+- **Short Interest**: 공매도 분석, 숏스퀴즈 가능성
+- **General**: 시장 분석, 섹터 분석
+
+**Markets**
+- **US Stocks**: NYSE, NASDAQ (Alpaca, Polygon)
+- **Korean Stocks**: KOSPI, KOSDAQ (KIS API, pykrx)
+
+**Infrastructure**
+- **Backend**: FastAPI, MCP Server
+- **Frontend**: React/Next.js dashboard
+- **Trading**: SafeOrderManager + RiskGuard (Paper → Live)
 
 Focus: **Data Quality First**, then Analysis, then Trading.
 
@@ -123,16 +136,29 @@ Key files to reference:
 ```
 ticker-genius/
 ├── src/tickergenius/
-│   ├── schemas/          # ✅ Done
+│   ├── schemas/          # ✅ Done (Pydantic models)
 │   ├── data/
-│   │   ├── validators/   # M2
-│   │   └── collectors/   # M3-M4
-│   └── analysis/         # M5
+│   │   ├── validators/   # M2 - AutoValidator
+│   │   └── collectors/   # M3-M4 - Data collectors
+│   ├── analysis/         # M5 - PDUFAPredictor, etc.
+│   ├── trading/          # SafeOrderManager, RiskGuard
+│   └── brokers/          # Alpaca, KIS adapters
+│
+├── server/               # Backend
+│   ├── api/              # FastAPI routes
+│   ├── mcp/              # MCP Server
+│   └── websocket/        # Real-time updates
+│
+├── web/                  # Frontend
+│   ├── frontend/         # React/Next.js
+│   └── components/       # Dashboard components
+│
 ├── data/
-│   ├── pipelines/
-│   │   └── by_ticker/    # M1 output
-│   ├── events/           # By year
-│   └── manufacturing/    # By ticker
+│   ├── pipelines/by_ticker/  # M1 output
+│   ├── events/               # By year
+│   ├── manufacturing/        # By ticker
+│   └── price_history/        # US + KR
+│
 ├── tests/
 │   └── test_schemas.py   # ✅ Done
 └── pyproject.toml

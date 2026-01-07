@@ -4,10 +4,20 @@ Comprehensive stock analysis system.
 
 ## Scope
 
+### Analysis Modules
 - **Biotech/PDUFA**: FDA approval probability, CRL analysis
 - **Momentum**: Surge detection, accumulation patterns
 - **Tech**: Growth stock analysis
 - **General**: Market analysis, short interest
+
+### Markets
+- **US**: NYSE, NASDAQ (Alpaca, Polygon)
+- **Korea**: KOSPI, KOSDAQ (KIS API)
+
+### Infrastructure
+- **Backend**: FastAPI + MCP Server
+- **Frontend**: React Dashboard
+- **Trading**: Paper → Live (US + KR)
 
 ## Status
 
