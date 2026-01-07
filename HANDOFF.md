@@ -91,18 +91,20 @@ Comprehensive stock analysis & trading system rebuild.
 | **React/Next.js** | 프론트엔드 | `web/frontend/` |
 | **Dashboard** | 대시보드 | `dashboard/` |
 
-### 8. Tools (MCP)
+### 8. Tools (MCP) - 재구축 예정
 
-| Tool | Description | Legacy |
-|------|-------------|--------|
-| `surge_tools` | 급등주 분석 도구 | `tools/surge_tools.py` |
-| `meme_tools` | 밈주 분석 도구 | `tools/meme_tools.py` |
-| `organic_tools` | 유기적 분석 | `tools/organic_tools.py` |
-| `fda_tools` | FDA 분석 | `tools/fda_tools.py` |
-| `korea_market` | 한국 시장 | `tools/korea_market.py` |
-| `dilution_tools` | 희석 분석 | `tools/dilution_tools.py` |
-| `watchlist` | 관심종목 | `tools/watchlist.py` |
-| `backtesting` | 백테스트 | `tools/backtesting.py` |
+> **Note**: 기존 도구는 **참고용**. 미사용/중복 기능 제거 후 **니즈 기반 재구축**
+
+| Legacy Tool | Status | Note |
+|-------------|--------|------|
+| `surge_tools` | 참고 | 필요시 재구축 |
+| `meme_tools` | 참고 | 필요시 재구축 |
+| `organic_tools` | 참고 | 필요시 재구축 |
+| `fda_tools` | 참고 | 필요시 재구축 |
+| `korea_market` | 참고 | 필요시 재구축 |
+| `dilution_tools` | 참고 | 필요시 재구축 |
+| `watchlist` | 참고 | 필요시 재구축 |
+| `backtesting` | 참고 | 필요시 재구축 |
 
 ---
 
@@ -183,27 +185,127 @@ PDUFAPredictor
 - Short Interest analyzer
 ```
 
-### M8: Trading System
+### M8: Infrastructure
+```
+- FastAPI backend rebuild
+- MCP Tools: 니즈 기반 재구축 (미사용/중복 제거)
+- Frontend rebuild
+```
+
+### M9+: Trading System (리빌딩 완료 후)
 ```
 - SafeOrderManager (from OrderManager)
 - RiskGuard rules
 - Paper → Live transition
-```
-
-### M9: Infrastructure
-```
-- FastAPI backend rebuild
-- MCP Tools rebuild
-- Frontend rebuild
+- 분석 시스템 안정화 이후 진행
 ```
 
 ---
 
-## Reference (Stock Repo)
+## Legacy Repo Structure Analysis
 
 Legacy repo: `https://github.com/OldExhaustedUnknown/Stock`
 
-### Key Files to Reference
+> **원칙**: 모든 기존 코드는 **참고용**. 구조 파악 후 **니즈 기반 재구축**
+
+### 1. 폴더 구조
+
+```
+D:\Stock\
+├── core/           # 핵심 인프라 (재사용 가능)
+│   ├── config.py       # 설정 관리
+│   ├── cache.py        # DiskCache
+│   ├── http.py         # HTTP 클라이언트
+│   └── paths.py        # 경로 관리
+│
+├── modules/        # 분석 모듈 (선별 재구축)
+│   ├── technical_analysis.py   # MACD, RSI, BB
+│   ├── momentum_indicators.py  # 스토캐스틱, DMI
+│   ├── surge_strategies.py     # 급등주 전략
+│   ├── meme_scanner.py         # 밈주/매집
+│   ├── pdufa_analyzer.py       # PDUFA 분석
+│   ├── short_interest.py       # 공매도
+│   ├── ml/                     # ML 모델들
+│   └── pdufa/                  # PDUFA 하위모듈
+│
+├── analysis/       # 분석 스크립트 (참고용)
+│   ├── catalysts.py        # 촉매 분석
+│   ├── pattern_recognition.py  # 패턴 인식
+│   └── swing.py            # 스윙 분석
+│
+├── trading/        # 거래 (리빌딩 후)
+│   ├── order_manager.py    # 주문 관리
+│   ├── risk_guard.py       # 리스크
+│   ├── alpaca_client.py    # 미국
+│   └── kis_client.py       # 한국
+│
+├── strategies/     # 전략 (참고용)
+│   ├── biotech_strategy.py
+│   └── meme_strategy.py
+│
+├── tools/          # MCP 도구 (니즈 기반 재구축)
+│   └── *.py            # 미사용/중복 제거 필요
+│
+├── scripts/        # 일회성 스크립트 (대부분 불필요)
+│   └── 252 files       # CRL 검증, 데이터 수집 등
+│
+└── web/            # 웹 (리빌딩)
+    ├── backend/        # FastAPI
+    └── frontend/       # React/Next.js
+```
+
+### 2. 모듈 의존성
+
+```
+core/
+  └── config, cache, paths (독립적, 재사용 가능)
+
+modules/
+  ├── technical_analysis  ← 독립적
+  ├── momentum_indicators ← 독립적
+  ├── surge_strategies    ← momentum_indicators, technical_analysis
+  ├── meme_scanner        ← 복잡한 의존성 (3500+ lines)
+  ├── pdufa_analyzer      ← pdufa/enums, pdufa/models
+  └── ml/                 ← 다수 의존성
+```
+
+### 3. 스크립트 카테고리 (252개)
+
+| 카테고리 | 개수 | 상태 |
+|---------|------|------|
+| CRL 검증/수정 | ~80 | 일회성, 불필요 |
+| 데이터 수집 | ~50 | 로직 참고 가능 |
+| 데이터셋 enrichment | ~40 | 로직 참고 가능 |
+| 분석/백테스트 | ~30 | 일부 참고 |
+| 기타 유틸리티 | ~50 | 불필요 |
+
+### 4. 재구축 우선순위
+
+| 우선순위 | 모듈 | 이유 |
+|---------|------|------|
+| **P0** | `core/config`, `core/cache` | 인프라 기반 |
+| **P1** | `schemas/` (완료) | 데이터 품질 |
+| **P2** | `pdufa/` | 핵심 분석 |
+| **P3** | `technical_analysis` | 독립적, 재사용 |
+| **P4** | `momentum_indicators` | 독립적 |
+| **P5** | `surge_strategies` | P3+P4 의존 |
+| **Later** | `meme_scanner` | 3500+ lines, 복잡 |
+| **Later** | `trading/*` | 분석 안정화 후 |
+
+### 5. 미사용/중복 후보
+
+| 모듈 | 상태 | Note |
+|------|------|------|
+| `alphavantage_client.py` | 미사용? | API 키 없음 |
+| `massive_client.py` | 미사용? | 확인 필요 |
+| `biotech_competition.py` | 중복? | pdufa와 겹침 |
+| `biotech_price_targets.py` | 미사용? | 확인 필요 |
+| `extended_hours.py` | 미사용? | 확인 필요 |
+| 다수 스크립트 | 일회성 | 데이터 수정용 |
+
+---
+
+## Key Files to Reference
 
 **Data:**
 - `data/ml/pdufa_ml_dataset_v12.json` - ML dataset
@@ -212,20 +314,16 @@ Legacy repo: `https://github.com/OldExhaustedUnknown/Stock`
 - `docs/archive/tf_meetings/` - TF meeting history
 - `docs/DATA_SCHEMA.md` - CRL Class definitions
 
-**Analysis Modules:**
-- `modules/surge_strategies.py` - 급등주 전략
-- `modules/meme_scanner.py` - 밈주/매집 스캐너
-- `modules/momentum_indicators.py` - 모멘텀 지표
+**Core (재사용 검토):**
+- `core/config.py` - Config 클래스
+- `core/cache.py` - DiskCache
+
+**Analysis (로직 참고):**
+- `modules/pdufa_analyzer.py` - PDUFA 분석
 - `modules/technical_analysis.py` - 기술적 분석
-- `modules/short_interest.py` - 공매도
+- `modules/momentum_indicators.py` - 모멘텀
 
-**Trading:**
-- `trading/order_manager.py` - 주문관리
-- `trading/risk_guard.py` - 리스크 가드
-- `trading/alpaca_client.py` - 미국 거래
-- `trading/kis_client.py` - 한국 거래
-
-**Note**: Reference only. Don't copy code blindly - rebuild with quality focus.
+**Note**: 코드 복사 금지. 구조 파악 → 니즈 분석 → 재구축
 
 ---
 
