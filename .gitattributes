@@ -1,0 +1,61 @@
+# Auto-detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Source code - UTF-8 with BOM for Windows compatibility
+*.py text eol=lf encoding=utf-8-sig
+*.pyw text eol=lf encoding=utf-8-sig
+
+# Data files - UTF-8 without BOM
+*.json text eol=lf encoding=utf-8
+*.csv text eol=lf encoding=utf-8
+*.yaml text eol=lf encoding=utf-8
+*.yml text eol=lf encoding=utf-8
+*.toml text eol=lf encoding=utf-8
+
+# Documentation - UTF-8
+*.md text eol=lf encoding=utf-8
+*.txt text eol=lf encoding=utf-8
+*.rst text eol=lf encoding=utf-8
+
+# Web files
+*.html text eol=lf encoding=utf-8
+*.css text eol=lf encoding=utf-8
+*.js text eol=lf encoding=utf-8
+*.ts text eol=lf encoding=utf-8
+*.tsx text eol=lf encoding=utf-8
+*.jsx text eol=lf encoding=utf-8
+
+# Config files
+*.ini text eol=lf encoding=utf-8
+*.cfg text eol=lf encoding=utf-8
+*.conf text eol=lf encoding=utf-8
+.env* text eol=lf encoding=utf-8
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows scripts - keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary files - no conversion
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.pkl binary
+*.parquet binary
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Force LF for specific files
+Dockerfile text eol=lf
+docker-compose*.yml text eol=lf
+Makefile text eol=lf
