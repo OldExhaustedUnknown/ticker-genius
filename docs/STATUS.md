@@ -116,7 +116,8 @@ src/tickergenius/analysis/pdufa/
 
 | 태그 | 커밋 메시지 | 날짜 |
 |------|------------|------|
-| (예정) | M1+M2: 스키마 및 Core 인프라 완료 | 2026-01-08 |
+| M1-complete | M1: Pydantic 스키마 완료 | 2026-01-08 |
+| M2-complete | M2: Core 인프라 완료 | 2026-01-08 |
 
 ---
 
