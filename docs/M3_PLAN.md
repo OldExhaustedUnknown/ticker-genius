@@ -854,6 +854,284 @@ analysis/pdufa/
 
 ---
 
+### 토론 7: 확장성 설계 (핵심) - 스파게티 방지
+
+**A (Architect)**: 레거시의 근본 문제를 짚어보자.
+
+**B (Data)**: `calculate_probability(ticker, phase, designations, adcom_result, crl_count, crl_types, ...)` - 파라미터 20개+. 새 팩터 추가할 때마다 시그니처 변경.
+
+**A (Architect)**: 이게 스파게티화의 원인. 해결책은 **입력 객체화 + 팩터 레지스트리**.
+
+---
+
+**설계 1: 입력 객체화**
+
+```python
+# 레거시 (문제)
+def calculate_probability(
+    ticker, phase, designations, adcom_result,
+    crl_count, crl_types, crl_delay,
+    dispute_result, mental_health_type,
+    # ... 20개 더 추가될 때마다 변경
+) -> ApprovalProbability:
+    ...
+
+# 신규 (해결)
+@dataclass
+class AnalysisContext:
+    """분석에 필요한 모든 컨텍스트 (확장 가능)"""
+    ticker: str
+    phase: str
+
+    # FDA 지정
+    designations: list[str] = field(default_factory=list)
+
+    # AdCom
+    adcom_result: Optional[str] = None
+
+    # CRL
+    crl_types: list[CRLType] = field(default_factory=list)
+    crl_delay: Optional[CRLDelayCategory] = None
+
+    # 임상
+    clinical_quality: Optional[ClinicalQualityTier] = None
+    endpoint_type: Optional[EndpointType] = None
+
+    # 제조
+    pai_status: Optional[PAIStatus] = None
+
+    # 추가 팩터 (확장용)
+    extra_factors: dict[str, Any] = field(default_factory=dict)
+
+def calculate_probability(ctx: AnalysisContext) -> ApprovalProbability:
+    """파라미터 1개 - 시그니처 변경 불필요"""
+    ...
+```
+
+**C (MCP)**: `extra_factors` dict가 핵심이네. 새 팩터 추가해도 시그니처 안 바뀜.
+
+---
+
+**설계 2: 팩터 레지스트리 패턴**
+
+```python
+# _layers.py
+
+class FactorRegistry:
+    """팩터 레지스트리 - 새 팩터 추가 시 기존 코드 수정 불필요"""
+
+    _layers: list[Callable] = []
+
+    @classmethod
+    def register(cls, order: int):
+        """레이어 등록 데코레이터"""
+        def decorator(func):
+            cls._layers.append((order, func))
+            cls._layers.sort(key=lambda x: x[0])
+            return func
+        return decorator
+
+    @classmethod
+    def apply_all(cls, ctx: AnalysisContext, base: float) -> tuple[float, list[FactorResult]]:
+        """모든 레이어 순차 적용"""
+        result = base
+        applied = []
+        for order, layer_func in cls._layers:
+            result, factors = layer_func(ctx, result)
+            applied.extend(factors)
+        return result, applied
+
+# 레이어 등록 (순서 지정)
+@FactorRegistry.register(order=1)
+def apply_fda_designations(ctx: AnalysisContext, prob: float) -> tuple[float, list]:
+    """FDA 지정 보너스"""
+    ...
+
+@FactorRegistry.register(order=2)
+def apply_adcom(ctx: AnalysisContext, prob: float) -> tuple[float, list]:
+    """AdCom 결과"""
+    ...
+
+@FactorRegistry.register(order=3)
+def apply_crl(ctx: AnalysisContext, prob: float) -> tuple[float, list]:
+    """CRL 조정"""
+    ...
+
+# 새 팩터 추가 시 - 기존 코드 수정 없이 등록만
+@FactorRegistry.register(order=7)
+def apply_new_factor_2026(ctx: AnalysisContext, prob: float) -> tuple[float, list]:
+    """2026년에 추가된 새 팩터"""
+    ...
+```
+
+**D (Trading)**: 이렇게 하면 새 팩터 추가가 쉬워지네. Open-Closed 원칙.
+
+**E (SRE)**: 순서(order)로 레이어 실행 순서 보장되고.
+
+---
+
+**설계 3: 팩터 결과 추적**
+
+```python
+@dataclass
+class FactorResult:
+    """개별 팩터 적용 결과"""
+    layer: str              # "fda_designation"
+    factor_name: str        # "breakthrough_therapy"
+    adjustment: float       # +0.08
+    reason: str             # "BTD 지정"
+    source: str             # "FDA 지정 목록"
+
+@dataclass
+class ProbabilityResult:
+    """확률 계산 최종 결과"""
+    base_probability: float
+    adjusted_probability: float
+    capped_probability: float
+    applied_factors: list[FactorResult]
+    cap_reason: Optional[str]
+    confidence_level: float
+    warnings: list[str]
+
+    def explain(self) -> str:
+        """확률 계산 과정 설명 (왜 72%인지)"""
+        lines = [f"기본 확률: {self.base_probability:.0%}"]
+        for f in self.applied_factors:
+            lines.append(f"  {f.adjustment:+.0%} {f.reason}")
+        if self.cap_reason:
+            lines.append(f"  [Cap] {self.cap_reason}")
+        lines.append(f"최종: {self.capped_probability:.0%}")
+        return "\n".join(lines)
+```
+
+**C (MCP)**: `explain()` 메서드가 "왜 72%야?" 질문에 대한 답이 되겠네.
+
+---
+
+**최종 구조 결정**:
+
+```
+analysis/pdufa/
+├── __init__.py         # Public API
+│   - PDUFAAnalyzer
+│   - AnalysisContext
+│
+├── _context.py         # AnalysisContext 정의 (~100줄)
+│
+├── _constants.py       # 모든 상수 (검증 필요) (~300줄)
+│
+├── _registry.py        # FactorRegistry 패턴 (~50줄)
+│
+├── _layers/            # 레이어별 분리 (각 ~100줄)
+│   ├── __init__.py
+│   ├── base.py         # 1. 기본 확률
+│   ├── designation.py  # 2. FDA 지정 + 그룹핑
+│   ├── adcom.py        # 3. AdCom
+│   ├── crl.py          # 4-5. CRL
+│   ├── clinical.py     # 6-8. 임상/제조
+│   ├── context.py      # 9-12. 시민청원/상호작용
+│   └── cap.py          # 13. Cap
+│
+├── probability.py      # ProbabilityCalculator (~150줄)
+│
+└── analyzer.py         # PDUFAAnalyzer Facade (~100줄)
+```
+
+**D (Trading)**: 파일이 많아졌는데?
+
+**A (Architect)**: 각 파일이 100줄 내외로 작아짐. 읽기 쉽고, 테스트 쉽고, 확장 쉬움.
+
+---
+
+**설계 4: 팩터 추가/제거/비활성화**
+
+**D (Trading)**: 팩터는 늘어날 수도, 줄어들 수도 있어.
+
+**A (Architect)**: 맞아. 세 가지 시나리오:
+1. **추가**: 새 팩터 등록 → 기존 코드 수정 없음 ✓
+2. **제거**: 검증 실패한 팩터 삭제 → 등록 해제
+3. **비활성화**: 일시적으로 끔 → 설정으로 제어
+
+```python
+class FactorRegistry:
+    _layers: dict[str, LayerInfo] = {}  # name → info
+
+    @dataclass
+    class LayerInfo:
+        func: Callable
+        order: int
+        enabled: bool = True  # 비활성화 가능
+        version: str = "1.0"
+        deprecated: bool = False
+
+    @classmethod
+    def register(cls, name: str, order: int, version: str = "1.0"):
+        def decorator(func):
+            cls._layers[name] = cls.LayerInfo(
+                func=func, order=order, version=version
+            )
+            return func
+        return decorator
+
+    @classmethod
+    def unregister(cls, name: str):
+        """팩터 제거"""
+        if name in cls._layers:
+            del cls._layers[name]
+
+    @classmethod
+    def disable(cls, name: str):
+        """팩터 비활성화 (일시적)"""
+        if name in cls._layers:
+            cls._layers[name].enabled = False
+
+    @classmethod
+    def enable(cls, name: str):
+        """팩터 활성화"""
+        if name in cls._layers:
+            cls._layers[name].enabled = True
+
+    @classmethod
+    def deprecate(cls, name: str):
+        """팩터 deprecated 표시 (경고만, 동작은 함)"""
+        if name in cls._layers:
+            cls._layers[name].deprecated = True
+
+    @classmethod
+    def apply_all(cls, ctx: AnalysisContext, base: float) -> tuple[float, list]:
+        result = base
+        applied = []
+        warnings = []
+
+        # 활성화된 레이어만, 순서대로
+        active = sorted(
+            [(n, l) for n, l in cls._layers.items() if l.enabled],
+            key=lambda x: x[1].order
+        )
+
+        for name, layer_info in active:
+            if layer_info.deprecated:
+                warnings.append(f"[DEPRECATED] {name} 팩터는 곧 제거됩니다")
+            result, factors = layer_info.func(ctx, result)
+            applied.extend(factors)
+
+        return result, applied, warnings
+```
+
+**E (SRE)**: `deprecated` 상태가 좋네. 바로 삭제 안 하고 경고 먼저.
+
+**B (Data)**: 팩터 버전 관리도 되고. 검증 실패하면 unregister.
+
+---
+
+**결론**:
+1. **입력 객체화**: `AnalysisContext` - 파라미터 폭발 방지
+2. **팩터 레지스트리**: 추가/제거/비활성화/deprecated 지원
+3. **결과 추적**: `FactorResult` - 디버깅/설명 가능
+4. **레이어 분리**: `_layers/` 폴더 - 각 100줄 이하
+
+---
+
 ### 최종 설계 결정 요약
 
 | 항목 | 결정 | 근거 |
