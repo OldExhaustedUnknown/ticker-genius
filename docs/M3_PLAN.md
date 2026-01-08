@@ -243,17 +243,49 @@ D:\Stock\modules\pdufa\
 
 ## 신규 구조 설계
 
+> **Note**: 초기 설계. 토론 7-9에서 상세화됨.
+
 ```
-src/tickergenius/analysis/pdufa/
-├── __init__.py         # Public API (입구) - 50줄
-├── _constants.py       # 내부: 통계 상수 (RED 재검증) - 200줄
-├── _factors.py         # 내부: 조정 요인 - 150줄
-├── _crl.py             # 내부: CRL 분석 - 150줄
-├── probability.py      # Public: 확률 계산 - 300줄
-└── analyzer.py         # Public: Facade - 200줄
+src/tickergenius/
+│
+├── data/
+│   ├── constants/              # Layer 1: Static (JSON)
+│   │   ├── approval_rates.json
+│   │   ├── factor_adjustments.json
+│   │   └── cap_rules.json
+│   └── db/                     # Layer 2-3: SQLite
+│       └── tickergenius.db
+│
+├── repositories/               # 데이터 접근 레이어
+│   ├── __init__.py
+│   ├── constants.py            # JSON 로더 + 타입 래퍼
+│   ├── pipeline_repo.py        # Pipeline Repository
+│   └── price_repo.py           # Price Repository
+│
+└── analysis/pdufa/             # 분석 모듈
+    ├── __init__.py             # Public API (입구)
+    ├── _context.py             # AnalysisContext (입력 객체화)
+    ├── _registry.py            # FactorRegistry (확장성)
+    ├── _layers/                # 13개 확률 레이어
+    │   ├── __init__.py
+    │   ├── base.py             # 기본 승인률
+    │   ├── designation.py      # FDA 지정
+    │   ├── adcom.py            # AdCom 결과
+    │   ├── crl.py              # CRL 이력
+    │   ├── clinical.py         # 임상 요인
+    │   ├── manufacturing.py    # 제조 요인
+    │   ├── context.py          # 맥락 상호작용
+    │   └── cap.py              # 상한 규칙
+    ├── probability.py          # ProbabilityCalculator
+    ├── analyzer.py             # PDUFAAnalyzer (Facade)
+    ├── result.py               # AnalysisResult
+    └── report.py               # ReportGenerator (선택적)
 ```
 
-**언더스코어 규칙**: `_xxx.py` = 모듈 내부용, 외부에서 직접 import 금지
+**규칙**:
+- `_xxx.py` = 모듈 내부용, 외부에서 직접 import 금지
+- `__init__.py`만 Public API
+- 파일당 500줄 이하
 
 ---
 
@@ -476,18 +508,7 @@ assert rate.source != ""  # 출처 필수
 
 ---
 
-## 구현 순서
-
-1. constants.py (상수 분리) - 30분
-2. factors.py (팩터 로직) - 30분
-3. crl.py (CRL 분석) - 30분
-4. probability.py (확률 계산) - 1시간
-5. analyzer.py (Facade) - 1시간
-6. 테스트 및 검증 - 1시간
-
----
-
-**M3 진행 승인 대기 중**
+> ⚠️ **구현 순서는 문서 하단 "구현 순서 (M3)" 섹션 참조** (토론 7-10 결과 반영)
 
 ---
 
@@ -1132,6 +1153,286 @@ class FactorRegistry:
 
 ---
 
+### 토론 8: 데이터셋 구성 및 검증 매커니즘
+
+**B (Data)**: 상수 데이터를 어떻게 저장하고 검증할 건지 정해야 해.
+
+**A (Architect)**: 세 가지 고려사항:
+1. **저장**: 어디에? Python dict? JSON? SQLite?
+2. **검증**: 수동? 반자동? 자동?
+3. **웹검색**: 토큰 절약하면서 정확하게 찾기
+
+---
+
+**설계 1: 데이터셋 저장 구조**
+
+**B (Data)**: 제안 - JSON + Python 래퍼:
+
+```
+data/
+├── constants/
+│   ├── approval_rates.json      # 승인률 상수
+│   ├── factor_adjustments.json  # 팩터 조정값
+│   ├── cap_rules.json           # Cap 규칙
+│   └── _schema.json             # JSON 스키마 (검증용)
+│
+└── verification/
+    ├── sources.json             # 원본 소스 목록
+    └── verification_log.json    # 검증 이력
+```
+
+**JSON 구조 예시**:
+```json
+// approval_rates.json
+{
+  "phase3": {
+    "value": 0.59,
+    "status": "CONFIRMED",
+    "source": {
+      "citation": "Wong et al. (2018)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6409418/",
+      "retrieved_date": "2026-01-08",
+      "relevant_quote": "Phase III to approval: 59.0%"
+    },
+    "verified_by": "TF-31",
+    "verified_date": "2026-01-08",
+    "next_review": "2027-01-08"
+  },
+  "nda_bla": {
+    "value": 0.70,
+    "status": "UNKNOWN",
+    "source": {
+      "citation": "수집 데이터 428건",
+      "url": null,
+      "note": "레거시 데이터 - 재검증 필요"
+    }
+  }
+}
+```
+
+**A (Architect)**: JSON으로 하면:
+- Git diff로 변경 추적 가능
+- 사람이 읽기/수정 가능
+- Python 래퍼로 타입 안전성 확보
+
+---
+
+**설계 2: 검증 워크플로우**
+
+**E (SRE)**: 검증을 어떻게 자동화할 건지?
+
+**B (Data)**: 3단계 워크플로우:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  1단계: 원본 소스 식별                                       │
+│  - 논문: Wong et al., JAMA, Nature 등                       │
+│  - 공식: FDA openFDA API, ClinicalTrials.gov               │
+│  - 데이터: BioMedTracker, Citeline 등                       │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  2단계: 웹검색으로 값 확인 (반자동)                          │
+│  - 쿼리 템플릿 사용 (토큰 절약)                              │
+│  - 결과 캐싱 (중복 검색 방지)                                │
+│  - 사람이 최종 확인                                          │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  3단계: JSON 업데이트 + Git 커밋                             │
+│  - status: UNKNOWN → CONFIRMED                              │
+│  - source 정보 채움                                          │
+│  - 변경 이력 자동 기록                                       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+**설계 3: 웹검색 최적화 (토큰 절약)**
+
+**C (MCP)**: 웹검색 토큰 어떻게 줄여?
+
+**B (Data)**: 핵심 전략:
+
+**1. 쿼리 템플릿 (정확한 검색)**
+```python
+VERIFICATION_QUERIES = {
+    "phase3_approval": {
+        "query": "FDA Phase 3 clinical trial approval rate site:nih.gov OR site:fda.gov",
+        "expected_source": "Wong et al. 2018 OR FDA statistics",
+        "extract_pattern": r"(\d+\.?\d*)%.*Phase.*3.*approval",
+    },
+    "adcom_positive": {
+        "query": "FDA Advisory Committee positive vote approval rate JAMA",
+        "expected_source": "JAMA Health Forum 2023",
+        "extract_pattern": r"positive.*(\d+\.?\d*)%.*approved",
+    },
+}
+```
+
+**2. 캐싱 (중복 방지)**
+```python
+# 검증 결과 캐싱 (24시간)
+VERIFICATION_CACHE_TTL = 86400
+
+def verify_constant(key: str) -> VerificationResult:
+    cache_key = f"verification:{key}"
+
+    # 캐시 확인
+    cached = cache.get(cache_key)
+    if cached:
+        return cached
+
+    # 웹검색 실행
+    query = VERIFICATION_QUERIES[key]
+    result = web_search(query["query"])
+
+    # 패턴 매칭으로 값 추출
+    extracted = extract_value(result, query["extract_pattern"])
+
+    # 캐시 저장
+    cache.set(cache_key, extracted, ttl=VERIFICATION_CACHE_TTL)
+
+    return extracted
+```
+
+**3. 배치 검증 (효율적)**
+```python
+def verify_batch(keys: list[str]) -> dict[str, VerificationResult]:
+    """여러 상수 한 번에 검증 (세션당 1회)"""
+    results = {}
+
+    # 그룹화: 같은 소스에서 여러 값 추출
+    by_source = group_by_source(keys)
+
+    for source, source_keys in by_source.items():
+        # 소스당 1회 검색
+        page = fetch_source(source)
+
+        for key in source_keys:
+            results[key] = extract_from_page(page, key)
+
+    return results
+```
+
+**D (Trading)**: 실제로 어떻게 동작해?
+
+**B (Data)**: 예시 - Phase 3 승인률 검증:
+
+```python
+# 1. 검증 트리거 (수동 또는 스케줄)
+result = verify_constant("phase3_approval")
+
+# 2. 웹검색 실행
+# Query: "FDA Phase 3 clinical trial approval rate site:nih.gov"
+# → Wong et al. (2018) 논문 페이지 반환
+
+# 3. 패턴 매칭
+# 텍스트: "Phase III to approval transition probability was 59.0%"
+# → 값: 0.59 추출
+
+# 4. 레거시와 비교
+legacy_value = 0.59
+if abs(result.value - legacy_value) < 0.01:
+    status = "CONFIRMED"
+else:
+    status = "MISMATCH"  # 사람 확인 필요
+
+# 5. JSON 업데이트
+update_constant("phase3", value=result.value, status=status, source=result.source)
+```
+
+---
+
+**설계 4: 자동 검증 트리거**
+
+**E (SRE)**: 언제 검증 실행해?
+
+**A (Architect)**: 세 가지 트리거:
+
+```python
+# 1. 첫 사용 시 (Lazy verification)
+def get_constant(key: str) -> VerifiedConstant:
+    const = load_constant(key)
+    if const.status == "UNKNOWN":
+        # 첫 사용 시 검증 시도
+        verify_and_update(key)
+    return const
+
+# 2. 만료 시 (TTL 기반)
+def check_expired():
+    for key, const in all_constants():
+        if const.next_review < today():
+            schedule_verification(key)
+
+# 3. 수동 트리거
+# CLI: python -m tickergenius verify-constants --all
+# CLI: python -m tickergenius verify-constants phase3_approval
+```
+
+---
+
+**설계 5: 검증 실패 처리**
+
+**D (Trading)**: 검증 실패하면?
+
+**B (Data)**: 상태별 처리:
+
+```python
+class VerificationStatus(Enum):
+    CONFIRMED = "confirmed"      # 검증 완료, 값 일치
+    UNKNOWN = "unknown"          # 미검증
+    MISMATCH = "mismatch"        # 검증했으나 값 불일치 → 사람 확인
+    SOURCE_UNAVAILABLE = "source_unavailable"  # 소스 접근 불가
+    DEPRECATED = "deprecated"    # 더 이상 사용 안 함
+```
+
+```python
+def get_constant_safe(key: str) -> tuple[float, list[str]]:
+    """안전하게 상수 조회 (경고 포함)"""
+    const = load_constant(key)
+    warnings = []
+
+    if const.status == "UNKNOWN":
+        warnings.append(f"[경고] {key}: 미검증 값 사용 중")
+    elif const.status == "MISMATCH":
+        warnings.append(f"[주의] {key}: 값 불일치 - 수동 확인 필요")
+    elif const.status == "SOURCE_UNAVAILABLE":
+        warnings.append(f"[경고] {key}: 소스 확인 불가")
+
+    return const.value, warnings
+```
+
+---
+
+**최종 데이터 구조**:
+
+```
+src/tickergenius/
+├── data/
+│   ├── constants/
+│   │   ├── approval_rates.json
+│   │   ├── factor_adjustments.json
+│   │   └── cap_rules.json
+│   │
+│   └── verification/
+│       ├── queries.json         # 검증 쿼리 템플릿
+│       ├── sources.json         # 원본 소스 목록
+│       └── log.json             # 검증 이력
+│
+└── analysis/pdufa/
+    ├── _constants.py            # JSON 로더 + 타입 래퍼
+    └── _verification.py         # 검증 로직
+```
+
+**결론**:
+1. **JSON 저장**: Git 추적 가능, 사람이 편집 가능
+2. **반자동 검증**: 쿼리 템플릿 + 사람 최종 확인
+3. **토큰 절약**: 캐싱 + 배치 + 정확한 쿼리
+4. **실패 처리**: 상태별 경고, 서비스는 계속
+
+---
+
 ### 최종 설계 결정 요약
 
 | 항목 | 결정 | 근거 |
@@ -1155,3 +1456,803 @@ class FactorRegistry:
 □ 캐싱 TTL 설정
 □ 단위 테스트 커버리지 80%+
 ```
+
+---
+
+## 토론 9: 데이터셋 확장성 및 참조 관계
+
+> **의제**: 데이터셋이 성장하면서 어떻게 관리할 것인가? 확률 계산기와 데이터의 참조 관계는?
+
+---
+
+**A (Architect)**: 핵심 문제를 정리하자.
+
+1. **데이터 종류가 다름**: 상수 vs 파이프라인 vs 주가
+2. **성장 패턴이 다름**: 상수는 거의 고정, 파이프라인은 수백~수천, 주가는 무한 성장
+3. **접근 패턴이 다름**: 상수는 자주 읽음, 파이프라인은 티커별 조회, 주가는 범위 쿼리
+
+---
+
+**설계 1: 데이터 레이어 분리**
+
+**B (Data)**: 세 가지 레이어로 나눠야 해.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Layer 1: Static Constants (변동 거의 없음)                  │
+│  - 저장: JSON 파일 (Git 추적)                                │
+│  - 로딩: 앱 시작 시 메모리 캐시                              │
+│  - 예: approval_rates, factor_adjustments, cap_rules        │
+│  - 크기: ~100KB (성장 거의 없음)                             │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Layer 2: Pipeline Data (티커별, 중간 성장)                  │
+│  - 저장: SQLite (로컬) / PostgreSQL (프로덕션)              │
+│  - 인덱스: ticker_id (PK), pdufa_date, status               │
+│  - 예: Pipeline 테이블, 각 티커의 파이프라인 정보           │
+│  - 크기: ~1000개 티커 × 평균 2개 파이프라인 = ~2000행       │
+│  - 성장: 연간 ~100-200개 신규 파이프라인                    │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Layer 3: Time Series Data (무한 성장)                       │
+│  - 저장: 별도 테이블 (DailyPrice, IntradayPrice)            │
+│  - 인덱스: (ticker_id, date) 복합 인덱스                    │
+│  - 예: 일별 주가, 분별 주가                                  │
+│  - 크기: 1000개 티커 × 365일 × 5년 = ~180만 행 (일별만)    │
+│  - 성장: 매일 + 과거 데이터 백필                            │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+**설계 2: 참조 관계 설계**
+
+**A (Architect)**: 확률 계산기가 데이터를 어떻게 참조할지.
+
+```
+ProbabilityCalculator
+    │
+    ├──▶ ConstantLoader (Layer 1)
+    │     │
+    │     └── get_approval_rate(phase) → float
+    │     └── get_factor_adjustment(factor_name) → float
+    │     └── get_cap_rules() → dict
+    │
+    ├──▶ PipelineRepository (Layer 2)
+    │     │
+    │     └── get_by_ticker(ticker) → Pipeline
+    │     └── get_active_pipelines() → list[Pipeline]
+    │     └── search(filters) → list[Pipeline]
+    │
+    └──▶ PriceRepository (Layer 3) [선택적]
+          │
+          └── get_daily_prices(ticker, start, end) → list[DailyPrice]
+          └── get_latest_price(ticker) → float
+```
+
+**핵심**: 각 레이어는 **독립적인 Repository**로 접근. 순환 참조 없음.
+
+---
+
+**설계 3: Pipeline 테이블 상세 설계**
+
+**D (Trading)**: Pipeline이 중심 테이블이야. 여기서 모든 게 시작돼.
+
+```sql
+-- Pipeline 테이블 (중심)
+CREATE TABLE pipelines (
+    id INTEGER PRIMARY KEY,
+    ticker_id INTEGER NOT NULL,        -- FK → tickers
+    drug_name TEXT,
+    indication TEXT,
+    phase TEXT,                        -- Phase 1/2/3
+    pdufa_date DATE,
+    status TEXT,                       -- CONFIRMED/TENTATIVE/UNKNOWN
+
+    -- FDA 지정 (JSON array)
+    designations TEXT,                 -- ["BTD", "Priority", "FastTrack"]
+
+    -- AdCom 정보
+    adcom_date DATE,
+    adcom_result TEXT,                 -- POSITIVE/MIXED/NEGATIVE
+    adcom_vote_for INTEGER,
+    adcom_vote_against INTEGER,
+
+    -- CRL 이력 (JSON array)
+    crl_history TEXT,                  -- [{type, date, resolved}]
+
+    -- 메타
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    verification_status TEXT,          -- CONFIRMED/UNKNOWN
+    source_url TEXT,
+
+    FOREIGN KEY (ticker_id) REFERENCES tickers(id)
+);
+
+-- 인덱스
+CREATE INDEX idx_pipelines_ticker ON pipelines(ticker_id);
+CREATE INDEX idx_pipelines_pdufa_date ON pipelines(pdufa_date);
+CREATE INDEX idx_pipelines_status ON pipelines(status);
+```
+
+**B (Data)**: JSON 필드로 designations, crl_history 넣은 이유:
+1. 조회는 항상 Pipeline 단위 (파이프라인 하나 조회하면 모든 정보 필요)
+2. 별도 테이블로 나누면 JOIN 필요 → 복잡성 증가
+3. 검색은 주로 ticker_id, pdufa_date로 함 (designation으로 검색하는 경우 드묾)
+
+---
+
+**설계 4: 주가 데이터 분리**
+
+**E (SRE)**: 주가 데이터는 절대 Pipeline과 합치면 안 돼.
+
+```sql
+-- 일별 주가 (별도 테이블)
+CREATE TABLE daily_prices (
+    id INTEGER PRIMARY KEY,
+    ticker_id INTEGER NOT NULL,
+    date DATE NOT NULL,
+    open REAL,
+    high REAL,
+    low REAL,
+    close REAL,
+    volume INTEGER,
+
+    UNIQUE(ticker_id, date),
+    FOREIGN KEY (ticker_id) REFERENCES tickers(id)
+);
+
+CREATE INDEX idx_daily_prices_ticker_date ON daily_prices(ticker_id, date);
+```
+
+**이유**:
+1. **성장률이 다름**: 파이프라인은 느리게 성장, 주가는 매일 성장
+2. **접근 패턴이 다름**: 파이프라인은 단건 조회, 주가는 범위 쿼리
+3. **보관 정책이 다름**: 파이프라인은 영구 보관, 주가는 오래된 건 아카이브 가능
+
+---
+
+**설계 5: 캐싱 전략**
+
+**E (SRE)**: 레이어별 캐싱.
+
+```python
+# Layer 1: Static Constants - 앱 시작 시 로드, 메모리 상주
+class ConstantLoader:
+    _cache: dict = None  # 앱 수명 동안 유지
+
+    @classmethod
+    def load_all(cls):
+        if cls._cache is None:
+            cls._cache = {
+                "approval_rates": load_json("approval_rates.json"),
+                "factor_adjustments": load_json("factor_adjustments.json"),
+                "cap_rules": load_json("cap_rules.json"),
+            }
+        return cls._cache
+
+# Layer 2: Pipeline - LRU 캐시 with TTL
+class PipelineRepository:
+    def __init__(self, cache: DiskCache):
+        self.cache = cache  # M2에서 구현한 DiskCache
+
+    def get_by_ticker(self, ticker: str) -> Pipeline:
+        cache_key = f"pipeline:{ticker}"
+
+        # 캐시 체크 (TTL: 1시간)
+        cached = self.cache.get(cache_key)
+        if cached:
+            return cached
+
+        # DB 조회
+        pipeline = self._query_db(ticker)
+        self.cache.set(cache_key, pipeline, ttl=3600)
+        return pipeline
+
+# Layer 3: Price Data - 날짜 기반 캐싱
+class PriceRepository:
+    def get_daily_prices(self, ticker: str, start: date, end: date):
+        # 오늘 데이터는 짧은 TTL (장중 변동)
+        # 과거 데이터는 긴 TTL (변동 없음)
+        ...
+```
+
+---
+
+**설계 6: 확장 시나리오**
+
+**A (Architect)**: 미래에 데이터가 커지면?
+
+| 시나리오 | 대응 |
+|----------|------|
+| 티커 10,000개 | SQLite 충분. 인덱스만 잘 걸면 됨 |
+| 주가 10년치 | 파티셔닝 (연도별 테이블 분리) 또는 시계열 DB (TimescaleDB) |
+| 실시간 주가 | 별도 서비스로 분리, Redis 캐시 |
+| 글로벌 확장 | PostgreSQL 마이그레이션, Read Replica |
+
+**E (SRE)**: 현재 단계에서는 SQLite로 충분해. 과도한 설계 피하자.
+
+---
+
+**설계 7: 레거시 v12 데이터셋 분석 (실제 구조)**
+
+**B (Data)**: 레거시 `pdufa_ml_dataset_v12.json` 분석 결과야.
+
+```
+레거시 v12 현황:
+- 총 케이스: 586건
+- 필드 수: 103개 (케이스당)
+- 파일 크기: 2.4MB
+- 문제: 잘못된 데이터 다수 포함 (오염됨)
+```
+
+**필드 카테고리 분류 (103개)**:
+
+```
+1. 기본 정보 (9개)
+   ticker, company, drug_name, drug_id, indication, pdufa_date,
+   decision_date, result, notes
+
+2. 신청 정보 (5개)
+   application_type, application_number, is_bla, is_supplement, is_biosimilar
+
+3. FDA 지정 (8개)
+   orphan_drug, priority_review, breakthrough_therapy, accelerated_approval,
+   fast_track, fda_designation_count, is_first_in_class, approval_type
+
+4. AdCom 정보 (6개)
+   adcom_held, adcom_vote_ratio, adcom_outcome, adcom_waived,
+   adcom_marginal, has_adcom_flag
+
+5. CRL 정보 (12개)
+   crl_class, crl_class_num, crl_reason, crl_reason_category, crl_count,
+   is_resubmission, cmc_only_crl, is_cmc_only, is_cmc_major, is_cmc_minor,
+   crl_despite_endpoint_met, days_resub_to_pdufa
+
+6. 제조 정보 (16개)
+   cdmo_used, cdmo_name, cdmo_china_flag, manufacturing_country,
+   facility_483_exists, facility_fda_registered_long, facility_location_high_risk,
+   facility_ownership_change, facility_pai_passed, facility_recent_approval,
+   facility_warning_letter, fda_483_critical, fda_483_exists, fda_483_flag,
+   fda_483_recent, pai_* (6개)
+
+7. 임상시험 정보 (22개)
+   primary_endpoint_met, primary_pvalue, sample_size, nct_number,
+   is_randomized, is_open_label, has_placebo_arm, single_arm_flag,
+   single_trial_flag, clinical_hold_history, ct_*, enrollment_*, phase3_count,
+   trial_region, disease_*, is_cns, is_oncology, is_rare_disease, spa_*
+
+8. 메타/플래그 (25개+)
+   target, data_source, source_confidence, sources, feature_sources,
+   data_quality, approval_date, original_pdufa_date, resubmission_accepted_date,
+   citizen_petition, 각종 *_flag, *_risk 필드들
+```
+
+**D (Trading)**: 103개 필드가 한 테이블에 있으면 문제야.
+
+**A (Architect)**: 맞아. 그리고 필드는 더 늘어날 수 있어. 유연하게 설계해야 해.
+
+---
+
+**설계 8: 스키마 진화 전략**
+
+**A (Architect)**: 필드가 늘어나거나 구조가 바뀔 수 있다. 세 가지 전략.
+
+**전략 A: JSON 필드 + 정규화 혼합 (권장)**
+
+```sql
+-- 핵심 필드만 컬럼으로, 나머지는 JSON
+CREATE TABLE pipelines (
+    -- 조회/인덱싱 필요한 필드만 컬럼
+    id INTEGER PRIMARY KEY,
+    ticker TEXT NOT NULL,
+    drug_name TEXT,
+    pdufa_date DATE,
+    result TEXT,
+
+    -- 카테고리별 JSON (필드 추가 용이)
+    basic_info JSON,           -- 기본 정보 나머지
+    fda_designations JSON,     -- FDA 지정 전체
+    adcom_info JSON,           -- AdCom 전체
+    crl_info JSON,             -- CRL 전체
+    manufacturing_info JSON,   -- 제조 전체
+    clinical_info JSON,        -- 임상 전체
+    metadata JSON,             -- 메타 전체
+
+    -- 검증 상태 (필드별)
+    verification JSON,         -- {"fda_designations": "CONFIRMED", "adcom_info": "UNKNOWN", ...}
+
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+```
+
+**장점**:
+- 새 필드 추가 시 스키마 변경 불필요
+- 카테고리별로 묶여서 관리 용이
+- 필드별 검증 상태 추적 가능
+
+**전략 B: EAV (Entity-Attribute-Value) 패턴**
+
+```sql
+-- 극단적 유연성, 쿼리 복잡
+CREATE TABLE pipeline_attributes (
+    pipeline_id INTEGER,
+    attribute_name TEXT,
+    attribute_value TEXT,
+    verification_status TEXT,
+    source_url TEXT,
+    updated_at TIMESTAMP
+);
+```
+
+**장점**: 무한 확장 가능
+**단점**: 쿼리 복잡, 성능 저하
+
+**전략 C: 카테고리별 테이블 분리**
+
+```sql
+-- 관심사 분리, JOIN 필요
+CREATE TABLE pipelines (...);           -- 기본
+CREATE TABLE pipeline_fda_designations (...);  -- FDA 지정
+CREATE TABLE pipeline_adcom (...);      -- AdCom
+CREATE TABLE pipeline_crl (...);        -- CRL
+CREATE TABLE pipeline_manufacturing (...);  -- 제조
+CREATE TABLE pipeline_clinical (...);   -- 임상
+```
+
+**장점**: 정규화, 독립적 진화
+**단점**: JOIN 많음, 초기 복잡도
+
+---
+
+**결정: 전략 A (JSON 필드 + 정규화 혼합)**
+
+**E (SRE)**: 전략 A가 균형 잡혔어.
+- 자주 조회하는 필드: 컬럼 (인덱싱)
+- 나머지: JSON (유연성)
+- 나중에 필요하면 JSON → 컬럼으로 승격 가능
+
+**마이그레이션 경로**:
+```
+Step 1: v12 JSON → Pipeline 테이블 (JSON 필드 활용)
+Step 2: 검증 완료된 필드부터 컬럼으로 승격
+Step 3: 필요시 카테고리별 테이블 분리 (전략 C로 진화)
+```
+
+---
+
+**설계 9: 필드별 검증 상태 추적**
+
+**B (Data)**: 레코드 단위가 아니라 **필드 단위** 검증이 필요해.
+
+```python
+# 검증 상태 구조
+{
+    "ticker": {
+        "status": "CONFIRMED",
+        "source": "SEC EDGAR",
+        "verified_at": "2026-01-08"
+    },
+    "fda_designations": {
+        "breakthrough_therapy": {
+            "status": "CONFIRMED",
+            "source": "FDA CDER database",
+            "verified_at": "2026-01-07"
+        },
+        "priority_review": {
+            "status": "UNKNOWN",  # 미검증
+            "source": null,
+            "verified_at": null
+        }
+    },
+    "adcom_vote_ratio": {
+        "status": "MISMATCH",  # 불일치 발견
+        "source": "FDA AdCom transcript",
+        "legacy_value": 0.75,
+        "verified_value": 0.68,
+        "verified_at": "2026-01-08"
+    }
+}
+```
+
+**이점**:
+1. 어떤 필드가 검증됐는지 추적 가능
+2. 불일치 발견 시 legacy vs verified 비교 가능
+3. 점진적 검증 (전체 다 검증 안 해도 사용 가능)
+
+---
+
+**결론: 데이터 구조 최종안**
+
+```
+src/tickergenius/
+├── data/
+│   ├── constants/           # Layer 1: JSON (Git 추적)
+│   │   ├── approval_rates.json
+│   │   ├── factor_adjustments.json
+│   │   └── cap_rules.json
+│   │
+│   └── db/                  # Layer 2, 3: SQLite
+│       └── tickergenius.db
+│           ├── tickers        (기본 정보)
+│           ├── pipelines      (파이프라인)
+│           └── daily_prices   (주가)
+│
+└── repositories/            # 데이터 접근 레이어
+    ├── __init__.py
+    ├── constants.py         # Layer 1 로더
+    ├── pipeline_repo.py     # Layer 2 Repository
+    └── price_repo.py        # Layer 3 Repository
+```
+
+**핵심 원칙**:
+1. **레이어 분리**: Static, Pipeline, TimeSeries 섞지 않음
+2. **Repository 패턴**: 직접 DB 접근 금지, Repository 통해서만
+3. **캐싱 전략**: 레이어별 다른 TTL
+4. **확장 준비**: SQLite → PostgreSQL 마이그레이션 쉽게
+
+---
+
+## 토론 10: 보고서 생성 연계 설계
+
+> **의제**: M3 분석 결과가 보고서 생성 도구로 어떻게 연결되는가?
+
+---
+
+**C (MCP)**: 사용자 관점에서 시나리오 정리하자.
+
+```
+시나리오 1: "OMER 분석해"
+→ analyze_pdufa(OMER) 호출
+→ Pipeline + 확률 + 요인 반환
+→ Claude가 텍스트로 설명
+
+시나리오 2: "OMER 보고서 만들어"
+→ analyze_pdufa(OMER) 호출 (데이터 수집)
+→ generate_report(OMER) 호출 (보고서 생성)
+→ 마크다운/PDF 반환
+
+시나리오 3: "이번 달 PDUFA 종합 보고서"
+→ get_upcoming_pdufas(month) 호출 (목록)
+→ 각 티커별 analyze_pdufa() 호출
+→ generate_summary_report() 호출 (종합 보고서)
+```
+
+---
+
+**설계 1: 분석 결과 → 보고서 입력**
+
+**A (Architect)**: M3 분석 결과가 보고서에 필요한 모든 데이터를 포함해야 해.
+
+```python
+@dataclass
+class AnalysisResult:
+    """M3 분석 결과 - 보고서 생성의 입력이 됨"""
+
+    # 기본 정보
+    ticker: str
+    drug_name: str
+    indication: str
+    pdufa_date: date
+
+    # 확률 분석
+    approval_probability: float     # 72%
+    confidence_level: float         # 0.85
+    factors: list[FactorResult]     # 각 요인별 영향
+
+    # 타이밍 분석
+    timing_signal: TimingSignal     # BUY/HOLD/SELL/AVOID
+    signal_reasons: list[str]       # 신호 이유
+
+    # 리스크 분석
+    risk_level: str                 # LOW/MEDIUM/HIGH
+    risk_factors: list[str]         # 리스크 요인
+
+    # 경고/에러
+    warnings: list[str]
+    errors: list[str]
+
+    # 메타
+    analyzed_at: datetime
+    data_freshness: str             # "2시간 전 업데이트"
+```
+
+**핵심**: 보고서 생성기는 `AnalysisResult`만 받으면 됨. M3 내부 구현 몰라도 됨.
+
+---
+
+**설계 2: 보고서 생성 도구 (M4)**
+
+**C (MCP)**: 보고서 도구는 M4에서 구현하지만, 인터페이스는 미리 정의.
+
+```python
+# M4에서 구현할 MCP 도구
+
+@mcp.tool()
+def generate_report(
+    ticker: str,
+    format: str = "markdown",  # markdown, html, json
+    sections: list[str] = None  # ["summary", "probability", "risks", "recommendation"]
+) -> str:
+    """
+    PDUFA 분석 보고서 생성
+
+    1. analyze_pdufa(ticker) 호출하여 데이터 수집
+    2. 템플릿에 데이터 적용
+    3. 포맷에 맞게 변환
+    """
+    # 1. 분석
+    result: AnalysisResult = analyze_pdufa(ticker)
+
+    # 2. 템플릿 적용
+    report = ReportGenerator(result).generate(
+        format=format,
+        sections=sections or ["summary", "probability", "risks", "recommendation"]
+    )
+
+    return report
+
+
+@mcp.tool()
+def generate_summary_report(
+    start_date: date,
+    end_date: date,
+    min_probability: float = 0.0
+) -> str:
+    """
+    기간 내 PDUFA 종합 보고서
+
+    1. 기간 내 파이프라인 목록 조회
+    2. 각각 analyze_pdufa() 호출
+    3. 종합 테이블 + 요약 생성
+    """
+    ...
+```
+
+---
+
+**설계 3: 보고서 템플릿 구조**
+
+**D (Trading)**: 실제 보고서에 뭐가 들어가야 하냐면...
+
+```markdown
+# OMER PDUFA 분석 보고서
+
+## 요약 (Summary)
+- **티커**: OMER
+- **약물**: Omidria
+- **적응증**: 백내장 수술
+- **PDUFA**: 2026-02-15
+- **승인 확률**: 72% (신뢰도: 85%)
+- **투자 신호**: HOLD
+
+## 확률 분석 (Probability Breakdown)
+| 요인 | 영향 | 설명 |
+|------|------|------|
+| 기본 승인률 | 65% | Phase 3 기준 |
+| BTD 지정 | +8% | 희귀질환 |
+| AdCom 긍정 | +5% | 12-2 통과 |
+| CRL 이력 | -6% | 제조 문제 (해결됨) |
+| **최종** | **72%** | |
+
+## 리스크 요인
+- 제조 시설 재검사 필요
+- 경쟁사 동일 적응증 진입
+
+## 투자 권고
+현재 주가와 확률 대비 적정 수준.
+PDUFA 2주 전 재평가 권장.
+
+---
+*생성: 2026-01-08 14:30*
+*데이터: 2시간 전 업데이트*
+```
+
+---
+
+**설계 4: 연계 아키텍처**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  사용자 요청                                                 │
+│  "OMER 보고서 만들어"                                       │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  M4: MCP Layer                                              │
+│  generate_report(ticker="OMER")                            │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  M3: Analysis Layer                                         │
+│  PDUFAAnalyzer.analyze("OMER") → AnalysisResult            │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ - PipelineRepository.get("OMER")                    │   │
+│  │ - ConstantLoader.get_rates()                        │   │
+│  │ - ProbabilityCalculator.calculate()                 │   │
+│  │ - TimingAnalyzer.analyze()                          │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  M3: Report Generator                                       │
+│  ReportGenerator(result).generate(format="markdown")       │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ - 템플릿 로드                                        │   │
+│  │ - 섹션별 렌더링                                      │   │
+│  │ - 포맷 변환                                          │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│  결과: 마크다운 보고서                                       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+**설계 5: 확장 포인트**
+
+**A (Architect)**: 나중에 추가될 수 있는 것들.
+
+| 기능 | 위치 | 설계 |
+|------|------|------|
+| PDF 출력 | ReportGenerator | format="pdf" 추가 |
+| 차트 포함 | ReportGenerator | matplotlib/plotly 연동 |
+| 이메일 발송 | M4 MCP 도구 | send_report() 추가 |
+| 정기 보고서 | M5 스케줄러 | 크론잡으로 generate_summary 호출 |
+| 다국어 | ReportGenerator | 템플릿 다국어화 |
+
+---
+
+**설계 6: 인터페이스 계약**
+
+**E (SRE)**: M3와 보고서 생성기 사이의 계약을 명확히.
+
+```python
+# M3가 제공하는 인터페이스 (analysis/pdufa/__init__.py)
+
+def analyze(ticker: str) -> AnalysisResult:
+    """
+    티커의 PDUFA 분석 수행
+
+    Returns:
+        AnalysisResult - 보고서 생성에 필요한 모든 데이터 포함
+
+    Raises:
+        TickerNotFoundError - 티커 없음
+        DataStaleError - 데이터 너무 오래됨 (경고와 함께 진행 가능)
+    """
+    ...
+
+def analyze_batch(tickers: list[str]) -> list[AnalysisResult]:
+    """
+    여러 티커 일괄 분석 (병렬 처리)
+    """
+    ...
+
+def get_upcoming(days: int = 30) -> list[AnalysisResult]:
+    """
+    N일 내 PDUFA 예정 파이프라인 분석
+    """
+    ...
+```
+
+**보고서 생성기가 이 인터페이스만 사용하면 됨. 내부 구현 변경해도 영향 없음.**
+
+---
+
+**결론**:
+
+1. **AnalysisResult가 계약**: M3 출력 = 보고서 입력
+2. **템플릿 기반**: 마크다운 템플릿으로 유연하게
+3. **포맷 확장 쉽게**: markdown → html → pdf
+4. **배치 지원**: analyze_batch()로 종합 보고서 지원
+5. **인터페이스 안정**: 내부 변경해도 보고서 생성기 영향 없음
+
+---
+
+## 토론 컨센서스 정리
+
+| 토론 | 핵심 결정 | 합의 내용 |
+|------|-----------|-----------|
+| **토론 1** | MCP 도구 설계 | 하이브리드: `analyze_pdufa` (메인) + `explain_probability` (보조) |
+| **토론 2** | 모듈 확장성 | 독립 모듈 + 공통 인터페이스 (BaseAnalyzer). M3는 PDUFA만 |
+| **토론 3** | 데이터 오염 방지 | StatusField 3-state (CONFIRMED/EMPTY/UNKNOWN) + source URL 필수 |
+| **토론 4** | 에러 처리 | 예외 최소화, errors/warnings 필드로 반환. MCP 호환성 |
+| **토론 5** | 캐싱 전략 | M2 DiskCache 활용. TTL: 상수(영구), 분석결과(1시간), 주가(10분) |
+| **토론 6** | 확률 계산 복잡도 | 레거시 13개 레이어 파악. 복잡도 유지하되 확장성 확보 |
+| **토론 7** | 확장성 패턴 | FactorRegistry (팩터 등록/비활성화) + AnalysisContext (입력 객체화) |
+| **토론 8** | 상수 관리 | JSON 파일 + Python 래퍼. 검증 쿼리 템플릿 + 캐싱 |
+| **토론 9** | 데이터셋 설계 | 3계층 (Static/Pipeline/TimeSeries). JSON+정규화 혼합. **필드 단위 검증** |
+| **토론 10** | 보고서 연계 | AnalysisResult가 계약. ReportGenerator는 M3 내부 모름 |
+
+**핵심 원칙 합의**:
+1. 레거시 데이터는 **오염됨** - 무조건 재검증 필요
+2. 파일당 **500줄 이하** - 스파게티 방지
+3. **필드 단위** 검증 추적 - 점진적 정화
+4. **확장성 우선** - FactorRegistry로 팩터 추가/제거 용이
+5. **느슨한 결합** - Repository 패턴, 인터페이스 계약
+
+---
+
+## 최종 설계 결정 요약 (Final)
+
+| 항목 | 결정 | 근거 | 출처 |
+|------|------|------|------|
+| MCP 도구 | 하이브리드 (analyze_pdufa + explain_probability) | 90% 단일 커버 + 상세 분석 | 토론 1 |
+| 확장성 패턴 | FactorRegistry + AnalysisContext | 팩터 추가/제거/비활성화 용이 | 토론 7 |
+| 데이터 레이어 | 3계층 (Static/Pipeline/TimeSeries) | 성장 패턴, 접근 패턴 다름 | 토론 9 |
+| 스키마 전략 | JSON 필드 + 정규화 혼합 | 유연성 + 성능 균형 | 토론 9 설계 8 |
+| 필드 수 대응 | 카테고리별 JSON 컬럼 (103+ 필드) | 스키마 진화 용이 | 토론 9 설계 7 |
+| 데이터 검증 | **필드 단위** 검증 상태 추적 | 오염 데이터 점진적 정화 | 토론 9 설계 9 |
+| 상수 관리 | JSON 파일 + Python 래퍼 | Git 추적 + 타입 안전 | 토론 8 |
+| 에러 처리 | 예외 최소화, errors/warnings 필드 | MCP 호환성 | 토론 4 |
+| 캐싱 | M2 DiskCache, 레이어별 TTL | 성능 | 토론 5 |
+| 보고서 연계 | AnalysisResult → ReportGenerator | 느슨한 결합 | 토론 10 |
+
+---
+
+## 구현 순서 (M3)
+
+```
+Phase 0: 레거시 마이그레이션 준비
+□ 레거시 v12 JSON → 새 스키마 매핑 정의
+□ 필드 카테고리별 JSON 구조 설계
+□ 검증 상태 초기화 (모든 필드 UNKNOWN)
+
+Phase 1: 데이터 레이어
+□ data/constants/*.json - 상수 JSON 파일들 (factor_adjustments, cap_rules 등)
+□ repositories/constants.py - JSON 로더 + 타입 래퍼
+□ repositories/pipeline_repo.py - Pipeline Repository (JSON 필드 활용)
+□ 스키마 확인 및 업데이트 (M1과 정합성)
+
+Phase 2: 확률 계산 엔진
+□ analysis/pdufa/_context.py - AnalysisContext (입력 객체화)
+□ analysis/pdufa/_registry.py - FactorRegistry (Open-Closed)
+□ analysis/pdufa/_layers/*.py - 13개 레이어 (base, designation, adcom, crl, ...)
+□ analysis/pdufa/probability.py - ProbabilityCalculator
+
+Phase 3: Facade 및 보고서
+□ analysis/pdufa/analyzer.py - PDUFAAnalyzer (Public API)
+□ analysis/pdufa/result.py - AnalysisResult (보고서 연계용)
+□ analysis/pdufa/report.py - ReportGenerator (선택적)
+
+Phase 4: 테스트 및 검증
+□ 단위 테스트 (레이어별)
+□ 통합 테스트 (전체 파이프라인)
+□ 레거시 결과 비교 테스트 (regression)
+□ 에지 케이스 테스트
+
+Phase 5: 데이터 정화 (점진적)
+□ 레거시 v12 import
+□ 필드별 웹 검증 (우선순위대로)
+□ 검증 완료 필드 컬럼 승격 (필요시)
+```
+
+---
+
+## 정합성 체크리스트
+
+```
+□ M1 스키마와 Pipeline 구조 일치
+□ M2 DiskCache 참조 정확
+□ FactorRegistry 팩터 목록과 레거시 13개 레이어 일치
+□ AnalysisResult 필드와 보고서 템플릿 일치
+□ JSON 필드 구조와 레거시 v12 카테고리 일치
+□ 검증 상태 Enum과 토론 8 정의 일치
+```
+
+---
+
+**M3 진행 승인 대기 중**
