@@ -15,16 +15,64 @@
 
 ---
 
-## 대용량 파일 처리 전략
+## 설계 원칙: 스파게티 방지
 
-**문제**: `pdufa_analyzer.py` = 53K 토큰 (읽기 한도 초과)
+### 레거시 문제
+```
+pdufa_analyzer.py (53K 토큰, 3000줄+)
+├── PDUFAAnalyzer
+├── ApprovalProbabilityModel
+├── BinaryRiskCalculator
+└── 순환 의존성 → lazy import 남발 → 입구 불명확
+```
 
-**해결책**:
+### 신규 설계 원칙
+
+**1. 파일 크기 제한**
+- 각 파일 **500줄 이하** (~10K 토큰)
+- 읽기 한도(25K) 내에서 충분히 파악 가능
+
+**2. 명확한 입구 (Public API)**
+```python
+# __init__.py가 유일한 입구
+from tickergenius.analysis.pdufa import PDUFAAnalyzer
+from tickergenius.analysis.pdufa import calculate_probability
+
+# 내부 구현은 접근 불가
+# from tickergenius.analysis.pdufa._constants import ...  # ❌
+```
+
+**3. 내부 구현 숨김**
+```
+analysis/pdufa/
+├── __init__.py         # Public API (입구) - 50줄
+├── _constants.py       # 내부용 (언더스코어) - 200줄
+├── _factors.py         # 내부용 - 150줄
+├── _crl.py             # 내부용 - 150줄
+├── probability.py      # Public - 300줄
+└── analyzer.py         # Public (Facade) - 200줄
+                        # 총합: ~1000줄 (레거시 1/3)
+```
+
+**4. 의존성 방향 (단방향, 순환 금지)**
+```
+__init__.py
+    ↓
+analyzer.py (Facade)
+    ↓
+probability.py
+    ↓
+_factors.py, _crl.py
+    ↓
+_constants.py (최하위, 의존성 없음)
+```
+
+### 레거시 분석 방법
 ```
 1. Grep으로 클래스/함수 시그니처 추출
 2. 오프셋+리밋으로 청크 단위 읽기
-3. 핵심 로직만 선별 포팅 (전체 복사 금지)
-4. 포팅 시 M1 스키마로 재설계
+3. 핵심 로직만 선별 (전체 복사 금지)
+4. 신규 구조에 맞게 재배치
 ```
 
 ---
@@ -54,19 +102,21 @@ D:\Stock\modules\pdufa\
 
 ```
 src/tickergenius/analysis/pdufa/
-├── __init__.py         # Public API
-├── constants.py        # 검증된 통계 상수 (GREEN)
-├── probability.py      # 확률 계산 모델 (YELLOW)
-├── factors.py          # 조정 요인들 (YELLOW)
-├── crl.py              # CRL 분석 (YELLOW)
-└── analyzer.py         # PDUFAAnalyzer Facade (YELLOW)
+├── __init__.py         # Public API (입구) - 50줄
+├── _constants.py       # 내부: 통계 상수 (RED 재검증) - 200줄
+├── _factors.py         # 내부: 조정 요인 - 150줄
+├── _crl.py             # 내부: CRL 분석 - 150줄
+├── probability.py      # Public: 확률 계산 - 300줄
+└── analyzer.py         # Public: Facade - 200줄
 ```
+
+**언더스코어 규칙**: `_xxx.py` = 모듈 내부용, 외부에서 직접 import 금지
 
 ---
 
 ## 파일별 포팅 명세
 
-### 1. constants.py (RED - 재검증 필요)
+### 1. _constants.py (RED - 재검증 필요, 내부용)
 
 **⚠️ 주의**: 레거시 값을 그대로 복사하면 안 됨. 원본 소스에서 재검증.
 
@@ -228,13 +278,20 @@ M2 (core)     ──┘
 
 ```
 □ 파일 구조 생성
-    - analysis/pdufa/__init__.py
-    - analysis/pdufa/constants.py
+    - analysis/pdufa/__init__.py   (Public API)
+    - analysis/pdufa/_constants.py (내부용)
+    - analysis/pdufa/_factors.py   (내부용)
+    - analysis/pdufa/_crl.py       (내부용)
     - analysis/pdufa/probability.py
-    - analysis/pdufa/factors.py
-    - analysis/pdufa/crl.py
     - analysis/pdufa/analyzer.py
-□ Import 테스트 통과
+□ 파일 크기 제한 확인
+    - 각 파일 500줄 이하
+□ Import 테스트 (Public API만)
+    - from tickergenius.analysis.pdufa import PDUFAAnalyzer ✓
+    - from tickergenius.analysis.pdufa._constants import ... ✗ (금지)
+□ 의존성 방향 검증
+    - 순환 의존성 없음
+    - 단방향 흐름
 □ 데이터 검증 (M3의 핵심)
     - 원본 소스에서 통계 재확인
     - 검증된 값만 CONFIRMED 상태
