@@ -5,6 +5,30 @@
 
 ---
 
+## ⚠️ 핵심 원칙
+
+> **리빌딩 이유**: 레거시 데이터셋이 오염되어 있음. 상수/확률 값을 무조건 신뢰하면 안 됨.
+
+1. **레거시 상수 = 참조용**. 그대로 복사 금지.
+2. **모든 통계는 원본 소스에서 재검증** 필요.
+3. **검증되지 않은 값은 UNKNOWN 상태**로 처리.
+
+---
+
+## 대용량 파일 처리 전략
+
+**문제**: `pdufa_analyzer.py` = 53K 토큰 (읽기 한도 초과)
+
+**해결책**:
+```
+1. Grep으로 클래스/함수 시그니처 추출
+2. 오프셋+리밋으로 청크 단위 읽기
+3. 핵심 로직만 선별 포팅 (전체 복사 금지)
+4. 포팅 시 M1 스키마로 재설계
+```
+
+---
+
 ## 레거시 분석 결과
 
 ### 문제점
@@ -42,34 +66,36 @@ src/tickergenius/analysis/pdufa/
 
 ## 파일별 포팅 명세
 
-### 1. constants.py (GREEN - 그대로 포팅)
+### 1. constants.py (RED - 재검증 필요)
 
-**소스**: `pdufa_analyzer.py:1472-1565`
+**⚠️ 주의**: 레거시 값을 그대로 복사하면 안 됨. 원본 소스에서 재검증.
 
+**레거시 참조**: `pdufa_analyzer.py:1472-1565`
+
+**검증 필요 상수 목록**:
+| 상수 | 레거시 값 | 원본 소스 | 검증 상태 |
+|------|-----------|-----------|-----------|
+| phase3 승인률 | 0.59 | Wong et al. (2018) | □ 미검증 |
+| nda_bla 승인률 | 0.70 | 수집 데이터 428건 | □ 미검증 |
+| class1_resubmission | 0.50 | CRL DB 22건 | □ 미검증 |
+| class2_resubmission | 0.6506 | CRL DB 83건 | □ 미검증 |
+| ADCOM_POSITIVE | 0.966 | JAMA 2023 | □ 미검증 |
+
+**구현 방식**:
 ```python
-# 포팅 대상 상수
+from tickergenius.schemas.base import StatusField, DataStatus
+
+# 검증 전: UNKNOWN 상태로 시작
 BASE_APPROVAL_RATES = {
-    "phase1": 0.14,
-    "phase2": 0.21,
-    "phase3": 0.59,
-    "nda_bla": 0.70,
-    "resubmission": 0.619,
-    "class1_resubmission": 0.50,
-    "class2_resubmission": 0.6506,
+    "phase3": StatusField(
+        value=0.59,
+        status=DataStatus.UNKNOWN,  # 검증 전
+        source="Wong et al. (2018) - 재검증 필요"
+    ),
     ...
 }
 
-PHASE_PROBABILITY_CAPS = {...}
-CRL_TYPE_ADJUSTMENTS = {...}
-CRL_DELAY_ADJUSTMENTS = {...}
-BIOSIMILAR_FACTORS = {...}
-
-# probability.py에서 분리
-CLASS1_APPROVAL_RATE = 0.857
-CLASS1_CMC_ONLY_RATE = 1.0
-CLASS2_APPROVAL_RATE = 0.673
-ADCOM_POSITIVE_APPROVAL_RATE = 0.966
-...
+# 검증 후: CONFIRMED로 변경
 ```
 
 ### 2. probability.py (YELLOW - 리팩터링)
@@ -201,27 +227,51 @@ M2 (core)     ──┘
 ## DoD 체크리스트
 
 ```
-□ constants.py 작성 (검증된 통계)
-□ probability.py 작성 (ProbabilityCalculator)
-□ factors.py 작성 (팩터 적용)
-□ crl.py 작성 (CRL 분석)
-□ analyzer.py 작성 (PDUFAAnalyzer Facade)
-□ __init__.py Public API 노출
+□ 파일 구조 생성
+    - analysis/pdufa/__init__.py
+    - analysis/pdufa/constants.py
+    - analysis/pdufa/probability.py
+    - analysis/pdufa/factors.py
+    - analysis/pdufa/crl.py
+    - analysis/pdufa/analyzer.py
 □ Import 테스트 통과
-□ 레거시 확률과 ±0.05 일치 검증
+□ 데이터 검증 (M3의 핵심)
+    - 원본 소스에서 통계 재확인
+    - 검증된 값만 CONFIRMED 상태
+    - 미검증 값은 UNKNOWN 유지
+□ Pipeline 스키마 연동 확인
+□ 단위 테스트 통과
 □ Git 커밋 + 태그 (M3-complete)
 □ STATUS.md 업데이트
 ```
+
+**주의**: "레거시와 ±0.05 일치" 삭제함.
+오염된 데이터와 일치하는 것은 검증이 아님.
 
 ---
 
 ## 검증 방법
 
+**잘못된 방법 (삭제됨)**:
 ```python
-# 레거시와 비교 테스트
-legacy_prob = 0.72  # 레거시 결과
-new_prob = analyzer.analyze("TICKER").get_probability()
-assert abs(legacy_prob - new_prob) <= 0.05
+# ❌ 오염된 레거시와 비교하면 안 됨
+# legacy_prob = 0.72
+# assert abs(legacy_prob - new_prob) <= 0.05
+```
+
+**올바른 방법**:
+```python
+# ✅ 원본 소스에서 직접 검증
+# 1. Wong et al. (2018) 논문에서 Phase 3 승인률 확인
+# 2. FDA openFDA API에서 실제 승인 데이터 조회
+# 3. JAMA Health Forum 2023에서 AdCom 통계 확인
+
+# 검증된 값만 CONFIRMED
+from tickergenius.schemas.base import DataStatus
+
+rate = get_approval_rate("phase3")
+assert rate.status == DataStatus.CONFIRMED
+assert rate.source != ""  # 출처 필수
 ```
 
 ---
