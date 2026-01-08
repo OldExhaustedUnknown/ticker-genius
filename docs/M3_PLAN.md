@@ -46,6 +46,108 @@
 
 ---
 
+## MCP 도구 설계 옵션
+
+### 옵션 A: 단일 도구 (권장)
+
+```python
+# 사용자: "OMER 분석해"
+# → Claude가 도구 1개만 호출
+
+@mcp.tool()
+def analyze_pdufa(ticker: str) -> Pipeline:
+    """PDUFA 종합 분석 - 확률, 요인, 신호 모두 포함"""
+    return PDUFAAnalyzer().analyze(ticker)
+```
+
+**장점**: 단순함, 한 번에 결과
+**단점**: 세부 분석 어려움
+
+### 옵션 B: 다중 도구
+
+```python
+@mcp.tool()
+def get_pdufa_probability(ticker: str) -> float:
+    """승인 확률만 조회"""
+
+@mcp.tool()
+def get_probability_factors(ticker: str) -> dict:
+    """확률 조정 요인 상세"""
+
+@mcp.tool()
+def get_crl_history(ticker: str) -> list:
+    """CRL 이력 조회"""
+```
+
+**장점**: 세부 분석 가능, Claude가 필요한 것만 선택
+**단점**: 복잡, 여러 번 호출 필요
+
+### 결정: 하이브리드
+
+```python
+# 메인 도구 (대부분의 경우)
+@mcp.tool()
+def analyze_pdufa(ticker: str) -> Pipeline:
+    """PDUFA 종합 분석"""
+
+# 보조 도구 (상세 분석 필요 시)
+@mcp.tool()
+def explain_probability(ticker: str) -> str:
+    """확률 계산 과정 설명 (왜 72%인지)"""
+```
+
+사용자가 "OMER 분석해" → `analyze_pdufa` 1회
+사용자가 "왜 72%야?" → `explain_probability` 추가 호출
+
+---
+
+## 복잡한 확률 계산 분해
+
+### 문제: 확률 계산이 복잡함
+
+```
+기본 확률 (phase3: 59%)
+    + FDA 지정 보너스 (BTD: +8%, Priority: +5%)
+    + AdCom 결과 (긍정: +10%)
+    - CRL 페널티 (Class 2: -15%)
+    - 지연 페널티 (2년+: -8%)
+    = 최종 확률 (cap 적용)
+```
+
+### 해결: 파이프라인 패턴
+
+```python
+class ProbabilityCalculator:
+    def calculate(self, features: dict) -> ApprovalProbability:
+        # 1. 기본 확률 (검증된 상수에서)
+        base = self._get_base_rate(features)
+
+        # 2. 팩터 적용 (순차적, 독립적)
+        adjusted = base
+        adjusted = apply_fda_designation(adjusted, features)
+        adjusted = apply_adcom_result(adjusted, features)
+        adjusted = apply_crl_adjustment(adjusted, features)
+
+        # 3. 상한 적용
+        capped = min(adjusted, self._get_cap(features))
+
+        # 4. 결과 + 설명
+        return ApprovalProbability(
+            base_probability=base,
+            adjusted_probability=capped,
+            factors=self._collect_factors(),  # 어떤 팩터가 적용되었는지
+        )
+```
+
+### 설계 원칙
+
+1. **각 팩터는 독립적**: `_factors.py`의 함수들은 서로 의존 안 함
+2. **순서 명확**: base → designation → adcom → crl → cap
+3. **추적 가능**: 어떤 팩터가 얼마나 기여했는지 기록
+4. **테스트 가능**: 각 팩터 함수를 개별 테스트
+
+---
+
 ## ⚠️ 데이터 원칙
 
 > **리빌딩 이유**: 레거시 데이터셋이 오염되어 있음.
