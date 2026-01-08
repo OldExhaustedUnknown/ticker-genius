@@ -671,139 +671,186 @@ CACHE_TTL = {
 
 ---
 
-### 토론 6: 팩터 간 복잡한 관계 (핵심)
+### 토론 6: 팩터 간 복잡한 관계 (핵심) - 레거시 분석 기반
 
-**B (Data)**: 레거시에서 팩터 적용 방식이 복잡했음:
-- TF 안건 1: 요인 간 중복 조정
-- TF 안건 8: 중복 팩터 그룹핑
+**B (Data)**: 레거시 `calculate_probability` 분석 완료. 생각보다 훨씬 복잡함.
 
-**A (Architect)**: 구체적으로 어떤 문제?
+**실제 레거시 구조** (pdufa_analyzer.py:2314-2513):
+
+```
+입력 파라미터만 20개+:
+- ticker, phase, designations, adcom_result
+- crl_count, crl_types, crl_delay
+- dispute_result, mental_health_type
+- external_control_quality, days_to_pdufa
+- clinical_quality_tiers, endpoint_type
+- pai_status, earnings_call_signals
+- fda_reviewer_factors, citizen_petition_context
+- pdufa_year, control_type, early_decision_days
+- additional_factors (dict)
+```
+
+**A (Architect)**: 이건 스파게티가 아니라 도메인 자체가 복잡한 거야.
+
+**B (Data)**: 맞아. 레거시의 팩터 처리 로직:
+
+```python
+# 레거시 _apply_factor_grouping (line 2204-2310)
+# 두 가지 모드:
+# 1. exclusive=True: 상호배타 (첫 번째만 적용)
+# 2. max_only=True: 그룹 내 최대값만 적용
+
+# 예: AdCom 그룹 (exclusive)
+# - adcom_positive, adcom_negative, adcom_unanimous_positive
+# - 동시에 있으면 첫 번째만 적용
+
+# 예: FDA 지정 그룹 (max_only)
+# - BTD(+8%), Priority(+5%), Orphan(+4%)
+# - 동시에 있으면 최대값만 (+8%)
+```
+
+**D (Trading)**: Cap 규칙도 복잡하더라.
 
 **B (Data)**:
-```
-문제 1: 단순 덧셈의 함정
-- BTD: +8%
-- Priority Review: +5%
-- Orphan Drug: +4%
-- 전부 있으면: +17%? → 과대 추정
-
-문제 2: 상호 배타적 팩터
-- Phase 2 기본률 vs Phase 3 기본률 → 동시 적용 안 됨
-- CRL Class 1 vs Class 2 → 동시 적용 안 됨
-
-문제 3: 조건부 팩터
-- AdCom 결과가 있으면 → 기본 확률 자체가 달라짐
-- CRL 있으면 → base_rate가 resubmission으로 변경
-```
-
-**D (Trading)**: 레거시는 어떻게 해결했어?
-
-**B (Data)**: 스파게티로 해결함. if-else 난무.
-
-**A (Architect)**: 새 설계 제안 - **팩터 그룹 + 적용 순서**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  1단계: 기본률 결정 (상호 배타적)                            │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ phase1 | phase2 | phase3 | nda_bla | resubmission  │   │
-│  │         (하나만 선택됨)                              │   │
-│  └─────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│  2단계: FDA 지정 보너스 (중복 허용, 상한 있음)               │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ BTD | Priority | Orphan | FastTrack | AA           │   │
-│  │ 개별 적용 후 그룹 상한: max +15%                     │   │
-│  └─────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│  3단계: AdCom 결과 (있으면 적용)                             │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ positive: +10% | negative: -25% | none: 0%         │   │
-│  └─────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│  4단계: CRL 조정 (resubmission인 경우만)                     │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ CRL 유형: CMC_MINOR(-8%) | EFFICACY(-25%) | ...    │   │
-│  │ 지연 기간: <1년(0%) | 1-2년(-5%) | 2-3년(-8%) | ... │   │
-│  └─────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│  5단계: 최종 상한 적용                                       │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ phase3_cap: 80% | nda_bla_cap: 85% | ...           │   │
-│  └─────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**C (MCP)**: 이거 코드로 어떻게?
-
-**A (Architect)**:
 ```python
-# _factors.py
-class FactorGroup(Enum):
-    BASE_RATE = "base_rate"           # 상호 배타적
-    FDA_DESIGNATION = "fda_designation"  # 중복 허용, 그룹 상한
-    ADCOM = "adcom"                   # 단일
-    CRL = "crl"                       # 조건부
-    CAP = "cap"                       # 최종
-
-@dataclass
-class Factor:
-    name: str
-    group: FactorGroup
-    value: float
-    condition: Optional[Callable] = None  # 적용 조건
-
-# 그룹별 상한
-GROUP_CAPS = {
-    FactorGroup.FDA_DESIGNATION: 0.15,  # 지정 보너스 합계 최대 15%
+# 레거시 _apply_cap (line 2156-2202)
+CAP_RULES = {
+    "catastrophic": 0.05,   # 임상설계 치명결함, AdCom 만장일치 부결
+    "critical": 0.15,       # PAI + cGMP 동시 실패
+    "severe": 0.25,         # PAI 중대 실패, Phase 3 미달
+    "moderate": 0.40,       # CRL 2회 이상, cGMP 실패
+    "default": 0.85,        # 기본 상한
 }
 ```
 
-**B (Data)**: 팩터 적용 로직:
+**E (SRE)**: 컨텍스트 상호작용도 있었어?
+
+**B (Data)**: 있음. `_apply_context_interactions` (line 2111-2154):
 ```python
-def apply_factors(base: float, features: dict) -> tuple[float, list[Factor]]:
-    applied = []
-    result = base
-
-    # 2단계: FDA 지정 (그룹 상한 적용)
-    designation_total = 0
-    for factor in get_fda_designation_factors(features):
-        designation_total += factor.value
-        applied.append(factor)
-    designation_total = min(designation_total, GROUP_CAPS[FactorGroup.FDA_DESIGNATION])
-    result += designation_total
-
-    # 3단계: AdCom
-    if adcom := get_adcom_factor(features):
-        result += adcom.value
-        applied.append(adcom)
-
-    # 4단계: CRL (조건부)
-    if features.get("is_resubmission"):
-        for factor in get_crl_factors(features):
-            result += factor.value
-            applied.append(factor)
-
-    return result, applied
+# 여러 팩터가 동시에 있을 때 특별 효과
+# 예: BTD + Orphan + First-in-Class → 페널티 75% 감소
+CONTEXT_INTERACTIONS = {
+    "strong_designation_combo": {
+        "condition": ["breakthrough_therapy", "orphan_drug", "first_in_class"],
+        "effect": "penalty_reduction",
+        "value": 0.75,  # 페널티 75% 감소
+    },
+    ...
+}
 ```
 
-**D (Trading)**: 이렇게 하면 어떤 팩터가 적용됐는지 추적 가능해.
+---
 
-**E (SRE)**: 결과에 `applied_factors` 포함시키면 디버깅도 쉬워.
+**A (Architect)**: 정리하면, 레거시 복잡도는 **13개 레이어**:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  1. 기본 확률 (phase별 상호배타)                             │
+│     phase1(14%) | phase2(21%) | phase3(59%) | nda_bla(70%) │
+│     resubmission(62%) | class1(50%) | class2(65%)          │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  2. 팩터 그룹핑 (exclusive/max_only)                        │
+│     FDA 지정, AdCom, Manufacturing 등 그룹별 처리           │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  3. AdCom 결과                                              │
+│     positive(+10%) | negative(-25%) | unanimous(±15%)      │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  4. CRL 유형별 조정                                         │
+│     LABELING(-5%) | CMC_MINOR(-8%) | CMC_MAJOR(-18%)       │
+│     SAFETY_REMS(-20%) | EFFICACY(-25%) | TRIAL_DESIGN(-50%)│
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  5. CRL 지연 시간                                           │
+│     <1년(0%) | 1-2년(-5%) | 2-3년(-8%) | >3년(-12%)        │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  6. FDA Dispute Resolution                                  │
+│     WON_FULLY(+10%) | PARTIAL(-5%) | LOST_FULLY(-20%)      │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  7. 정신건강 적응증 세분화                                   │
+│     MDD(-8%) | PTSD(-5%) | BIPOLAR(-12%) | SCHIZO(-15%)    │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  8. 외부대조군 품질 / Endpoint 유형                          │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  9. PAI 상태                                                │
+│     PASSED(+5%) | FAILED(-30%)                             │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  10. Earnings Call 시그널                                   │
+│      label_negotiation(+8%) | timeline_delayed(-10%)       │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  11. 시민청원 컨텍스트 (TF 9차)                              │
+│      timing × quality × fda_response 조합                   │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  12. 컨텍스트 상호작용                                       │
+│      팩터 조합 → 페널티 감소 / cap 상향                      │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  13. 최종 Cap 적용                                          │
+│      catastrophic(5%) | critical(15%) | severe(25%)        │
+│      moderate(40%) | default(85%)                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+**C (MCP)**: 이걸 어떻게 단순화해?
+
+**A (Architect)**: **단순화하면 안 돼.** 복잡한 건 도메인이 복잡하기 때문.
+대신 **구조화**해야 해:
+
+```python
+# 신규 설계: 레이어별 분리
+analysis/pdufa/
+├── _constants.py      # 모든 상수 (검증 필요)
+├── _layer_base.py     # 1. 기본 확률
+├── _layer_grouping.py # 2. 팩터 그룹핑
+├── _layer_adcom.py    # 3. AdCom
+├── _layer_crl.py      # 4-5. CRL
+├── _layer_clinical.py # 6-10. 임상/제조
+├── _layer_context.py  # 11-12. 시민청원/상호작용
+├── _layer_cap.py      # 13. Cap
+├── probability.py     # 레이어 조합
+└── analyzer.py        # Facade
+```
+
+**D (Trading)**: 파일 너무 많아지는 거 아니야?
+
+**A (Architect)**: 그럼 3개로 그룹화:
+
+```python
+analysis/pdufa/
+├── _constants.py      # 모든 상수
+├── _layers.py         # 모든 레이어 (13개 함수)
+├── probability.py     # 레이어 조합 + 추적
+└── analyzer.py        # Facade
+```
 
 **결론**:
-1. **5단계 순서**: base → designation → adcom → crl → cap
-2. **그룹 상한**: FDA 지정 보너스 합계 최대 15%
-3. **조건부 적용**: CRL은 resubmission일 때만
-4. **추적 가능**: 적용된 팩터 목록 반환
+1. **복잡도 존중**: 13개 레이어는 도메인 요구사항
+2. **구조화**: 각 레이어를 독립 함수로 분리
+3. **추적 가능**: 어떤 레이어에서 어떤 조정이 발생했는지 기록
+4. **레거시 로직 보존**: 검증된 TF 결정사항 유지
 
 ---
 
