@@ -488,3 +488,345 @@ assert rate.source != ""  # 출처 필수
 ---
 
 **M3 진행 승인 대기 중**
+
+---
+
+## 페르소나 토론 기록
+
+### 참여자
+- **A (Architect)**: 전체 구조, 확장성
+- **B (Data Expert)**: 데이터 검증, 오염 방지
+- **C (MCP Specialist)**: 도구 설계, Claude 연동
+- **D (Trading Risk)**: 실사용 의사결정
+- **E (SRE)**: 운영, 에러 처리
+
+---
+
+### 토론 1: 도구 설계 - 단일 vs 다중
+
+**C (MCP)**: 하이브리드로 결정했는데, 구체적으로 몇 개?
+
+**A (Architect)**: 너무 많으면 스파게티. 원칙 제안:
+- **메인 도구 1개**: `analyze_pdufa` - 90%의 사용 케이스 커버
+- **보조 도구 최대 2개**: 정말 필요한 것만
+
+**D (Trading)**: 실사용 관점에서 필요한 질문들:
+1. "OMER 분석해" → 종합 분석
+2. "왜 72%야?" → 확률 설명
+3. "CRL 이력 뭐야?" → 상세 조회
+4. "지금 사야 해?" → 신호/타이밍
+
+**C (MCP)**: 4번은 위험. 매수/매도 직접 추천은 안 돼.
+
+**D (Trading)**: 맞아. "신호"로 표현. BUY/SELL 아니라 BULLISH/BEARISH/NEUTRAL.
+
+**결론**:
+```python
+# 메인 (필수)
+analyze_pdufa(ticker) → Pipeline  # 모든 정보 포함
+
+# 보조 (선택적, M4에서 결정)
+# explain_probability(ticker) → str  # 필요 시 추가
+```
+
+---
+
+### 토론 2: 확장성 - 다른 분석 모듈 추가되면?
+
+**A (Architect)**: M3는 PDUFA만. 나중에 추가될 것들:
+- `analyze_clinical` (임상 시험)
+- `analyze_market` (시장 데이터)
+- `analyze_sentiment` (뉴스/SNS)
+
+**E (SRE)**: 각각 독립 모듈? 아니면 통합?
+
+**A (Architect)**: 독립 모듈 + 공통 인터페이스.
+
+```python
+# 공통 인터페이스 (M3에서는 아직 구현 안 함, 설계만)
+class BaseAnalyzer(ABC):
+    @abstractmethod
+    def analyze(self, ticker: str) -> BaseResult:
+        pass
+
+# M3: PDUFA 분석기
+class PDUFAAnalyzer(BaseAnalyzer):
+    def analyze(self, ticker: str) -> Pipeline:
+        ...
+
+# 미래: 다른 분석기들
+class ClinicalAnalyzer(BaseAnalyzer):
+    def analyze(self, ticker: str) -> ClinicalResult:
+        ...
+```
+
+**B (Data)**: 결과 스키마도 공통 베이스 필요?
+
+**A (Architect)**: 이미 M1에서 `VersionedSchema` 있음. 확장 가능.
+
+**결론**:
+- M3는 `PDUFAAnalyzer`만 구현
+- `BaseAnalyzer` 인터페이스는 M3 완료 후 리팩터링 시 고려
+- 지금은 과도한 추상화 피함 (YAGNI)
+
+---
+
+### 토론 3: 데이터 오염 방지
+
+**B (Data)**: 레거시 상수 검증 어떻게?
+
+**A (Architect)**: StatusField 3-state 쓰기로 했잖아.
+
+**B (Data)**: 그건 "표시"일 뿐. 실제 검증 프로세스는?
+
+**D (Trading)**: 실사용에서 UNKNOWN 상태면 어떻게 해?
+
+**토론**:
+1. UNKNOWN 상태 값 → 사용 가능하지만 경고 표시
+2. 검증 프로세스: 원본 소스 URL + 날짜 + 검증자 기록
+3. 주기적 재검증 필요 (연 1회?)
+
+**B (Data)**: 구체적으로:
+```python
+@dataclass
+class VerifiedConstant:
+    value: float
+    status: DataStatus
+    source_url: str           # 원본 소스 URL
+    source_citation: str      # "Wong et al. (2018)"
+    verified_date: date       # 검증 날짜
+    verified_by: str          # "TF-31" 또는 "manual"
+    next_review: date         # 재검증 예정일
+```
+
+**A (Architect)**: 오버엔지니어링 아니야?
+
+**B (Data)**: 데이터 오염 때문에 리빌딩하는 거잖아. 이번엔 제대로 해야지.
+
+**E (SRE)**: 최소한 `source_url`과 `verified_date`는 필수.
+
+**결론**:
+```python
+# _constants.py
+PHASE3_APPROVAL_RATE = StatusField(
+    value=0.59,
+    status=DataStatus.UNKNOWN,  # 검증 전
+    source="Wong et al. (2018) https://pmc.ncbi.nlm.nih.gov/articles/PMC6409418/",
+    updated_at=None,  # 검증되면 채워짐
+)
+```
+
+---
+
+### 토론 4: 에러 처리 및 실패 모드
+
+**E (SRE)**: 분석 실패하면 어떻게?
+
+**D (Trading)**: 부분 실패도 있어. 확률은 계산됐는데 CRL 조회 실패.
+
+**A (Architect)**: 실패 모드 정의 필요:
+1. **완전 실패**: 티커 없음, 네트워크 에러 → 예외 발생
+2. **부분 실패**: 일부 데이터 없음 → 결과에 표시, 계속 진행
+3. **데이터 부족**: 확률 계산 불가 → `confidence_level` 낮게
+
+**C (MCP)**: MCP 도구에서 예외 발생하면 Claude가 처리 못 해.
+
+**E (SRE)**: 예외 대신 결과에 에러 상태 포함:
+```python
+class Pipeline:
+    # ... 기존 필드 ...
+    errors: list[str] = []        # 발생한 에러들
+    warnings: list[str] = []      # 경고들
+    data_completeness: float      # 0.0 ~ 1.0
+```
+
+**결론**:
+- 예외는 최소화
+- 부분 결과라도 반환
+- `errors`, `warnings` 필드로 문제 표시
+
+---
+
+### 토론 5: 성능 및 캐싱
+
+**E (SRE)**: 분석 한 번에 얼마나 걸려?
+
+**A (Architect)**: 예상:
+- 로컬 계산: <100ms
+- 외부 API 호출 (FDA, 시장 데이터): 1-5초
+
+**E (SRE)**: 캐싱 전략?
+
+**B (Data)**: M2 `DiskCache` 있음. TTL 설정 필요.
+
+**결론**:
+```python
+# 캐싱 TTL 정책
+CACHE_TTL = {
+    "pdufa_analysis": 3600,      # 1시간 (자주 변하지 않음)
+    "market_data": 300,          # 5분 (실시간성 필요)
+    "fda_calendar": 86400,       # 24시간 (드물게 변경)
+}
+```
+
+---
+
+### 토론 6: 팩터 간 복잡한 관계 (핵심)
+
+**B (Data)**: 레거시에서 팩터 적용 방식이 복잡했음:
+- TF 안건 1: 요인 간 중복 조정
+- TF 안건 8: 중복 팩터 그룹핑
+
+**A (Architect)**: 구체적으로 어떤 문제?
+
+**B (Data)**:
+```
+문제 1: 단순 덧셈의 함정
+- BTD: +8%
+- Priority Review: +5%
+- Orphan Drug: +4%
+- 전부 있으면: +17%? → 과대 추정
+
+문제 2: 상호 배타적 팩터
+- Phase 2 기본률 vs Phase 3 기본률 → 동시 적용 안 됨
+- CRL Class 1 vs Class 2 → 동시 적용 안 됨
+
+문제 3: 조건부 팩터
+- AdCom 결과가 있으면 → 기본 확률 자체가 달라짐
+- CRL 있으면 → base_rate가 resubmission으로 변경
+```
+
+**D (Trading)**: 레거시는 어떻게 해결했어?
+
+**B (Data)**: 스파게티로 해결함. if-else 난무.
+
+**A (Architect)**: 새 설계 제안 - **팩터 그룹 + 적용 순서**:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  1단계: 기본률 결정 (상호 배타적)                            │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ phase1 | phase2 | phase3 | nda_bla | resubmission  │   │
+│  │         (하나만 선택됨)                              │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  2단계: FDA 지정 보너스 (중복 허용, 상한 있음)               │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ BTD | Priority | Orphan | FastTrack | AA           │   │
+│  │ 개별 적용 후 그룹 상한: max +15%                     │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  3단계: AdCom 결과 (있으면 적용)                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ positive: +10% | negative: -25% | none: 0%         │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  4단계: CRL 조정 (resubmission인 경우만)                     │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ CRL 유형: CMC_MINOR(-8%) | EFFICACY(-25%) | ...    │   │
+│  │ 지연 기간: <1년(0%) | 1-2년(-5%) | 2-3년(-8%) | ... │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  5단계: 최종 상한 적용                                       │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ phase3_cap: 80% | nda_bla_cap: 85% | ...           │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**C (MCP)**: 이거 코드로 어떻게?
+
+**A (Architect)**:
+```python
+# _factors.py
+class FactorGroup(Enum):
+    BASE_RATE = "base_rate"           # 상호 배타적
+    FDA_DESIGNATION = "fda_designation"  # 중복 허용, 그룹 상한
+    ADCOM = "adcom"                   # 단일
+    CRL = "crl"                       # 조건부
+    CAP = "cap"                       # 최종
+
+@dataclass
+class Factor:
+    name: str
+    group: FactorGroup
+    value: float
+    condition: Optional[Callable] = None  # 적용 조건
+
+# 그룹별 상한
+GROUP_CAPS = {
+    FactorGroup.FDA_DESIGNATION: 0.15,  # 지정 보너스 합계 최대 15%
+}
+```
+
+**B (Data)**: 팩터 적용 로직:
+```python
+def apply_factors(base: float, features: dict) -> tuple[float, list[Factor]]:
+    applied = []
+    result = base
+
+    # 2단계: FDA 지정 (그룹 상한 적용)
+    designation_total = 0
+    for factor in get_fda_designation_factors(features):
+        designation_total += factor.value
+        applied.append(factor)
+    designation_total = min(designation_total, GROUP_CAPS[FactorGroup.FDA_DESIGNATION])
+    result += designation_total
+
+    # 3단계: AdCom
+    if adcom := get_adcom_factor(features):
+        result += adcom.value
+        applied.append(adcom)
+
+    # 4단계: CRL (조건부)
+    if features.get("is_resubmission"):
+        for factor in get_crl_factors(features):
+            result += factor.value
+            applied.append(factor)
+
+    return result, applied
+```
+
+**D (Trading)**: 이렇게 하면 어떤 팩터가 적용됐는지 추적 가능해.
+
+**E (SRE)**: 결과에 `applied_factors` 포함시키면 디버깅도 쉬워.
+
+**결론**:
+1. **5단계 순서**: base → designation → adcom → crl → cap
+2. **그룹 상한**: FDA 지정 보너스 합계 최대 15%
+3. **조건부 적용**: CRL은 resubmission일 때만
+4. **추적 가능**: 적용된 팩터 목록 반환
+
+---
+
+### 최종 설계 결정 요약
+
+| 항목 | 결정 | 근거 |
+|------|------|------|
+| MCP 도구 개수 | 1개 (analyze_pdufa) | 90% 케이스 커버, 단순함 |
+| 확장성 | 독립 모듈, 인터페이스는 나중에 | YAGNI, 과도한 추상화 피함 |
+| 데이터 검증 | StatusField + source URL 필수 | 오염 방지 |
+| 에러 처리 | 예외 최소화, errors/warnings 필드 | MCP 호환성 |
+| 캐싱 | M2 DiskCache, TTL 정책 | 성능 |
+
+---
+
+### 스파게티 방지 체크리스트 (구현 시 확인)
+
+```
+□ 파일당 500줄 이하
+□ 순환 의존성 없음
+□ Public API는 __init__.py만
+□ 모든 상수에 source URL 있음
+□ errors/warnings 필드 구현
+□ 캐싱 TTL 설정
+□ 단위 테스트 커버리지 80%+
+```
