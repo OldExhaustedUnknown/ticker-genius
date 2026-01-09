@@ -26,6 +26,38 @@ class ValidationStatus(Enum):
     MISSING = "missing"
 
 
+class SearchStatus(str, Enum):
+    """
+    검색 상태 - 필드 값의 검색/확인 상태를 나타냄.
+
+    5가지 상태:
+    - FOUND: 값을 찾음 (재시도 불필요)
+    - CONFIRMED_NONE: 공식 소스에서 없음 확인 (재시도 불필요)
+    - NOT_APPLICABLE: 해당 케이스에 적용 안됨 (재시도 불필요)
+    - NOT_FOUND: 검색했지만 못 찾음 (재시도 필요)
+    - NOT_SEARCHED: 아직 검색 안함 (재시도 필요)
+    """
+    FOUND = "found"
+    CONFIRMED_NONE = "confirmed_none"
+    NOT_APPLICABLE = "not_applicable"
+    NOT_FOUND = "not_found"
+    NOT_SEARCHED = "not_searched"
+
+    @property
+    def needs_retry(self) -> bool:
+        """재시도 필요 여부."""
+        return self in (SearchStatus.NOT_FOUND, SearchStatus.NOT_SEARCHED)
+
+    @property
+    def is_complete(self) -> bool:
+        """검색 완료 여부 (값 있든 없든)."""
+        return self in (
+            SearchStatus.FOUND,
+            SearchStatus.CONFIRMED_NONE,
+            SearchStatus.NOT_APPLICABLE
+        )
+
+
 @dataclass
 class SourceInfo:
     """Information about a data source."""
@@ -38,10 +70,13 @@ class SourceInfo:
 
 @dataclass
 class FieldValue:
-    """A field value with source tracking."""
+    """A field value with source tracking and search status."""
     value: Any
+    status: SearchStatus = SearchStatus.NOT_SEARCHED  # 검색 상태
     sources: list[SourceInfo] = field(default_factory=list)
+    searched_sources: list[str] = field(default_factory=list)  # 검색 시도한 소스들
     confidence: float = 1.0
+    last_searched: Optional[datetime] = None
     needs_manual_review: bool = False
     conflicts: list[str] = field(default_factory=list)
 
@@ -51,6 +86,52 @@ class FieldValue:
         if not self.sources:
             return None
         return min(self.sources, key=lambda s: s.tier.value)
+
+    @property
+    def needs_retry(self) -> bool:
+        """재시도 필요 여부."""
+        return self.status.needs_retry
+
+    @property
+    def is_complete(self) -> bool:
+        """검색 완료 여부."""
+        return self.status.is_complete
+
+    @property
+    def has_value(self) -> bool:
+        """값이 있는지 (FOUND 상태)."""
+        return self.status == SearchStatus.FOUND and self.value is not None
+
+    def mark_found(self, value: Any, source: str, confidence: float = 1.0):
+        """값을 찾았을 때 상태 업데이트."""
+        self.value = value
+        self.status = SearchStatus.FOUND
+        self.confidence = confidence
+        if source not in self.searched_sources:
+            self.searched_sources.append(source)
+        self.last_searched = datetime.now()
+
+    def mark_not_found(self, source: str):
+        """검색했지만 못 찾았을 때."""
+        if source not in self.searched_sources:
+            self.searched_sources.append(source)
+        # 이미 FOUND면 유지
+        if self.status != SearchStatus.FOUND:
+            self.status = SearchStatus.NOT_FOUND
+        self.last_searched = datetime.now()
+
+    def mark_confirmed_none(self, source: str):
+        """공식 소스에서 없음을 확인했을 때."""
+        self.value = None
+        self.status = SearchStatus.CONFIRMED_NONE
+        if source not in self.searched_sources:
+            self.searched_sources.append(source)
+        self.last_searched = datetime.now()
+
+    def mark_not_applicable(self):
+        """해당 필드가 적용되지 않을 때."""
+        self.value = None
+        self.status = SearchStatus.NOT_APPLICABLE
 
 
 @dataclass

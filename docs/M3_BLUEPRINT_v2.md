@@ -1,8 +1,9 @@
 # M3 청사진 v2: PDUFA 이벤트 기반 CRL 예측
 
 **작성일**: 2026-01-09
-**버전**: 2.0
-**상태**: 페르소나 토론 3회 완료, 합의 도출
+**버전**: 2.1
+**상태**: 구현 진행 중 (Phase 1-2 완료)
+**최종 수정**: 2026-01-09
 
 ---
 
@@ -396,11 +397,17 @@ resubmission_features:
 
 ### 신규 코드
 
-| 모듈 | 파일 | 설명 |
-|------|------|------|
-| 이벤트 추출 | event_extractor.py | 약물 → 이벤트 변환 |
-| 이벤트 저장 | event_store.py | 이벤트 CRUD |
-| CRL 예측 | predictor.py | 예측 인터페이스 |
+| 모듈 | 파일 | 설명 | 상태 |
+|------|------|------|------|
+| 이벤트 추출 | event_extractor.py | 약물 → 이벤트 변환 | ✅ 완료 |
+| 이벤트 저장 | event_store.py | 이벤트 CRUD | ✅ 완료 |
+| 이벤트 모델 | event_models.py | PDUFAEvent 클래스 | ✅ 완료 |
+| 검색 유틸 | search_utils.py | 쿼리 빌더, 검증기 | ✅ 완료 |
+| 웹 검색 | web_search.py | DuckDuckGo 기반 검색 | ✅ 완료 |
+| 검색 체인 | search_chain.py | API→웹서치 폴백 오케스트레이터 | ✅ 완료 |
+| CRL 예측 | predictor.py | 예측 인터페이스 | ⏳ 대기 |
+
+> 상세 설계: [SEARCH_IMPROVEMENT_DESIGN.md](SEARCH_IMPROVEMENT_DESIGN.md)
 
 ---
 

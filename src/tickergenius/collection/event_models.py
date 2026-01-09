@@ -80,6 +80,11 @@ class PDUFAEvent:
     created_at: datetime = field(default_factory=datetime.now)
     data_quality_score: float = 0.0
 
+    # === 검색 메타데이터 (v2) ===
+    # 각 필드의 검색 상태 추적
+    # 예: {"btd": {"status": "found", "sources": ["fda_btd_list"], "searched": ["fda_btd_list", "sec_8k"]}}
+    search_metadata: dict = field(default_factory=dict)
+
     def __post_init__(self):
         """event_id 자동 생성 및 품질 점수 계산."""
         if not self.event_id:
@@ -183,6 +188,7 @@ class PDUFAEvent:
             "source_case_id": self.source_case_id,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "data_quality_score": self.data_quality_score,
+            "search_metadata": self.search_metadata,
         }
 
     @classmethod
@@ -239,6 +245,7 @@ class PDUFAEvent:
             source_case_id=data.get("source_case_id"),
             created_at=created_at,
             # data_quality_score는 __post_init__에서 자동 계산됨
+            search_metadata=data.get("search_metadata", {}),
         )
 
     def __repr__(self) -> str:
@@ -247,3 +254,48 @@ class PDUFAEvent:
             f"ticker={self.ticker!r}, drug={self.drug_name!r}, "
             f"date={self.pdufa_date!r}, result={self.result!r})"
         )
+
+    # === 검색 상태 관리 메서드 ===
+
+    def get_fields_needing_retry(self) -> list[str]:
+        """재시도가 필요한 필드 목록."""
+        retry_needed = []
+        for field_name, meta in self.search_metadata.items():
+            status = meta.get("status", "not_searched")
+            if status in ("not_found", "not_searched"):
+                retry_needed.append(field_name)
+        return retry_needed
+
+    def get_search_completion_rate(self) -> float:
+        """검색 완료율 (search_metadata 기준)."""
+        if not self.search_metadata:
+            return 0.0
+
+        completed = sum(
+            1 for meta in self.search_metadata.values()
+            if meta.get("status") in ("found", "confirmed_none", "not_applicable")
+        )
+        return completed / len(self.search_metadata)
+
+    def update_field_search_status(
+        self,
+        field_name: str,
+        status: str,
+        value: Any = None,
+        sources: list[str] = None,
+        searched_sources: list[str] = None,
+    ):
+        """필드의 검색 상태 업데이트."""
+        if field_name not in self.search_metadata:
+            self.search_metadata[field_name] = {}
+
+        self.search_metadata[field_name]["status"] = status
+        if sources:
+            self.search_metadata[field_name]["sources"] = sources
+        if searched_sources:
+            existing = self.search_metadata[field_name].get("searched", [])
+            self.search_metadata[field_name]["searched"] = list(set(existing + searched_sources))
+
+        # 값도 업데이트 (해당 필드에)
+        if value is not None and hasattr(self, field_name):
+            setattr(self, field_name, value)
