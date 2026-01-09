@@ -113,11 +113,22 @@ class VerificationRunner:
                             value = "approved"
 
                     elif field_name == "priority_review":
-                        if "PRIORITY" in sub.get("submission_type", "").upper():
+                        # review_priority 필드 확인 (PRIORITY vs STANDARD)
+                        review_priority = sub.get("review_priority", "").upper()
+                        if review_priority == "PRIORITY":
                             value = True
+                        elif review_priority == "STANDARD":
+                            value = False
 
                     elif field_name == "orphan_drug":
-                        if sub.get("orphan_drug"):
+                        orphan = sub.get("orphan_drug")
+                        if orphan is not None:
+                            value = bool(orphan)
+
+                    elif field_name == "accelerated_approval":
+                        # submission_class_code에서 확인
+                        class_code = sub.get("submission_class_code_description", "").upper()
+                        if "ACCELERATED" in class_code:
                             value = True
 
                     if value is not None:
@@ -164,17 +175,31 @@ class VerificationRunner:
                 info = self.sec_edgar.extract_pdufa_info(filing)
                 value = None
 
+                keywords = info.get("detected_keywords", [])
+
                 if field_name == "adcom_held" and info.get("has_adcom"):
                     value = True
 
-                elif field_name == "breakthrough_therapy" and "BREAKTHROUGH" in info.get("detected_keywords", []):
+                elif field_name == "breakthrough_therapy" and "BREAKTHROUGH" in keywords:
                     value = True
 
-                elif field_name == "priority_review" and "PRIORITY REVIEW" in info.get("detected_keywords", []):
+                elif field_name == "priority_review" and "PRIORITY REVIEW" in keywords:
+                    value = True
+
+                elif field_name == "fast_track" and "FAST TRACK" in keywords:
+                    value = True
+
+                elif field_name == "orphan_drug" and "ORPHAN DRUG" in keywords:
                     value = True
 
                 elif field_name == "has_prior_crl" and info.get("has_crl"):
                     value = True
+
+                elif field_name == "result":
+                    if info.get("has_approval"):
+                        value = "approved"
+                    elif info.get("has_crl"):
+                        value = "crl"
 
                 if value is not None:
                     existing = case.fields.get(field_name)
@@ -233,6 +258,7 @@ class VerificationRunner:
         field_name: str,
         ticker: str,
         drug_name: str,
+        start_date: str = None,
     ) -> bool:
         """SEC 8-K 본문에서 BTD/Orphan/Priority Review 검증 시도."""
         try:
@@ -240,13 +266,13 @@ class VerificationRunner:
             value_key = None
 
             if field_name == "breakthrough_therapy":
-                result = self.designation.search_btd_designation(ticker, drug_name)
+                result = self.designation.search_btd_designation(ticker, drug_name, start_date=start_date)
                 value_key = "has_btd"
             elif field_name == "orphan_drug":
-                result = self.designation.search_orphan_designation(ticker, drug_name)
+                result = self.designation.search_orphan_designation(ticker, drug_name, start_date=start_date)
                 value_key = "has_orphan"
             elif field_name == "priority_review":
-                result = self.designation.search_priority_review(ticker, drug_name)
+                result = self.designation.search_priority_review(ticker, drug_name, start_date=start_date)
                 value_key = "has_priority_review"
             else:
                 return False
@@ -283,16 +309,28 @@ class VerificationRunner:
             return False
 
     def verify_single_case(self, case: VerifiableCase) -> dict:
-        """단일 케이스의 모든 레거시 필드 검증 시도."""
+        """단일 케이스의 모든 필드 검증 시도 (빈 필드 금지)."""
         progress_before = case.get_verification_progress()
 
-        # 레거시 필드 찾기
-        legacy_fields = [
+        # 검색 최적화를 위한 기존 데이터 활용
+        # pdufa_date를 기준으로 검색 범위 설정
+        pdufa_field = case.fields.get("pdufa_date")
+        search_start_date = None
+        if pdufa_field and pdufa_field.value:
+            # PDUFA 날짜 기준 2년 전부터 검색
+            pdufa_str = str(pdufa_field.value)
+            if len(pdufa_str) >= 4:
+                year = int(pdufa_str[:4]) - 2
+                search_start_date = f"{year}-01-01"
+
+        # 검증 필요한 모든 필드 (LEGACY + UNVERIFIED)
+        # 빈 필드 금지: 모든 필드는 verified/not_found 상태 필요
+        fields_to_verify = [
             name for name, val in case.fields.items()
-            if val.status == VerificationStatus.LEGACY
+            if val.status in (VerificationStatus.LEGACY, VerificationStatus.UNVERIFIED)
         ]
 
-        for field_name in legacy_fields:
+        for field_name in fields_to_verify:
             verified = False
 
             # 1. OpenFDA 시도
@@ -305,16 +343,22 @@ class VerificationRunner:
 
             # 3. SEC 8-K 본문 검색 (BTD/Orphan/Priority Review)
             if not verified and field_name in ("breakthrough_therapy", "orphan_drug", "priority_review"):
-                verified = self.verify_field_designation(case, field_name, case.ticker, case.drug_name)
+                verified = self.verify_field_designation(
+                    case, field_name, case.ticker, case.drug_name,
+                    start_date=search_start_date
+                )
 
             # 4. PubMed 시도 (NCT ID)
             if not verified and field_name == "nct_id":
                 verified = self.verify_field_pubmed(case, field_name, case.drug_name)
 
-            # 검증 실패 시 NOT_FOUND로 마크 (레거시 값 버림)
+            # 검증 실패 시 NOT_FOUND로 마크 (빈 필드 금지 - 상태는 반드시 있어야 함)
             if not verified:
+                existing = case.fields.get(field_name)
+                # 기존 레거시 값이 있어도 공식 소스에서 확인 못하면 NOT_FOUND
                 self.verifier.mark_not_found(case, field_name, "all_sources_tried")
                 self.stats["not_found"] += 1
+                logger.debug(f"Field {field_name} marked as NOT_FOUND for {case.case_id}")
 
             # 레거시 대체 성공
             if verified:

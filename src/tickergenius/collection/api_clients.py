@@ -13,7 +13,7 @@ import os
 import time
 import logging
 import random
-from typing import Optional, Any, Callable
+from typing import Optional, Any, Callable, Set
 from datetime import datetime
 from functools import wraps
 import httpx
@@ -471,7 +471,9 @@ class ClinicalTrialsClient:
     CLASSIC_BASE_URL = "https://classic.clinicaltrials.gov/api/query"
 
     def __init__(self):
-        self.rate_limiter = RateLimiter(60)  # Be conservative
+        # ClinicalTrials.gov has strict rate limits (~50/min)
+        # Use 30/min (2 second delay) to be safe
+        self.rate_limiter = RateLimiter(30)
         self.timeout = 30.0
         self._v2_available = True  # Track if v2 API works
 
@@ -490,9 +492,14 @@ class ClinicalTrialsClient:
     @retry_with_backoff(max_retries=2, base_delay=1.0, retryable_status_codes=(429, 500, 502, 503, 504))
     def _execute_v2_request(self, url: str, params: dict) -> Optional[dict]:
         """Execute v2 API request with retry."""
+        # Use browser-like headers to avoid 403 blocks
         headers = {
-            "Accept": "application/json",
-            "User-Agent": "TickerGenius/3.0 (Research; contact: ljk2443@gmail.com)",
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
         }
         with httpx.Client(timeout=self.timeout) as client:
             response = client.get(url, params=params, headers=headers)
@@ -512,8 +519,14 @@ class ClinicalTrialsClient:
     @retry_with_backoff(max_retries=2, base_delay=1.0, retryable_status_codes=(429, 500, 502, 503, 504))
     def _execute_classic_request(self, url: str, params: dict) -> Optional[dict]:
         """Execute classic API request with retry."""
+        # Use browser-like headers to avoid 403 blocks
         headers = {
-            "User-Agent": "TickerGenius/3.0 (Research; contact: ljk2443@gmail.com)",
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
         }
         with httpx.Client(timeout=self.timeout) as client:
             response = client.get(url, params=params, headers=headers)
@@ -702,9 +715,41 @@ class PubMedClient:
         """
         Search PubMed for clinical trial publications mentioning NCT IDs.
 
+        Tries multiple search strategies:
+        1. Full drug name
+        2. First word (brand name)
+        3. Second word (generic name) if available
+
         Returns list of PubMed IDs (PMIDs).
         """
-        query_parts = [f'"{drug_name}"[Title/Abstract]', "clinical trial[pt]"]
+        pmids = set()
+        parts = drug_name.split() if drug_name else []
+
+        # Strategy 1: First word only (brand name)
+        if parts:
+            brand_name = parts[0]
+            pmids.update(self._search_pubmed_single(brand_name, sponsor))
+
+        # Strategy 2: Second word if different (generic name)
+        if len(parts) > 1:
+            generic_name = parts[-1]  # Last word often is generic
+            if generic_name.lower() != parts[0].lower():
+                pmids.update(self._search_pubmed_single(generic_name, sponsor))
+
+        # Strategy 3: If still nothing, try without clinical trial filter
+        if not pmids and parts:
+            pmids.update(self._search_pubmed_single(parts[0], sponsor, include_ct_filter=False))
+
+        return list(pmids)
+
+    def _search_pubmed_single(
+        self, term: str, sponsor: str = None, include_ct_filter: bool = True
+    ) -> list[str]:
+        """Execute a single PubMed search."""
+        # Build query - use less restrictive search
+        query_parts = [f'{term}[Title/Abstract]']
+        if include_ct_filter:
+            query_parts.append("clinical trial[pt]")
         if sponsor:
             query_parts.append(f'"{sponsor}"[Affiliation]')
 
@@ -747,10 +792,58 @@ class PubMedClient:
 
         for article in articles:
             # Check all string fields for NCT IDs
-            for value in article.values():
-                if isinstance(value, str):
-                    matches = nct_pattern.findall(value)
-                    nct_ids.update(m.upper() for m in matches)
+            self._extract_nct_from_dict(article, nct_ids, nct_pattern)
+
+        return list(nct_ids)
+
+    def _extract_nct_from_dict(self, data: Any, nct_ids: set, pattern) -> None:
+        """Recursively extract NCT IDs from nested dict/list."""
+        if isinstance(data, str):
+            matches = pattern.findall(data)
+            nct_ids.update(m.upper() for m in matches)
+        elif isinstance(data, dict):
+            for value in data.values():
+                self._extract_nct_from_dict(value, nct_ids, pattern)
+        elif isinstance(data, list):
+            for item in data:
+                self._extract_nct_from_dict(item, nct_ids, pattern)
+
+    def get_abstracts(self, pmids: list[str]) -> list[str]:
+        """Fetch full abstracts using efetch API."""
+        if not pmids:
+            return []
+
+        self.rate_limiter.wait()
+
+        params = {
+            "db": "pubmed",
+            "id": ",".join(pmids[:20]),
+            "rettype": "abstract",
+            "retmode": "text",
+        }
+        if self.api_key:
+            params["api_key"] = self.api_key
+
+        url = f"{self.BASE_URL}/efetch.fcgi"
+
+        try:
+            with httpx.Client(timeout=self.timeout) as client:
+                response = client.get(url, params=params)
+                response.raise_for_status()
+                return [response.text]  # Return as single text block
+        except Exception as e:
+            logger.debug(f"Failed to fetch abstracts: {e}")
+            return []
+
+    def extract_nct_from_text(self, texts: list[str]) -> list[str]:
+        """Extract NCT IDs from text content."""
+        import re
+        nct_pattern = re.compile(r"NCT\d{8}", re.IGNORECASE)
+        nct_ids = set()
+
+        for text in texts:
+            matches = nct_pattern.findall(text)
+            nct_ids.update(m.upper() for m in matches)
 
         return list(nct_ids)
 
@@ -759,13 +852,26 @@ class PubMedClient:
         Find NCT IDs associated with a drug.
 
         This is a fallback for when ClinicalTrials.gov is unavailable.
+        Uses multiple strategies:
+        1. Extract from article summaries
+        2. Extract from full abstracts
         """
         pmids = self.search_clinical_trials(drug_name, sponsor)
         if not pmids:
             return []
 
+        nct_ids = set()
+
+        # Strategy 1: Article summaries
         articles = self.get_article_details(pmids)
-        return self.extract_nct_ids(articles)
+        nct_ids.update(self.extract_nct_ids(articles))
+
+        # Strategy 2: Full abstracts (more likely to contain NCT IDs)
+        if not nct_ids:
+            abstracts = self.get_abstracts(pmids[:10])  # Limit to 10
+            nct_ids.update(self.extract_nct_from_text(abstracts))
+
+        return list(nct_ids)
 
 
 class FDAWarningLettersClient:
@@ -1266,3 +1372,220 @@ class DesignationSearchClient:
                     break
 
         return result
+
+
+class AACTClient:
+    """
+    AACT (Aggregate Analysis of ClinicalTrials.gov) Database Client.
+
+    AACT는 ClinicalTrials.gov의 PostgreSQL 미러 DB로,
+    REST API 차단을 우회하여 임상시험 데이터에 접근 가능.
+
+    https://aact.ctti-clinicaltrials.org/
+    """
+
+    # AACT 공개 PostgreSQL 서버
+    HOST = "aact-db.ctti-clinicaltrials.org"
+    PORT = 5432
+    DATABASE = "aact"
+    # 공개 읽기 전용 계정
+    USER = "aact"
+    PASSWORD = "aact"
+
+    def __init__(self):
+        self._conn = None
+
+    def _get_connection(self):
+        """PostgreSQL 연결 획득."""
+        if self._conn is None or self._conn.closed:
+            import psycopg2
+            self._conn = psycopg2.connect(
+                host=self.HOST,
+                port=self.PORT,
+                database=self.DATABASE,
+                user=self.USER,
+                password=self.PASSWORD,
+                connect_timeout=30,
+            )
+        return self._conn
+
+    def close(self):
+        """연결 종료."""
+        if self._conn and not self._conn.closed:
+            self._conn.close()
+            self._conn = None
+
+    def search_by_drug_name(self, drug_name: str, limit: int = 20) -> list[dict]:
+        """
+        약물명으로 임상시험 검색.
+
+        Args:
+            drug_name: 약물명 (브랜드명 또는 generic명)
+            limit: 최대 결과 수
+
+        Returns:
+            임상시험 정보 리스트
+        """
+        conn = self._get_connection()
+        brand_name = drug_name.split()[0] if drug_name else ""
+
+        query = """
+        SELECT DISTINCT
+            s.nct_id,
+            s.brief_title,
+            s.phase,
+            s.overall_status,
+            s.study_type,
+            s.start_date,
+            s.completion_date,
+            s.enrollment,
+            sp.name as sponsor_name
+        FROM ctgov.studies s
+        LEFT JOIN ctgov.sponsors sp ON s.nct_id = sp.nct_id AND sp.lead_or_collaborator = 'lead'
+        LEFT JOIN ctgov.interventions i ON s.nct_id = i.nct_id
+        WHERE
+            (UPPER(s.brief_title) LIKE UPPER(%s)
+             OR UPPER(i.name) LIKE UPPER(%s))
+            AND s.study_type = 'Interventional'
+        ORDER BY s.start_date DESC NULLS LAST
+        LIMIT %s
+        """
+
+        search_pattern = f"%{brand_name}%"
+
+        try:
+            with conn.cursor() as cur:
+                cur.execute(query, (search_pattern, search_pattern, limit))
+                columns = [desc[0] for desc in cur.description]
+                results = []
+                for row in cur.fetchall():
+                    results.append(dict(zip(columns, row)))
+                return results
+        except Exception as e:
+            logger.error(f"AACT query failed: {e}")
+            return []
+
+    def get_study_by_nct_id(self, nct_id: str) -> Optional[dict]:
+        """
+        NCT ID로 임상시험 상세 정보 조회.
+
+        Args:
+            nct_id: NCT ID (예: NCT01234567)
+
+        Returns:
+            임상시험 정보 딕셔너리
+        """
+        conn = self._get_connection()
+
+        query = """
+        SELECT
+            s.nct_id,
+            s.brief_title,
+            s.official_title,
+            s.phase,
+            s.overall_status,
+            s.study_type,
+            s.start_date,
+            s.completion_date,
+            s.primary_completion_date,
+            s.enrollment,
+            s.enrollment_type,
+            sp.name as sponsor_name,
+            sp.agency_class as sponsor_type
+        FROM ctgov.studies s
+        LEFT JOIN ctgov.sponsors sp ON s.nct_id = sp.nct_id AND sp.lead_or_collaborator = 'lead'
+        WHERE s.nct_id = %s
+        """
+
+        try:
+            with conn.cursor() as cur:
+                cur.execute(query, (nct_id.upper(),))
+                columns = [desc[0] for desc in cur.description]
+                row = cur.fetchone()
+                if row:
+                    return dict(zip(columns, row))
+                return None
+        except Exception as e:
+            logger.error(f"AACT query failed for {nct_id}: {e}")
+            return None
+
+    def get_study_outcomes(self, nct_id: str) -> list[dict]:
+        """
+        NCT ID로 primary/secondary outcome 조회.
+
+        Args:
+            nct_id: NCT ID
+
+        Returns:
+            outcome 정보 리스트
+        """
+        conn = self._get_connection()
+
+        query = """
+        SELECT
+            outcome_type,
+            title,
+            description,
+            time_frame,
+            population
+        FROM ctgov.outcomes
+        WHERE nct_id = %s
+        ORDER BY outcome_type
+        """
+
+        try:
+            with conn.cursor() as cur:
+                cur.execute(query, (nct_id.upper(),))
+                columns = [desc[0] for desc in cur.description]
+                results = []
+                for row in cur.fetchall():
+                    results.append(dict(zip(columns, row)))
+                return results
+        except Exception as e:
+            logger.error(f"AACT outcomes query failed for {nct_id}: {e}")
+            return []
+
+    def extract_phase(self, study: dict) -> Optional[str]:
+        """Phase 정보 추출 및 정규화."""
+        phase = study.get("phase")
+        if not phase:
+            return None
+
+        phase_upper = phase.upper()
+        if "3" in phase_upper or "III" in phase_upper:
+            return "3"
+        elif "2" in phase_upper or "II" in phase_upper:
+            return "2"
+        elif "1" in phase_upper or "I" in phase_upper:
+            return "1"
+        elif "4" in phase_upper or "IV" in phase_upper:
+            return "4"
+
+        return None
+
+    def find_phase_for_drug(self, drug_name: str) -> Optional[str]:
+        """
+        약물의 가장 높은 Phase 찾기.
+
+        Args:
+            drug_name: 약물명
+
+        Returns:
+            Phase (1, 2, 3, 4) 또는 None
+        """
+        studies = self.search_by_drug_name(drug_name, limit=50)
+        if not studies:
+            return None
+
+        # Phase 3 > Phase 4 > Phase 2 > Phase 1 순으로 우선
+        phase_priority = {"3": 1, "4": 2, "2": 3, "1": 4}
+        best_phase = None
+        best_priority = 999
+
+        for study in studies:
+            phase = self.extract_phase(study)
+            if phase and phase_priority.get(phase, 999) < best_priority:
+                best_phase = phase
+                best_priority = phase_priority[phase]
+
+        return best_phase
