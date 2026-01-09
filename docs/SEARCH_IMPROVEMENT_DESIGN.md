@@ -553,16 +553,23 @@ src/tickergenius/collection/
 
 ---
 
-## 다음 단계
+## 다음 단계 (TODO)
 
 ### Phase 3: 기존 클라이언트 개선
-1. AACT DB 우선순위 적용
-2. 약물명 다중 변형 검색 확대
+- [ ] AACT DB 우선순위 적용 (ClinicalTrials API 403 대응)
+- [ ] 약물명 다중 변형 검색을 기존 클라이언트에 확대 적용
+- [ ] AACTClient에 SearchQueryBuilder.drug_name_variants() 연동
 
 ### Phase 4: 통합 및 검증
-1. data_enricher.py에 검색 체인 연동
-2. 기존 이벤트 데이터에 search_metadata 채우기
-3. 재시도 필요 필드 자동 재검색
+- [ ] data_enricher.py에 SearchChainOrchestrator 연동
+- [ ] 기존 706개 이벤트에 search_metadata 채우기 스크립트
+- [ ] NOT_FOUND/NOT_SEARCHED 필드 자동 재검색 배치
+- [ ] 검색 완료율 리포트 생성
+
+### Phase 5: 테스트 및 검증
+- [ ] 검색 체인 단위 테스트 작성
+- [ ] 웹 검색 결과 정확도 검증
+- [ ] 기존 데이터와 신규 검색 결과 비교
 
 ---
 
