@@ -1,0 +1,354 @@
+{
+  "_meta": {
+    "version": "1.2.0",
+    "based_on": "factor_classification_v5.json",
+    "source": "TF 62차 합의 + M3 확장",
+    "last_updated": "2026-01-08",
+    "verification_status": "PARTIAL",
+    "notes": "fda_designations, crl_resubmission 검증됨. dispute, earnings_call, citizen_petition 추가됨 (검증 필요).",
+    "grouping_rules": {
+      "fda_designations": "MAX_ONLY (최대값만 적용)",
+      "adcom": "EXCLUSIVE (상호 배타적)",
+      "crl_resubmission": "INDEPENDENT (독립 적용)",
+      "clinical": "INDEPENDENT (독립 적용)",
+      "manufacturing": "INDEPENDENT (독립 적용)",
+      "dispute": "EXCLUSIVE (상호 배타적)",
+      "earnings_call": "INDEPENDENT (독립 적용)",
+      "citizen_petition": "EXCLUSIVE (상호 배타적)",
+      "special": "INDEPENDENT (독립 적용)"
+    }
+  },
+
+  "fda_designations": {
+    "_group_type": "MAX_ONLY",
+    "_group_note": "FDA 지정은 최대값만 적용 (중복 적용 안됨)",
+    "breakthrough_therapy": {
+      "score": 0.08,
+      "classification": "FIXED_BONUS",
+      "sample_size": 104,
+      "approval_rate": 0.923,
+      "source": "FDA CDER BTD Approvals",
+      "verification_status": "VERIFIED",
+      "confidence": "high"
+    },
+    "priority_review": {
+      "score": 0.05,
+      "classification": "FIXED_BONUS",
+      "sample_size": 283,
+      "approval_rate": 0.901,
+      "source": "TF 28차 openFDA",
+      "verification_status": "VERIFIED",
+      "confidence": "high"
+    },
+    "fast_track": {
+      "score": 0.05,
+      "classification": "FIXED_BONUS",
+      "sample_size": 90,
+      "approval_rate": 0.878,
+      "source": "TF 28차 openFDA",
+      "verification_status": "VERIFIED",
+      "confidence": "high"
+    },
+    "orphan_drug": {
+      "score": 0.04,
+      "classification": "FIXED_BONUS",
+      "sample_size": 115,
+      "approval_rate": 0.896,
+      "source": "TF 28차 openFDA",
+      "verification_status": "VERIFIED",
+      "confidence": "high"
+    },
+    "accelerated_approval": {
+      "score": 0.06,
+      "classification": "FIXED_BONUS",
+      "sample_size": 36,
+      "approval_rate": 0.944,
+      "source": "TF 28차 openFDA",
+      "verification_status": "VERIFIED",
+      "confidence": "medium"
+    }
+  },
+
+  "adcom": {
+    "vote_positive": {
+      "score": 0.08,
+      "classification": "FIXED_BONUS",
+      "condition": "adcom_vote_ratio > 0.5",
+      "sample_size": 147,
+      "approval_rate": 0.966,
+      "source": "JAMA Health Forum 2023 (PMC10329213)",
+      "verification_status": "UNKNOWN"
+    },
+    "vote_negative": {
+      "score": -0.20,
+      "classification": "FIXED_PENALTY",
+      "condition": "0 < adcom_vote_ratio <= 0.5",
+      "sample_size": 29,
+      "approval_rate": 0.552,
+      "source": "TF 62차 Group4",
+      "verification_status": "UNKNOWN"
+    },
+    "waived": {
+      "score": 0.04,
+      "classification": "FIXED_BONUS",
+      "sample_size": 4,
+      "approval_rate": 1.0,
+      "source": "TF 40차 Bayesian",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "crl_resubmission": {
+    "class1_resubmission": {
+      "score": 0.09,
+      "classification": "FIXED_BONUS",
+      "sample_size": 52,
+      "approval_rate": 0.885,
+      "source": "TF 62차 Group2",
+      "verification_status": "UNKNOWN"
+    },
+    "class2_resubmission": {
+      "score": 0.08,
+      "classification": "FIXED_BONUS",
+      "sample_size": 68,
+      "approval_rate": 0.765,
+      "source": "TF 62차 Group2",
+      "verification_status": "UNKNOWN"
+    },
+    "new_app_got_crl": {
+      "score": -0.20,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 215,
+      "source": "XGBoost v5",
+      "verification_status": "UNKNOWN"
+    },
+    "is_resubmission": {
+      "score": -0.091,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 215,
+      "approval_rate": 0.609,
+      "source": "전체 재승인률",
+      "verification_status": "UNKNOWN"
+    },
+    "cmc_only": {
+      "score": 0.0,
+      "classification": "UNCERTAIN",
+      "sample_size": 21,
+      "approval_rate": 0.810,
+      "source": "TF 62차 Group2",
+      "notes": "CMC-only는 0%로 중립화 (CDMO 리스크 분리)",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "clinical": {
+    "primary_endpoint_not_met": {
+      "score": -0.70,
+      "classification": "FACT",
+      "notes": "Hard Cap 30%. 미달성 = 자동 CRL",
+      "verification_status": "UNKNOWN"
+    },
+    "single_arm_trial": {
+      "score": -0.07,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 37,
+      "crl_rate": 0.486,
+      "source": "TF 62차 Group1",
+      "verification_status": "UNKNOWN"
+    },
+    "rwe_external_control": {
+      "score": -0.15,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 8,
+      "crl_rate": 1.0,
+      "source": "TF 62차 Group1",
+      "verification_status": "UNKNOWN"
+    },
+    "trial_region_china_only": {
+      "score": -0.50,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 2,
+      "source": "TF 40차",
+      "verification_status": "UNKNOWN"
+    },
+    "clinical_hold_history": {
+      "score": -0.08,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 16,
+      "source": "내부 데이터",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "manufacturing": {
+    "facility_pai_passed": {
+      "score": 0.12,
+      "classification": "FIXED_BONUS",
+      "source": "SEC 8-K",
+      "verification_status": "UNKNOWN"
+    },
+    "facility_warning_letter": {
+      "score": -0.30,
+      "classification": "FIXED_PENALTY",
+      "source": "FDA Warning Letters DB",
+      "verification_status": "UNKNOWN"
+    },
+    "fda_483_critical": {
+      "score": -0.10,
+      "classification": "FIXED_PENALTY",
+      "condition": "observations >= 10",
+      "source": "TF 62차 Group3",
+      "verification_status": "UNKNOWN"
+    },
+    "fda_483_moderate": {
+      "score": -0.10,
+      "classification": "FIXED_PENALTY",
+      "condition": "4 <= observations <= 9",
+      "source": "TF 62차 Group3",
+      "verification_status": "UNKNOWN"
+    },
+    "fda_483_minor": {
+      "score": -0.05,
+      "classification": "FIXED_PENALTY",
+      "condition": "1 <= observations <= 3",
+      "source": "TF 62차 Group3",
+      "verification_status": "UNKNOWN"
+    },
+    "cdmo_high_risk": {
+      "score": -0.08,
+      "classification": "FIXED_PENALTY",
+      "high_risk_cdmos": ["Zydus Lifesciences", "Intas Pharmaceuticals", "Jubilant Pharma"],
+      "source": "TF 62차 Group2",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "special": {
+    "first_in_class": {
+      "score": 0.05,
+      "classification": "FACT",
+      "sample_size": 10,
+      "approval_rate": 1.0,
+      "source": "Dataset v7",
+      "verification_status": "UNKNOWN"
+    },
+    "supplement": {
+      "score": 0.05,
+      "classification": "FACT",
+      "sample_size": 85,
+      "approval_rate": 0.929,
+      "source": "Dataset v7",
+      "verification_status": "UNKNOWN"
+    },
+    "spa_agreed": {
+      "score": 0.08,
+      "classification": "FIXED_BONUS",
+      "sample_size": 3,
+      "approval_rate": 0.88,
+      "source": "FDA Guidance",
+      "verification_status": "UNKNOWN"
+    },
+    "spa_rescinded": {
+      "score": -0.30,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 1,
+      "source": "OTLK 사례",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "dispute": {
+    "_group_type": "EXCLUSIVE",
+    "_group_note": "FDA 분쟁 결과 (상호 배타적)",
+    "dispute_won_fully": {
+      "score": 0.10,
+      "classification": "FIXED_BONUS",
+      "sample_size": 5,
+      "source": "FDA CDRH Disputes",
+      "notes": "분쟁에서 완전 승리",
+      "verification_status": "NEEDS_VERIFICATION"
+    },
+    "dispute_partial": {
+      "score": -0.05,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 3,
+      "source": "FDA CDRH Disputes",
+      "notes": "분쟁에서 부분 승리/패배",
+      "verification_status": "NEEDS_VERIFICATION"
+    },
+    "dispute_lost_fully": {
+      "score": -0.20,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 2,
+      "source": "FDA CDRH Disputes",
+      "notes": "분쟁에서 완전 패배",
+      "verification_status": "NEEDS_VERIFICATION"
+    }
+  },
+
+  "earnings_call": {
+    "_group_type": "INDEPENDENT",
+    "_group_note": "어닝콜 시그널 (독립 적용)",
+    "label_negotiation": {
+      "score": 0.08,
+      "classification": "FIXED_BONUS",
+      "sample_size": 12,
+      "source": "SEC 8-K / Earnings Transcripts",
+      "notes": "경영진이 라벨 협상 진행 중 언급",
+      "verification_status": "NEEDS_VERIFICATION"
+    },
+    "timeline_delayed": {
+      "score": -0.10,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 8,
+      "source": "SEC 8-K / Earnings Transcripts",
+      "notes": "경영진이 타임라인 지연 암시",
+      "verification_status": "NEEDS_VERIFICATION"
+    },
+    "management_confident": {
+      "score": 0.05,
+      "classification": "FIXED_BONUS",
+      "sample_size": 15,
+      "source": "Earnings Transcripts",
+      "notes": "경영진이 승인에 강한 자신감 표명",
+      "verification_status": "NEEDS_VERIFICATION"
+    },
+    "management_cautious": {
+      "score": -0.05,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 10,
+      "source": "Earnings Transcripts",
+      "notes": "경영진이 불확실성 강조",
+      "verification_status": "NEEDS_VERIFICATION"
+    }
+  },
+
+  "citizen_petition": {
+    "_group_type": "EXCLUSIVE",
+    "_group_note": "시민 청원 (상호 배타적)",
+    "petition_filed": {
+      "score": -0.08,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 25,
+      "source": "FDA Dockets",
+      "notes": "시민 청원 제출됨 (결과 불명)",
+      "verification_status": "NEEDS_VERIFICATION"
+    },
+    "petition_denied": {
+      "score": 0.05,
+      "classification": "FIXED_BONUS",
+      "sample_size": 18,
+      "source": "FDA Dockets",
+      "notes": "FDA가 시민 청원 기각",
+      "verification_status": "NEEDS_VERIFICATION"
+    },
+    "petition_granted": {
+      "score": -0.25,
+      "classification": "FIXED_PENALTY",
+      "sample_size": 3,
+      "source": "FDA Dockets",
+      "notes": "FDA가 시민 청원 수용",
+      "verification_status": "NEEDS_VERIFICATION"
+    }
+  }
+}

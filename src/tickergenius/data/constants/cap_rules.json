@@ -1,0 +1,61 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "based_on": "factor_classification_v5.json",
+    "source": "TF 62차 합의",
+    "verification_status": "UNKNOWN"
+  },
+
+  "probability_bounds": {
+    "max": 0.90,
+    "min": 0.10,
+    "rationale": {
+      "max_90": "BTD+모든지정도 90% 이상 보장 불가",
+      "min_10": "Primary endpoint 미달성도 재제출/피벗 가능성 존재"
+    },
+    "source": "TF 62차 합의",
+    "verification_status": "UNKNOWN"
+  },
+
+  "hard_caps": {
+    "catastrophic": {
+      "conditions": ["primary_endpoint_not_met", "data_integrity_issue"],
+      "max_probability": 0.05,
+      "description": "치명적 문제 - 최대 5%"
+    },
+    "critical": {
+      "conditions": ["efficacy_crl", "trial_region_china_only"],
+      "max_probability": 0.15,
+      "description": "심각한 문제 - 최대 15%"
+    },
+    "severe": {
+      "conditions": ["safety_crl", "facility_warning_letter"],
+      "max_probability": 0.25,
+      "description": "중대한 문제 - 최대 25%"
+    },
+    "moderate": {
+      "conditions": ["adcom_vote_negative"],
+      "max_probability": 0.40,
+      "description": "보통 문제 - 최대 40%"
+    }
+  },
+
+  "floor_rules": {
+    "has_fda_designation": {
+      "min_probability": 0.15,
+      "description": "FDA 지정 있으면 최소 15%"
+    },
+    "spa_agreed": {
+      "min_probability": 0.20,
+      "description": "SPA 합의 있으면 최소 20%"
+    }
+  },
+
+  "application_order": [
+    "1. base_probability 계산",
+    "2. 팩터별 보너스/감점 적용",
+    "3. hard_caps 적용 (조건 해당시)",
+    "4. floor_rules 적용 (조건 해당시)",
+    "5. probability_bounds 적용 (10-90% 범위)"
+  ]
+}

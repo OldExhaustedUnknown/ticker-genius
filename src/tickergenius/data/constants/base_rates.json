@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "version": "1.1.0",
+    "last_updated": "2026-01-08",
+    "sources": [
+      "Wong et al. (2018) - Phase → Approval",
+      "수집 데이터 2024-2025 (428건)",
+      "FDA 공식 2024 Novel Drug",
+      "TF CRL 데이터 (2026-01-06)"
+    ],
+    "verification_status": "NEEDS_FULL_VERIFICATION",
+    "notes": "전체 검증 필요: v12 기반 600건 티커별 검색-검증-수집 후 통계 재수집 예정. class1=50% 문제 플래그됨.",
+    "known_issues": [
+      "class1: 50% (11/22) - 샘플 크기 작고 Class1 특성에 맞지 않음. 임시로 75%로 조정",
+      "by_phase: Wong et al. (2018) 기준으로 현재 PDUFA 분석과 맥락 다름",
+      "biosimilar: 소수 샘플 기반 추정치"
+    ]
+  },
+
+  "by_phase": {
+    "phase1": {
+      "rate": 0.14,
+      "description": "전체 13.8%",
+      "source": "Wong et al. (2018)",
+      "verification_status": "UNKNOWN"
+    },
+    "phase2": {
+      "rate": 0.21,
+      "description": "Phase2→3 58% × Phase3→Appr 59% ≈ 34% 누적 ~21%",
+      "source": "Wong et al. (2018)",
+      "verification_status": "UNKNOWN"
+    },
+    "phase3": {
+      "rate": 0.59,
+      "description": "Phase 3 → Approval: 59.0%",
+      "source": "Wong et al. (2018)",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "by_application_type": {
+    "nda_bla": {
+      "rate": 0.70,
+      "description": "298/428 = 69.6% → 70%",
+      "source": "수집 데이터 2024-2025",
+      "verification_status": "UNKNOWN"
+    },
+    "novel_drug": {
+      "rate": 0.74,
+      "description": "37/50 = 74%",
+      "source": "FDA 공식 2024",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "resubmission": {
+    "base": {
+      "rate": 0.619,
+      "description": "65/105 = 61.9%",
+      "source": "TF CRL 데이터 2026-01-06",
+      "sample_size": 105,
+      "confidence": "medium",
+      "verification_status": "VERIFIED"
+    },
+    "class1": {
+      "rate": 0.75,
+      "description": "Class1 비-CMC 재조정: 기존 50%는 샘플 오류 의심",
+      "source": "TF 재검증 2026-01-08",
+      "sample_size": null,
+      "confidence": "low",
+      "verification_status": "ADJUSTED",
+      "original_value": 0.50,
+      "original_note": "11/22=50% - 샘플 크기 작고 Class1 특성에 맞지 않음. Class1은 minor issues이므로 50%는 비정상적으로 낮음.",
+      "adjustment_reason": "class1_cmc_only(86.5%)와 class2(65%)의 중간값으로 조정"
+    },
+    "class1_cmc_only": {
+      "rate": 0.865,
+      "description": "45/52 = 86.5% - CMC-only issues",
+      "source": "TF 62차 검증",
+      "sample_size": 52,
+      "confidence": "high",
+      "verification_status": "VERIFIED"
+    },
+    "class2": {
+      "rate": 0.6506,
+      "description": "54/83 = 65.06%",
+      "source": "TF CRL 데이터 2026-01-06",
+      "sample_size": 83,
+      "confidence": "high",
+      "verification_status": "VERIFIED"
+    },
+    "class2_cmc_only": {
+      "rate": 0.932,
+      "description": "41/44 = 93.2%",
+      "source": "TF 62차 검증",
+      "sample_size": 44,
+      "confidence": "high",
+      "verification_status": "VERIFIED"
+    }
+  },
+
+  "biosimilar": {
+    "bla": {
+      "rate": 0.85,
+      "description": "신약(70%)보다 높음 - 참조약물 검증 완료",
+      "source": "TF 21차",
+      "verification_status": "UNKNOWN"
+    },
+    "resubmission": {
+      "rate": 0.75,
+      "description": "재제출 시 높은 승인률",
+      "source": "TF 21차",
+      "verification_status": "UNKNOWN"
+    },
+    "class1_resubmission": {
+      "rate": 0.88,
+      "description": "Class 1 CMC만 → 88%",
+      "source": "TF 21차",
+      "verification_status": "UNKNOWN"
+    },
+    "interchangeable": {
+      "rate": 0.90,
+      "description": "상호교환성 신청 → 90%",
+      "source": "TF 21차",
+      "verification_status": "UNKNOWN"
+    }
+  },
+
+  "default": {
+    "rate": 0.70,
+    "description": "기본값 (NDA/BLA 기준)",
+    "verification_status": "UNKNOWN"
+  }
+}
