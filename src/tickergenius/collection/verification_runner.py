@@ -27,6 +27,7 @@ from tickergenius.collection.api_clients import (
     SECEdgarClient,
     PubMedClient,
     FDAWarningLettersClient,
+    DesignationSearchClient,
 )
 from tickergenius.collection.official_sources import DataContaminationGuard
 
@@ -58,6 +59,7 @@ class VerificationRunner:
         self.sec_edgar = SECEdgarClient()
         self.pubmed = PubMedClient()
         self.fda_enforcement = FDAWarningLettersClient()
+        self.designation = DesignationSearchClient()
 
         # 통계
         self.stats = {
@@ -225,6 +227,61 @@ class VerificationRunner:
             logger.error(f"PubMed verification failed for {drug_name}: {e}")
             return False
 
+    def verify_field_designation(
+        self,
+        case: VerifiableCase,
+        field_name: str,
+        ticker: str,
+        drug_name: str,
+    ) -> bool:
+        """SEC 8-K 본문에서 BTD/Orphan/Priority Review 검증 시도."""
+        try:
+            result = None
+            value_key = None
+
+            if field_name == "breakthrough_therapy":
+                result = self.designation.search_btd_designation(ticker, drug_name)
+                value_key = "has_btd"
+            elif field_name == "orphan_drug":
+                result = self.designation.search_orphan_designation(ticker, drug_name)
+                value_key = "has_orphan"
+            elif field_name == "priority_review":
+                result = self.designation.search_priority_review(ticker, drug_name)
+                value_key = "has_priority_review"
+            else:
+                return False
+
+            if not result or result.get(value_key) is None:
+                return False
+
+            value = result[value_key]
+            source = result.get("source", "sec_8k")
+
+            # 오염 방지 검사
+            existing = case.fields.get(field_name)
+            if existing:
+                is_safe, reason = self.guard.check_update_safety(
+                    case.case_id, field_name,
+                    value, source,
+                    existing.value, existing.source_name,
+                )
+                if not is_safe:
+                    self.stats["conflicts"] += 1
+                    logger.warning(f"Update blocked: {reason}")
+                    return False
+
+            self.verifier.update_field(
+                case, field_name, value,
+                source, SourceTier.TIER2_REGULATED,
+                raw_data={"evidence": result.get("evidence", [])[:1]},
+            )
+            self.stats["verified_fields"] += 1
+            return True
+
+        except Exception as e:
+            logger.error(f"Designation verification failed for {ticker}.{field_name}: {e}")
+            return False
+
     def verify_single_case(self, case: VerifiableCase) -> dict:
         """단일 케이스의 모든 레거시 필드 검증 시도."""
         progress_before = case.get_verification_progress()
@@ -242,11 +299,15 @@ class VerificationRunner:
             if not verified:
                 verified = self.verify_field_openfda(case, field_name, case.drug_name)
 
-            # 2. SEC EDGAR 시도
+            # 2. SEC EDGAR 메타데이터 시도
             if not verified:
                 verified = self.verify_field_sec_edgar(case, field_name, case.ticker, case.drug_name)
 
-            # 3. PubMed 시도 (NCT ID)
+            # 3. SEC 8-K 본문 검색 (BTD/Orphan/Priority Review)
+            if not verified and field_name in ("breakthrough_therapy", "orphan_drug", "priority_review"):
+                verified = self.verify_field_designation(case, field_name, case.ticker, case.drug_name)
+
+            # 4. PubMed 시도 (NCT ID)
             if not verified and field_name == "nct_id":
                 verified = self.verify_field_pubmed(case, field_name, case.drug_name)
 
