@@ -838,3 +838,431 @@ class FDAWarningLettersClient:
                     continue
 
         return False
+
+
+class DesignationSearchClient:
+    """
+    BTD/Orphan/Fast Track 등 지정 상태 검색 클라이언트.
+
+    공식 API에 직접 필드가 없는 경우, SEC 8-K 본문 검색으로 폴백.
+    사용자 요청: "기관 API 먼저, 없으면 바로 웹검색으로"
+    """
+
+    # SEC EDGAR 파일링 본문 URL 패턴
+    SEC_ARCHIVES_URL = "https://www.sec.gov/Archives/edgar/data"
+
+    def __init__(self):
+        self.sec_client = SECEdgarClient()
+        self.rate_limiter = RateLimiter(10)  # SEC rate limit
+        self.timeout = 30.0
+
+    def search_btd_designation(
+        self,
+        ticker: str,
+        drug_name: str = None,
+        start_date: str = None,
+    ) -> dict:
+        """
+        BTD 지정 여부 검색.
+
+        Returns:
+            {
+                "has_btd": bool or None (unknown),
+                "designation_date": str or None,
+                "source": str,
+                "confidence": float,
+                "evidence": list[str],
+            }
+        """
+        result = {
+            "has_btd": None,
+            "designation_date": None,
+            "source": None,
+            "confidence": 0.0,
+            "evidence": [],
+        }
+
+        # 1. SEC 8-K에서 BTD 키워드 검색
+        keywords = [
+            "breakthrough therapy designation",
+            "breakthrough therapy",
+            "BTD designation",
+            "received breakthrough",
+            "granted breakthrough",
+        ]
+
+        filings = self.sec_client.search_8k_filings(
+            ticker=ticker,
+            keywords=keywords,
+            start_date=start_date or "2015-01-01",
+        )
+
+        if not filings:
+            return result
+
+        # 2. 파일링 본문에서 상세 분석
+        for filing in filings[:10]:  # 최대 10개 검사
+            content = self._fetch_filing_content(filing)
+            if not content:
+                continue
+
+            # BTD 관련 문장 추출
+            btd_info = self._extract_btd_info(content, drug_name)
+
+            if btd_info["found"]:
+                result["has_btd"] = btd_info["is_designated"]
+                result["designation_date"] = btd_info.get("date") or filing.get("filingDate")
+                result["source"] = f"sec_8k:{filing.get('accessionNumber', '')}"
+                result["confidence"] = 0.85
+                result["evidence"] = btd_info["sentences"]
+                break
+
+        return result
+
+    def search_orphan_designation(
+        self,
+        ticker: str,
+        drug_name: str = None,
+        start_date: str = None,
+    ) -> dict:
+        """Orphan Drug 지정 여부 검색."""
+        result = {
+            "has_orphan": None,
+            "designation_date": None,
+            "source": None,
+            "confidence": 0.0,
+            "evidence": [],
+        }
+
+        keywords = [
+            "orphan drug designation",
+            "orphan designation",
+            "orphan drug status",
+            "received orphan",
+            "granted orphan",
+        ]
+
+        filings = self.sec_client.search_8k_filings(
+            ticker=ticker,
+            keywords=keywords,
+            start_date=start_date or "2015-01-01",
+        )
+
+        if not filings:
+            return result
+
+        for filing in filings[:10]:
+            content = self._fetch_filing_content(filing)
+            if not content:
+                continue
+
+            orphan_info = self._extract_orphan_info(content, drug_name)
+
+            if orphan_info["found"]:
+                result["has_orphan"] = orphan_info["is_designated"]
+                result["designation_date"] = orphan_info.get("date") or filing.get("filingDate")
+                result["source"] = f"sec_8k:{filing.get('accessionNumber', '')}"
+                result["confidence"] = 0.85
+                result["evidence"] = orphan_info["sentences"]
+                break
+
+        return result
+
+    def search_priority_review(
+        self,
+        ticker: str,
+        drug_name: str = None,
+        start_date: str = None,
+    ) -> dict:
+        """Priority Review 지정 여부 검색."""
+        result = {
+            "has_priority_review": None,
+            "designation_date": None,
+            "source": None,
+            "confidence": 0.0,
+            "evidence": [],
+        }
+
+        keywords = [
+            "priority review",
+            "priority review designation",
+            "granted priority",
+            "received priority review",
+        ]
+
+        filings = self.sec_client.search_8k_filings(
+            ticker=ticker,
+            keywords=keywords,
+            start_date=start_date or "2015-01-01",
+        )
+
+        if not filings:
+            return result
+
+        for filing in filings[:10]:
+            content = self._fetch_filing_content(filing)
+            if not content:
+                continue
+
+            pr_info = self._extract_priority_review_info(content, drug_name)
+
+            if pr_info["found"]:
+                result["has_priority_review"] = pr_info["is_designated"]
+                result["designation_date"] = pr_info.get("date") or filing.get("filingDate")
+                result["source"] = f"sec_8k:{filing.get('accessionNumber', '')}"
+                result["confidence"] = 0.85
+                result["evidence"] = pr_info["sentences"]
+                break
+
+        return result
+
+    def _fetch_filing_content(self, filing: dict) -> Optional[str]:
+        """SEC 파일링 본문 가져오기 (모든 문서 검색)."""
+        import re
+
+        self.rate_limiter.wait()
+
+        accession_raw = filing.get("accessionNumber", "")
+        accession = accession_raw.replace("-", "")
+        if not accession:
+            return None
+
+        # CIK 추출 또는 조회 (leading zeros 제거)
+        cik = filing.get("cik")
+        if not cik:
+            ticker = filing.get("ticker")
+            if ticker:
+                cik = self.sec_client.get_company_cik(ticker)
+
+        if not cik:
+            return None
+
+        cik = str(cik).lstrip("0")  # Leading zeros 제거
+
+        headers = {
+            "User-Agent": "TickerGenius/3.0 (Research; contact: ljk2443@gmail.com)",
+            "Accept": "text/html",
+        }
+
+        try:
+            with httpx.Client(timeout=self.timeout, follow_redirects=True) as client:
+                # 1. 디렉토리 리스팅으로 모든 문서 찾기
+                dir_url = f"{self.SEC_ARCHIVES_URL}/{cik}/{accession}/"
+                resp = client.get(dir_url, headers=headers)
+
+                if resp.status_code != 200:
+                    logger.debug(f"Filing directory not accessible: {dir_url}")
+                    return None
+
+                # 모든 htm/txt 문서 추출 (전체 경로 포함)
+                # 패턴: /Archives/edgar/data/{cik}/{accession}/filename.htm
+                full_path_pattern = re.compile(
+                    rf'/Archives/edgar/data/{cik}/{accession}/([^"]+\.(?:htm|txt))',
+                    re.IGNORECASE
+                )
+                # 상대 경로 패턴
+                relative_pattern = re.compile(
+                    r'href="([^/"]+\.(?:htm|txt))"',
+                    re.IGNORECASE
+                )
+
+                # 전체 경로에서 파일명 추출
+                full_matches = full_path_pattern.findall(resp.text)
+                relative_matches = relative_pattern.findall(resp.text)
+
+                # 파일 리스트 합치기 (중복 제거)
+                doc_files = list(set(full_matches + relative_matches))
+
+                if not doc_files:
+                    # primaryDocument 사용
+                    primary = filing.get("primaryDocument")
+                    if primary:
+                        doc_files = [primary]
+
+                if not doc_files:
+                    logger.debug(f"No documents found in {dir_url}")
+                    return None
+
+                # exhibit/press release 파일 우선 검색
+                doc_files.sort(key=lambda x: (
+                    0 if 'exhibit' in x.lower() or 'ex99' in x.lower() else 1,
+                    0 if 'press' in x.lower() else 1,
+                    0 if 'ex' in x.lower() else 1,
+                ))
+
+                combined_text = []
+
+                # 최대 5개 문서에서 텍스트 추출
+                for doc in doc_files[:5]:
+                    doc_url = f"{self.SEC_ARCHIVES_URL}/{cik}/{accession}/{doc}"
+                    try:
+                        doc_resp = client.get(doc_url, headers=headers)
+                        if doc_resp.status_code == 200:
+                            # HTML 태그 제거
+                            text = re.sub(r'<[^>]+>', ' ', doc_resp.text)
+                            text = re.sub(r'\s+', ' ', text)
+                            combined_text.append(text[:20000])
+
+                            # BTD 키워드 발견하면 바로 반환
+                            if any(kw in text.upper() for kw in [
+                                "BREAKTHROUGH THERAPY",
+                                "ORPHAN DRUG",
+                                "PRIORITY REVIEW",
+                            ]):
+                                logger.debug(f"Found designation keyword in {doc}")
+                                return text[:50000]
+                    except Exception as e:
+                        logger.debug(f"Failed to fetch {doc}: {e}")
+                        continue
+
+                # 결합된 텍스트 반환
+                return " ".join(combined_text)[:50000] if combined_text else None
+
+        except Exception as e:
+            logger.debug(f"Failed to fetch filing {accession}: {e}")
+
+        return None
+
+    def _extract_btd_info(self, text: str, drug_name: str = None) -> dict:
+        """텍스트에서 BTD 정보 추출."""
+        import re
+
+        drug_pattern = drug_name.upper() if drug_name else ""
+
+        result = {
+            "found": False,
+            "is_designated": None,
+            "date": None,
+            "sentences": [],
+        }
+
+        # BTD 관련 패턴 (대소문자 무시)
+        patterns = [
+            r"(received|granted|obtained|designated)\s+(a\s+)?breakthrough\s+therapy",
+            r"breakthrough\s+therapy\s+designation",
+            r"FDA\s+(granted|awarded)\s+breakthrough",
+            r"breakthrough\s+therapy\s+program",
+        ]
+
+        for pattern in patterns:
+            matches = re.finditer(pattern, text, re.IGNORECASE)
+            for match in matches:
+                # 컨텍스트 추출 (앞뒤 200자)
+                start = max(0, match.start() - 200)
+                end = min(len(text), match.end() + 200)
+                context = text[start:end]
+
+                # 약물명 확인 (있는 경우)
+                if drug_pattern and drug_pattern not in context.upper():
+                    continue
+
+                result["found"] = True
+                result["is_designated"] = True
+                result["sentences"].append(context.strip())
+
+                # 날짜 추출 시도
+                date_match = re.search(
+                    r"(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}",
+                    context, re.IGNORECASE
+                )
+                if date_match:
+                    result["date"] = date_match.group(0)
+
+                if len(result["sentences"]) >= 3:
+                    break
+
+        return result
+
+    def _extract_orphan_info(self, text: str, drug_name: str = None) -> dict:
+        """텍스트에서 Orphan Drug 정보 추출."""
+        import re
+
+        drug_pattern = drug_name.upper() if drug_name else ""
+
+        result = {
+            "found": False,
+            "is_designated": None,
+            "date": None,
+            "sentences": [],
+        }
+
+        patterns = [
+            r"(received|granted|obtained|designated)\s+(an?\s+)?orphan\s+drug",
+            r"orphan\s+drug\s+designation",
+            r"FDA\s+(granted|awarded)\s+orphan",
+            r"orphan\s+designation\s+for",
+        ]
+
+        for pattern in patterns:
+            matches = re.finditer(pattern, text, re.IGNORECASE)
+            for match in matches:
+                start = max(0, match.start() - 200)
+                end = min(len(text), match.end() + 200)
+                context = text[start:end]
+
+                if drug_pattern and drug_pattern not in context.upper():
+                    continue
+
+                result["found"] = True
+                result["is_designated"] = True
+                result["sentences"].append(context.strip())
+
+                # 날짜 추출 시도
+                date_match = re.search(
+                    r"(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}",
+                    context, re.IGNORECASE
+                )
+                if date_match:
+                    result["date"] = date_match.group(0)
+
+                if len(result["sentences"]) >= 3:
+                    break
+
+        return result
+
+    def _extract_priority_review_info(self, text: str, drug_name: str = None) -> dict:
+        """텍스트에서 Priority Review 정보 추출."""
+        import re
+
+        drug_pattern = drug_name.upper() if drug_name else ""
+
+        result = {
+            "found": False,
+            "is_designated": None,
+            "date": None,
+            "sentences": [],
+        }
+
+        patterns = [
+            r"(received|granted|obtained)\s+(a\s+)?priority\s+review",
+            r"priority\s+review\s+designation",
+            r"FDA\s+(granted|awarded)\s+priority\s+review",
+            r"accepted.*priority\s+review",
+        ]
+
+        for pattern in patterns:
+            matches = re.finditer(pattern, text, re.IGNORECASE)
+            for match in matches:
+                start = max(0, match.start() - 200)
+                end = min(len(text), match.end() + 200)
+                context = text[start:end]
+
+                if drug_pattern and drug_pattern not in context.upper():
+                    continue
+
+                result["found"] = True
+                result["is_designated"] = True
+                result["sentences"].append(context.strip())
+
+                # 날짜 추출 시도
+                date_match = re.search(
+                    r"(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}",
+                    context, re.IGNORECASE
+                )
+                if date_match:
+                    result["date"] = date_match.group(0)
+
+                if len(result["sentences"]) >= 3:
+                    break
+
+        return result
