@@ -146,26 +146,6 @@ def apply_fda_483_penalty(ctx: AnalysisContext, current_prob: float) -> FactorRe
     )
 
 
-@FactorRegistry.register(
-    name="cdmo_high_risk",
-    layer="manufacturing",
-    order=40,
-    version="1.0",
-    description="고위험 CDMO 페널티",
-)
-def apply_cdmo_risk_penalty(ctx: AnalysisContext, current_prob: float) -> FactorResult:
-    """Apply penalty for high-risk CDMO."""
-    if not ctx.manufacturing.is_high_risk_cdmo:
-        return FactorResult.neutral("cdmo_high_risk")
-
-    factor = get_factor_adjustment("manufacturing", "cdmo_high_risk")
-    if factor is None:
-        return FactorResult.neutral("cdmo_high_risk", "팩터 정의 없음")
-
-    cdmo_name = ctx.manufacturing.cdmo_name or "Unknown"
-
-    return FactorResult.penalty(
-        name="cdmo_high_risk",
-        value=factor.score,
-        reason=f"고위험 CDMO: {cdmo_name} ({factor.score:.0%})",
-    )
+# Wave 4 (2026-01-10): cdmo_high_risk factor REMOVED
+# Reason: is_high_risk_cdmo field not reliably collectible
+# Impact now covered by warning_letter and fda_483 factors

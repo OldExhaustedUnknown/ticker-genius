@@ -10,6 +10,61 @@ from enum import Enum
 
 
 # =============================================================================
+# Data Collection Enums (Wave 2 - 2026-01-10)
+# =============================================================================
+
+class SearchStatus(str, Enum):
+    """
+    검색 상태 - 필드 값의 검색/확인 상태를 나타냄.
+
+    5가지 상태:
+    - FOUND: 값을 찾음 (재시도 불필요)
+    - CONFIRMED_NONE: 공식 소스에서 없음 확인 (재시도 불필요)
+    - NOT_APPLICABLE: 해당 케이스에 적용 안됨 (재시도 불필요)
+    - NOT_FOUND: 검색했지만 못 찾음 (재시도 필요)
+    - NOT_SEARCHED: 아직 검색 안함 (재시도 필요)
+    """
+    FOUND = "found"
+    CONFIRMED_NONE = "confirmed_none"
+    NOT_APPLICABLE = "not_applicable"
+    NOT_FOUND = "not_found"
+    NOT_SEARCHED = "not_searched"
+
+
+class SourceTier(int, Enum):
+    """
+    소스 신뢰도 티어.
+
+    - TIER1 (99%): FDA CDER 공식 목록, OpenFDA API
+    - TIER2 (90%): SEC EDGAR 8-K, ClinicalTrials.gov
+    - TIER3 (75%): 회사 PR, 뉴스 기사
+    - TIER4 (50%): 애널리스트 리포트, 추론 기반
+    """
+    TIER1 = 1
+    TIER2 = 2
+    TIER3 = 3
+    TIER4 = 4
+
+
+class TrialRegion(str, Enum):
+    """임상시험 지역 분류."""
+    US_ONLY = "us_only"
+    GLOBAL = "global"
+    EX_US = "ex_us"
+    CHINA_ONLY = "china_only"
+    UNKNOWN = "unknown"
+
+
+class CRLReasonType(str, Enum):
+    """CRL 사유 유형."""
+    CMC = "cmc"
+    EFFICACY = "efficacy"
+    SAFETY = "safety"
+    LABELING = "labeling"
+    UNKNOWN = "unknown"
+
+
+# =============================================================================
 # Core Analysis Enums
 # =============================================================================
 
@@ -202,6 +257,11 @@ class CitizenPetitionFDAResponse(str, Enum):
 
 
 __all__ = [
+    # Data Collection (Wave 2)
+    "SearchStatus",
+    "SourceTier",
+    "TrialRegion",
+    "CRLReasonType",
     # Core
     "TimingSignal",
     "StrategyType",

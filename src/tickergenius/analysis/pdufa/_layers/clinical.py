@@ -41,45 +41,34 @@ def apply_primary_endpoint_penalty(ctx: AnalysisContext, current_prob: float) ->
     name="single_arm_trial",
     layer="clinical",
     order=20,
-    version="1.0",
-    description="단일군 시험 페널티",
+    version="2.0",  # Wave 4: merged with RWE/external control
+    description="단일군 시험 페널티 (RWE/외부대조군 포함)",
 )
 def apply_single_arm_penalty(ctx: AnalysisContext, current_prob: float) -> FactorResult:
-    """Apply penalty for single-arm trial design."""
+    """
+    Apply penalty for single-arm trial design.
+
+    Wave 4 Update (2026-01-10):
+    - Merged with RWE/external control penalty
+    - is_single_arm now includes RWE/external control cases
+    - Penalty increased from -5% to -7%
+    """
     if not ctx.clinical.is_single_arm:
         return FactorResult.neutral("single_arm_trial")
 
     factor = get_factor_adjustment("clinical", "single_arm_trial")
     if factor is None:
-        return FactorResult.neutral("single_arm_trial", "팩터 정의 없음")
+        # Default: -7% (increased from -5% after merging RWE)
+        return FactorResult.penalty(
+            name="single_arm_trial",
+            value=-0.07,
+            reason="단일군/RWE 시험 (-7%)",
+        )
 
     return FactorResult.penalty(
         name="single_arm_trial",
         value=factor.score,
-        reason=f"단일군 시험 ({factor.score:.0%})",
-    )
-
-
-@FactorRegistry.register(
-    name="rwe_external_control",
-    layer="clinical",
-    order=30,
-    version="1.0",
-    description="RWE/외부 대조군 페널티",
-)
-def apply_rwe_external_control_penalty(ctx: AnalysisContext, current_prob: float) -> FactorResult:
-    """Apply penalty for RWE/external control arm design."""
-    if not ctx.clinical.is_rwe_external_control:
-        return FactorResult.neutral("rwe_external_control")
-
-    factor = get_factor_adjustment("clinical", "rwe_external_control")
-    if factor is None:
-        return FactorResult.neutral("rwe_external_control", "팩터 정의 없음")
-
-    return FactorResult.penalty(
-        name="rwe_external_control",
-        value=factor.score,
-        reason=f"RWE/외부 대조군 ({factor.score:.0%})",
+        reason=f"단일군/RWE 시험 ({factor.score:.0%})",
     )
 
 

@@ -499,3 +499,20 @@ class WebSearchClient:
                     )
 
         return WebSearchResult.not_found(searched_sources)
+
+    async def search(self, query: str, max_results: int = 10) -> list[dict]:
+        """
+        Generic 웹 검색 - OnDemandSearcher 호환.
+
+        Args:
+            query: 검색 쿼리
+            max_results: 최대 결과 수
+
+        Returns:
+            [{"title": str, "url": str, "snippet": str}]
+        """
+        import asyncio
+
+        # 동기 검색을 async로 래핑
+        results = await asyncio.to_thread(self._search_ddg_html, query)
+        return results[:max_results]

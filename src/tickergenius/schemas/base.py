@@ -1,12 +1,14 @@
 """
 Ticker-Genius Base Schemas
 ==========================
-M1: Core schema primitives and StatusField 3-state system.
+M1: Core schema primitives and StatusField 5-state system.
 
-StatusField 3-State:
-- CONFIRMED: Data verified from reliable source
-- EMPTY: No data available (explicit absence)
-- UNKNOWN: Data exists but unverified or uncertain
+StatusField 5-State (Wave 2 - SearchStatus):
+- FOUND: 값을 찾음 (재시도 불필요)
+- CONFIRMED_NONE: 공식 소스에서 없음 확인 (재시도 불필요)
+- NOT_APPLICABLE: 해당 케이스에 적용 안됨 (재시도 불필요)
+- NOT_FOUND: 검색했지만 못 찾음 (재시도 필요)
+- NOT_SEARCHED: 아직 검색 안함 (재시도 필요)
 
 All fields that can have uncertain/missing data should use StatusField.
 """
@@ -17,89 +19,177 @@ from datetime import datetime
 from enum import Enum
 from typing import Generic, TypeVar, Optional, Any
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, computed_field
 
 T = TypeVar("T")
 
 
+# Legacy DataStatus kept for backward compatibility
 class DataStatus(str, Enum):
-    """Data verification status."""
-    CONFIRMED = "CONFIRMED"  # Data verified from reliable source
-    EMPTY = "EMPTY"          # No data available (explicit absence)
-    UNKNOWN = "UNKNOWN"      # Data exists but unverified
+    """Data verification status (DEPRECATED - use SearchStatus)."""
+    CONFIRMED = "CONFIRMED"
+    EMPTY = "EMPTY"
+    UNKNOWN = "UNKNOWN"
+
+
+# Import SearchStatus from enums to avoid circular imports
+from tickergenius.schemas.enums import SearchStatus, SourceTier
 
 
 class StatusField(BaseModel, Generic[T]):
     """
-    Generic field with 3-state status tracking.
+    Generic field with 5-state search status tracking.
 
     Usage:
-        class Pipeline(BaseModel):
-            pdufa_date: StatusField[datetime]
+        class PDUFAEvent(BaseModel):
+            phase: StatusField[str]
 
         # Creating instances:
-        confirmed = StatusField(value=datetime(2025, 3, 15), status=DataStatus.CONFIRMED)
-        empty = StatusField.empty()
-        unknown = StatusField(value=datetime(2025, 3, 15), status=DataStatus.UNKNOWN)
+        found = StatusField.found("Phase 3", source="clinicaltrials.gov")
+        not_found = StatusField.not_found(["websearch", "sec_edgar"])
+        confirmed_none = StatusField.confirmed_none("fda.gov")
+        not_applicable = StatusField.not_applicable("biosimilar")
+        not_searched = StatusField.not_searched()
 
         # Checking:
-        if pipeline.pdufa_date.is_confirmed():
-            date = pipeline.pdufa_date.value
+        if event.phase.has_value:
+            phase = event.phase.value
+        if event.phase.needs_retry:
+            # Re-search needed
     """
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(frozen=False)  # Mutable for updates
 
     value: Optional[T] = None
-    status: DataStatus = DataStatus.UNKNOWN
+    status: SearchStatus = SearchStatus.NOT_SEARCHED
     source: str = ""
-    updated_at: Optional[datetime] = None
+    confidence: float = 0.0
+    tier: Optional[int] = None  # SourceTier value (1-4)
+    evidence: list[str] = Field(default_factory=list)
+    searched_sources: list[str] = Field(default_factory=list)
+    last_searched: Optional[datetime] = None
+    error: Optional[str] = None
+    note: Optional[str] = None  # Additional context
 
-    def is_confirmed(self) -> bool:
-        """Check if data is confirmed."""
-        return self.status == DataStatus.CONFIRMED
+    @computed_field
+    @property
+    def has_value(self) -> bool:
+        """값이 있는지 (FOUND 상태)."""
+        return self.status == SearchStatus.FOUND and self.value is not None
 
-    def is_empty(self) -> bool:
-        """Check if data is explicitly empty."""
-        return self.status == DataStatus.EMPTY
+    @computed_field
+    @property
+    def needs_retry(self) -> bool:
+        """재시도 필요 여부."""
+        return self.status in (SearchStatus.NOT_FOUND, SearchStatus.NOT_SEARCHED)
 
-    def is_unknown(self) -> bool:
-        """Check if data status is unknown."""
-        return self.status == DataStatus.UNKNOWN
+    @computed_field
+    @property
+    def is_complete(self) -> bool:
+        """검색 완료 여부 (값 있든 없든)."""
+        return self.status in (
+            SearchStatus.FOUND,
+            SearchStatus.CONFIRMED_NONE,
+            SearchStatus.NOT_APPLICABLE
+        )
 
     def get_or_default(self, default: T) -> T:
-        """Get value or default if empty/unknown."""
-        if self.is_confirmed() and self.value is not None:
+        """Get value or default if not found."""
+        if self.has_value:
             return self.value
         return default
 
+    # Legacy compatibility methods
+    def is_confirmed(self) -> bool:
+        """Check if data is found (legacy compatibility)."""
+        return self.status == SearchStatus.FOUND
+
+    def is_empty(self) -> bool:
+        """Check if data is confirmed none (legacy compatibility)."""
+        return self.status == SearchStatus.CONFIRMED_NONE
+
+    def is_unknown(self) -> bool:
+        """Check if data needs search (legacy compatibility)."""
+        return self.needs_retry
+
+    # Factory methods
     @classmethod
-    def confirmed(cls, value: T, source: str = "") -> "StatusField[T]":
-        """Create a confirmed field."""
+    def found(
+        cls,
+        value: T,
+        source: str,
+        confidence: float = 0.9,
+        tier: Optional[int] = None,
+        evidence: Optional[list[str]] = None,
+        **kwargs
+    ) -> "StatusField[T]":
+        """Create a FOUND field with value."""
         return cls(
             value=value,
-            status=DataStatus.CONFIRMED,
+            status=SearchStatus.FOUND,
             source=source,
-            updated_at=datetime.utcnow(),
+            confidence=confidence,
+            tier=tier,
+            evidence=evidence or [],
+            searched_sources=[source] if source else [],
+            last_searched=datetime.utcnow(),
+            **kwargs
         )
+
+    @classmethod
+    def not_found(cls, searched_sources: list[str]) -> "StatusField[T]":
+        """검색했지만 못 찾음."""
+        return cls(
+            value=None,
+            status=SearchStatus.NOT_FOUND,
+            searched_sources=searched_sources,
+            last_searched=datetime.utcnow(),
+        )
+
+    @classmethod
+    def confirmed_none(cls, source: str) -> "StatusField[T]":
+        """공식 소스에서 없음 확인."""
+        return cls(
+            value=None,
+            status=SearchStatus.CONFIRMED_NONE,
+            source=source,
+            searched_sources=[source],
+            last_searched=datetime.utcnow(),
+        )
+
+    @classmethod
+    def not_applicable(cls, reason: str = "") -> "StatusField[T]":
+        """해당 케이스에 적용 안됨."""
+        return cls(
+            value=None,
+            status=SearchStatus.NOT_APPLICABLE,
+            note=reason,
+        )
+
+    @classmethod
+    def not_searched(cls) -> "StatusField[T]":
+        """아직 검색 안함."""
+        return cls(
+            value=None,
+            status=SearchStatus.NOT_SEARCHED,
+        )
+
+    # Legacy factory methods (for backward compatibility)
+    @classmethod
+    def confirmed(cls, value: T, source: str = "") -> "StatusField[T]":
+        """Create a confirmed field (legacy - use found())."""
+        return cls.found(value, source)
 
     @classmethod
     def empty(cls, source: str = "") -> "StatusField[T]":
-        """Create an explicitly empty field."""
-        return cls(
-            value=None,
-            status=DataStatus.EMPTY,
-            source=source,
-            updated_at=datetime.utcnow(),
-        )
+        """Create an empty field (legacy - use confirmed_none())."""
+        return cls.confirmed_none(source) if source else cls.not_searched()
 
     @classmethod
     def unknown(cls, value: Optional[T] = None, source: str = "") -> "StatusField[T]":
-        """Create an unknown status field."""
-        return cls(
-            value=value,
-            status=DataStatus.UNKNOWN,
-            source=source,
-            updated_at=datetime.utcnow(),
-        )
+        """Create an unknown field (legacy - use not_searched())."""
+        if value is not None:
+            return cls.found(value, source, confidence=0.5)
+        return cls.not_searched()
 
 
 class BaseSchema(BaseModel):
@@ -125,7 +215,12 @@ class VersionedSchema(TimestampedSchema):
 
 
 __all__ = [
+    # Search status (Wave 2)
+    "SearchStatus",
+    "SourceTier",
+    # Legacy (deprecated)
     "DataStatus",
+    # Core
     "StatusField",
     "BaseSchema",
     "TimestampedSchema",

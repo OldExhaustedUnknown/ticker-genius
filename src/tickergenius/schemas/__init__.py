@@ -3,18 +3,16 @@ Ticker-Genius Schemas
 =====================
 M1: Pydantic v2 data models for the application.
 
-This module provides all data schemas used throughout the application.
-All schemas use Pydantic v2 and follow these conventions:
-
-1. StatusField for uncertain/missing data (3-state: CONFIRMED/EMPTY/UNKNOWN)
-2. Immutable where possible (frozen=True)
-3. Clear validation rules with Field constraints
-4. Type hints for all fields
+Wave 2 Update (2026-01-10):
+- StatusField: 5-state SearchStatus (FOUND/CONFIRMED_NONE/NOT_APPLICABLE/NOT_FOUND/NOT_SEARCHED)
+- PDUFAEvent: 완전한 데이터 스키마 + 12개 신규 필드
+- Price models: PriceHistory, PDUFAPriceWindow, TradingSignal
 
 Modules:
 - base: Core primitives (StatusField, BaseSchema)
-- enums: All enumeration types
+- enums: All enumeration types (including SearchStatus, SourceTier)
 - pipeline: Pipeline, PDUFAEvent, ApprovalProbability
+- price_models: PriceHistory, PDUFAPriceWindow, TradingSignal
 - clinical: ClinicalTrial, ClinicalEndpoint
 - manufacturing: ManufacturingFacility, PAITracking
 """
@@ -22,6 +20,8 @@ Modules:
 # Base
 from tickergenius.schemas.base import (
     DataStatus,
+    SearchStatus,
+    SourceTier,
     StatusField,
     BaseSchema,
     TimestampedSchema,
@@ -30,6 +30,12 @@ from tickergenius.schemas.base import (
 
 # Enums
 from tickergenius.schemas.enums import (
+    # Data Collection (Wave 2)
+    SearchStatus,
+    SourceTier,
+    TrialRegion,
+    CRLReasonType,
+    # Core
     TimingSignal,
     StrategyType,
     CRLType,
@@ -48,13 +54,27 @@ from tickergenius.schemas.enums import (
     CitizenPetitionFDAResponse,
 )
 
-# Pipeline
+# Pipeline (Wave 2 - includes nested models)
 from tickergenius.schemas.pipeline import (
+    FDADesignations,
+    AdComInfo,
+    Enrollment,
+    PValue,
+    CRLReason,
     PDUFAEvent,
+    PDUFAEventLegacy,
     CRLDetail,
     ApprovalProbability,
     Pipeline,
     PipelineSummary,
+)
+
+# Price Models (Wave 2)
+from tickergenius.schemas.price_models import (
+    PricePoint,
+    PriceHistory,
+    PDUFAPriceWindow,
+    TradingSignal,
 )
 
 # Clinical
@@ -75,11 +95,16 @@ from tickergenius.schemas.manufacturing import (
 __all__ = [
     # Base
     "DataStatus",
+    "SearchStatus",
+    "SourceTier",
     "StatusField",
     "BaseSchema",
     "TimestampedSchema",
     "VersionedSchema",
-    # Enums
+    # Enums (Wave 2)
+    "TrialRegion",
+    "CRLReasonType",
+    # Enums (Core)
     "TimingSignal",
     "StrategyType",
     "CRLType",
@@ -96,12 +121,24 @@ __all__ = [
     "CitizenPetitionTiming",
     "CitizenPetitionQuality",
     "CitizenPetitionFDAResponse",
-    # Pipeline
+    # Pipeline - Nested Models (Wave 2)
+    "FDADesignations",
+    "AdComInfo",
+    "Enrollment",
+    "PValue",
+    "CRLReason",
+    # Pipeline - Events
     "PDUFAEvent",
+    "PDUFAEventLegacy",
     "CRLDetail",
     "ApprovalProbability",
     "Pipeline",
     "PipelineSummary",
+    # Price Models (Wave 2)
+    "PricePoint",
+    "PriceHistory",
+    "PDUFAPriceWindow",
+    "TradingSignal",
     # Clinical
     "ClinicalEndpoint",
     "ClinicalTrial",

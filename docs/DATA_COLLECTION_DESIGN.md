@@ -1,7 +1,12 @@
 # 데이터셋 구축 설계 원칙
 
+> **⚠️ PARTIAL UPDATE**: 이 문서의 수집 파이프라인은 유효하나, 데이터 모델은 M3_BLUEPRINT_v2.md 참조
+> - **유효**: API 클라이언트, 수집 순서, 검증 로직, 소스 티어
+> - **변경됨**: 케이스 단위 (약물 → PDUFA 이벤트)
+> - **추가 필요**: 이벤트 추출 로직 (EventExtractor)
+
 **작성일**: 2026-01-08
-**상태**: 설계 대기 (구축 전 페르소나 토론 필요)
+**상태**: 부분 업데이트 (M3_BLUEPRINT_v2.md와 함께 참조)
 
 ---
 
@@ -378,9 +383,77 @@ data/collected/
 
 ---
 
+## DDG 기반 검색 전략 (2026-01-09 추가)
+
+### 배경
+- SEC EFTS Full-text Search: 403 Forbidden (봇 차단)
+- ClinicalTrials.gov API: 403 Forbidden
+- Python 기반 외부 API 접근이 대부분 봇으로 감지됨
+
+### 해결책: DuckDuckGo Search 라이브러리
+`ddgs` 패키지를 활용한 웹 검색 기반 데이터 수집
+
+```python
+from ddgs import DDGS
+
+# 임상 결과 검색
+results = DDGS().text(f"{ticker} {drug_name} phase 3 primary endpoint met", max_results=5)
+```
+
+### 검색 전략
+
+**1. Primary Endpoint 검색**
+```
+쿼리: "{ticker} {drug_name} phase 3 primary endpoint met"
+패턴: "met its primary endpoint", "achieved primary endpoint",
+      "positive top-line results", "statistically significant"
+```
+
+**2. P-value 추출**
+```
+쿼리: "{drug_name} clinical trial results p-value"
+패턴: "p<0.001", "p=0.0001", "p-value of 0.05"
+```
+
+**3. Approval Type 분류**
+```
+쿼리: "{ticker} {drug_name} FDA NDA BLA application filing"
+패턴: "NDA", "BLA", "ANDA", "sNDA", "505(b)(2)"
+```
+
+### 구현 파일
+- `src/tickergenius/collection/ddg_searcher.py` - DDG 검색 클라이언트
+- `scripts/enrich_with_ddg.py` - DDG 기반 enrichment 스크립트
+
+### 결과 저장
+```json
+{
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "ddg_search",
+    "confidence": 0.8,
+    "evidence": ["..."]
+  }
+}
+```
+
+### Fallback Chain (최종)
+1. **SEC EDGAR Submissions API** - 8-K 목록 조회 (작동)
+2. **DDG Web Search** - 임상 결과, approval type 검색
+3. **OpenFDA API** - FDA 승인 정보 (부분 작동)
+4. **Legacy Data** - 기존 수집 데이터 활용
+
+### Rate Limit
+- DDG: 2초 간격 (MIN_INTERVAL)
+- 검색당 3개 쿼리 × 5개 결과 = 15건 파싱
+
+---
+
 ## 참고
 
 - 523건은 고유 PDUFA 케이스 (동일 티커 여러 약물 포함)
 - v12 레거시에서 586건 중 523건이 유효 (63건은 중복 또는 무효)
 - 일부 케이스는 역사적 데이터 (이미 결과 확정)
 - 신규 케이스는 지속적 업데이트 필요
+- **DDG 검색 기반 enrichment 진행 중** (2026-01-09)

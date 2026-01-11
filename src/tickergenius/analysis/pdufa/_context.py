@@ -41,6 +41,30 @@ class CRLInfo:
     days_to_resubmission: Optional[int] = None
 
 
+def _derive_is_cmc_only(crl) -> bool:
+    """
+    Derive is_cmc_only from CRL data.
+
+    Wave 4 (2026-01-10): Priority order:
+    1. crl_reason_type field (if "cmc" → True)
+    2. CRLType enum (CMC_MINOR, CMC_MAJOR → True)
+    3. Default: False
+    """
+    # Check crl_reason_type if available (new PDUFAEvent schema)
+    if hasattr(crl, 'crl_reason_type'):
+        reason_type = crl.crl_reason_type
+        if isinstance(reason_type, dict):  # StatusField format
+            reason_type = reason_type.get('value')
+        if reason_type == "cmc":
+            return True
+
+    # Fallback to CRLType enum
+    if hasattr(crl, 'crl_type'):
+        return crl.crl_type in (CRLType.CMC_MINOR, CRLType.CMC_MAJOR)
+
+    return False
+
+
 @dataclass(frozen=True)
 class AdComInfo:
     """AdCom information for context."""
@@ -331,12 +355,13 @@ class AnalysisContext:
             pdufa_date = pipeline.pdufa_date.value
 
         # Build CRL history
+        # Wave 4 (2026-01-10): Support crl_reason_type for is_cmc_only derivation
         crl_history = tuple(
             CRLInfo(
                 crl_type=crl.crl_type,
                 crl_date=crl.crl_date,
                 resubmission_class=crl.resubmission_class,
-                is_cmc_only=(crl.crl_type == CRLType.CMC),
+                is_cmc_only=_derive_is_cmc_only(crl),
                 issues=tuple(crl.issues),
             )
             for crl in pipeline.crl_history
@@ -369,6 +394,127 @@ class AnalysisContext:
     def minimal(cls, ticker: str, drug_name: str = "") -> "AnalysisContext":
         """Create minimal context for testing."""
         return cls(ticker=ticker, drug_name=drug_name or ticker)
+
+    @classmethod
+    def from_enriched(cls, data: dict) -> "AnalysisContext":
+        """
+        Create context from enriched JSON data.
+
+        This is the PRIMARY entry point for loading data from
+        data/enriched/*.json files into analysis context.
+
+        Args:
+            data: dict loaded from enriched JSON file
+
+        Returns:
+            AnalysisContext populated from enriched data
+        """
+        from datetime import datetime
+
+        def get_value(field_data):
+            """Extract value from StatusField dict or raw value."""
+            if field_data is None:
+                return None
+            if isinstance(field_data, dict):
+                return field_data.get("value")
+            return field_data
+
+        def get_bool(field_data, default=False):
+            """Extract boolean from StatusField dict or raw value."""
+            val = get_value(field_data)
+            if val is None:
+                return default
+            return bool(val)
+
+        def parse_date(date_str):
+            """Parse date string to date object."""
+            if not date_str:
+                return None
+            if isinstance(date_str, date):
+                return date_str
+            try:
+                return datetime.strptime(date_str[:10], "%Y-%m-%d").date()
+            except (ValueError, TypeError):
+                return None
+
+        # Basic info
+        ticker = data.get("ticker", "")
+        drug_name = data.get("drug_name", "")
+        pdufa_date = parse_date(get_value(data.get("pdufa_date")))
+
+        # Approval type
+        approval_type_str = get_value(data.get("approval_type"))
+        try:
+            approval_type = ApprovalType(approval_type_str.upper()) if approval_type_str else ApprovalType.NDA
+        except (ValueError, AttributeError):
+            approval_type = ApprovalType.NDA
+
+        # FDA Designations
+        fda_designations = FDADesignations(
+            breakthrough_therapy=get_bool(data.get("breakthrough_therapy")),
+            priority_review=get_bool(data.get("priority_review")),
+            fast_track=get_bool(data.get("fast_track")),
+            orphan_drug=get_bool(data.get("orphan_drug")),
+            accelerated_approval=get_bool(data.get("accelerated_approval")),
+            is_first_in_class=get_bool(data.get("is_first_in_class")),
+        )
+
+        # AdCom info
+        adcom_held = get_bool(data.get("adcom_scheduled"))
+        adcom_vote = get_value(data.get("adcom_vote_ratio"))
+        adcom = AdComInfo(
+            was_held=adcom_held,
+            vote_ratio=float(adcom_vote) if adcom_vote else None,
+        )
+
+        # Clinical info
+        phase = get_value(data.get("phase")) or "phase3"
+        nct_ids = get_value(data.get("nct_ids")) or []
+        primary_nct = nct_ids[0] if nct_ids else None
+
+        clinical = ClinicalInfo(
+            phase=phase,
+            primary_endpoint_met=get_bool(data.get("primary_endpoint_met")),
+            is_single_arm=get_bool(data.get("is_single_arm")),
+            trial_region=get_value(data.get("trial_region")),
+            nct_id=primary_nct,
+        )
+
+        # Manufacturing info
+        manufacturing = ManufacturingInfo(
+            pai_passed=get_bool(data.get("pai_passed")),
+            has_warning_letter=get_bool(data.get("warning_letter")),
+        )
+
+        # CRL history
+        crl_history = ()
+        if get_bool(data.get("has_prior_crl")):
+            crl_reason = get_value(data.get("prior_crl_reason"))
+            is_cmc = crl_reason and "cmc" in str(crl_reason).lower()
+            crl_history = (CRLInfo(
+                crl_type=CRLType.CMC_MINOR if is_cmc else CRLType.EFFICACY_SUPPLEMENT,
+                is_cmc_only=is_cmc,
+            ),)
+
+        # Days to PDUFA
+        days_to_pdufa = None
+        if pdufa_date:
+            days_to_pdufa = (pdufa_date - date.today()).days
+
+        return cls(
+            ticker=ticker,
+            drug_name=drug_name,
+            pdufa_date=pdufa_date,
+            days_to_pdufa=days_to_pdufa,
+            approval_type=approval_type,
+            is_resubmission=get_bool(data.get("is_resubmission")),
+            is_biosimilar=get_bool(data.get("is_biosimilar")),
+            fda_designations=fda_designations,
+            adcom=adcom,
+            crl_history=crl_history,
+            clinical=clinical,
+            manufacturing=manufacturing,
+        )
 
 
 __all__ = [
