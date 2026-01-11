@@ -1,0 +1,286 @@
+{
+  "event_id": "fb30fee0e11c",
+  "ticker": "PFE",
+  "company_name": "Pfizer",
+  "drug_name": "BEQVEZ fidanacogene elaparvovec-dzkt",
+  "pdufa_date": "2024-04-30",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:BENEGENE-2 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:13:39.969483",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Hemophilia B gene therapy",
+    "source": "websearch:BENEGENE-2 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:13:39.969484",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "fidanacogene elaparvovec-dzkt",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:05:16.351049",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Gene Therapy",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.009990",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:05:16.351049",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:BENEGENE-2 Phase 3",
+    "confidence": 0.95,
+    "evidence": [
+      "BENEGENE-2 Phase 3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:13:39.969470",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.0001",
+    "source": "websearch:BENEGENE-2 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:13:39.969477",
+    "error": null
+  },
+  "p_value_numeric": 0.0001,
+  "effect_size": {
+    "status": "found",
+    "value": "77% ABR reduction; 95% prophylaxis-free at year 2",
+    "source": "websearch:BENEGENE-2 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:13:39.969480",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "Gene Therapy, Open-label, Dose-escalation Study of PF-06838435 (SPK-9001) [Adeno-associated Viral Vector With Human Factor IX Gene] in Subjects With Hemophilia B",
+    "A FACTOR IX (FIX) GENE TRANSFER, MULTI CENTER EVALUATION OF THE LONG TERM SAFETY AND EFFICACY STUDY OF PF 06838435 AND A DOSE ESCALATION SUBSTUDY IN INDIVIDUALS WITH HEMOPHILIA B",
+    "AN OPEN-LABEL, NON-INVESTIGATIONAL PRODUCT, LEAD-IN STUDY TO EVALUATE AT LEAST 6 MONTHS OF PROSPECTIVE EFFICACY AND SAFETY DATA OF FACTOR IX OR FACTOR VIII PROPHYLAXIS REPLACEMENT THERAPY IN THE USUAL CARE SETTING OF MODERATELY SEVERE TO SEVERE ADULT HEMOPHILIA B SUBJECTS (FIX:C≤2%) WHO ARE NEGATIVE FOR nAb TO AAV VECTOR-SPARK100 AND MODERATELY SEVERE TO SEVERE HEMOPHILIA A ADULT SUBJECTS (FVIII:C≤1%) WHO ARE NEGATIVE FOR nAb TO AAV VECTOR SB-525 CAPSID (AAV6), PRIOR TO THE RESPECTIVE THERAPEUTIC PH 3 GENE THERAPY STUDIES (See Detailed Description Section for Official Protocol Title)",
+    "Phase 3, Open-label, Single-arm Study to Evaluate Efficacy and Safety of FIX Gene Transfer With PF-06838435 (rAAV-Spark100-hFIX-R338L) in Adult Male Participants With Moderately Severe to Severe Hemophilia B (FIX:C ≤2%) (BeneGene-2)",
+    "A PHASE 3, NON-INVESTIGATIONAL PRODUCT, MULTI COUNTRY COHORT STUDY TO DESCRIBE THE LONG-TERM SAFETY AND EFFECTIVENESS OF A PRIOR SINGLE-DOSE TREATMENT WITH INVESTIGATIVE GIROCTOCOGENE FITELPARVOVEC OR FIDANACOGENE ELAPARVOVEC IN PARTICIPANTS WITH HEMOPHILIA A OR HEMOPHILIA B, RESPECTIVELY"
+  ],
+  "nct_ids": [
+    "NCT02484092",
+    "NCT03307980",
+    "NCT03587116",
+    "NCT03861273",
+    "NCT05568719"
+  ],
+  "enrollment": {
+    "count": 212,
+    "type": "ACTUAL",
+    "nct_id": "NCT03587116",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:29:31.824141"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:23:41.021106",
+  "enriched_at": "2026-01-11T19:57:37.298610",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "6bedef85f5ee",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "AAV gene therapy",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -620,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:41.498890",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:43:41.747030"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:43:41.747038"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:57:17.529131",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:57:22.429614",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:57:27.451955",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:57:32.424377",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:57:37.298593",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

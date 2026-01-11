@@ -1,0 +1,285 @@
+{
+  "event_id": "a1f72b63eb1a",
+  "ticker": "LLY",
+  "company_name": "Eli Lilly",
+  "drug_name": "Kisunla donanemab-azbt",
+  "pdufa_date": "20240702",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:TRAILBLAZER-ALZ 2 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.738583",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Alzheimer's disease",
+    "source": "websearch:TRAILBLAZER-ALZ 2 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.738585",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "donanemab-azbt",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Neurology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.867945",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:TRAILBLAZER-ALZ 2 Phase 3",
+    "confidence": 0.95,
+    "evidence": [
+      "TRAILBLAZER-ALZ 2 Phase 3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.738569",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.0001",
+    "source": "websearch:TRAILBLAZER-ALZ 2 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.738577",
+    "error": null
+  },
+  "p_value_numeric": 0.0001,
+  "effect_size": {
+    "status": "found",
+    "value": "35% slowing of cognitive decline on iADRS; 36% on CDR-SB",
+    "source": "websearch:TRAILBLAZER-ALZ 2 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.738579",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": true,
+    "source": "known_safety_database",
+    "confidence": 0.95,
+    "tier": 1,
+    "reason": "ARIA risk",
+    "severity": "medium"
+  },
+  "phase3_study_names": [
+    "Assessment of Safety, Tolerability and Efficacy of LY3002813 in Early Symptomatic Alzheimer's Disease"
+  ],
+  "nct_ids": [
+    "NCT03367403"
+  ],
+  "enrollment": {
+    "count": 272,
+    "type": "ACTUAL",
+    "nct_id": "NCT03367403",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:10.496920"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_resubmission",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:24:16.221048",
+  "enriched_at": "2026-01-11T19:20:23.102164",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "7cd71f4f97c8",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "Anti-amyloid antibody",
+  "adcom_info": {
+    "scheduled": true,
+    "held": true,
+    "outcome": "favorable",
+    "vote": "positive"
+  },
+  "days_to_pdufa": -557,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.459333",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:40:41.097986"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:40:41.097996"
+  },
+  "breakthrough_therapy": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA approves Kisunla™ (donanemab-azbt) for Alzheimer's ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:06.901583",
+    "search_status": "FOUND"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:11.792464",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA Approves Donanemab (Kisunla) For Early Symptomatic ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:15.405915",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA Approves Donanemab (Kisunla) For Early Symptomatic ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:16.478931",
+    "search_status": "FOUND"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:23.102147",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

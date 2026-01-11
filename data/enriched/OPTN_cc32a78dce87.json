@@ -1,0 +1,286 @@
+{
+  "event_id": "cc32a78dce87",
+  "ticker": "OPTN",
+  "company_name": "OptiNose",
+  "drug_name": "XHANCE fluticasone propionate",
+  "pdufa_date": "20200423",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:NAVIGATE Phase 3 (Approved Sep 2017, Mar 2024 CRS)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.523884",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Nasal polyps/CRS",
+    "source": "websearch:NAVIGATE Phase 3 (Approved Sep 2017, Mar 2024 CRS)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.523885",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "fluticasone propionate",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Respiratory",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.979947",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:NAVIGATE Phase 3 (Approved Sep 2017, Mar 2024 CRS)",
+    "confidence": 0.95,
+    "evidence": [
+      "NAVIGATE Phase 3 (Approved Sep 2017, Mar 2024 CRS)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.523871",
+    "error": null
+  },
+  "p_value": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "websearch:NAVIGATE Phase 3 (Approved Sep 2017, Mar 2024 CRS)",
+    "confidence": 0.9,
+    "evidence": [
+      "Single-arm or accelerated approval - no comparator p-value"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.523878",
+    "error": null
+  },
+  "p_value_numeric": null,
+  "effect_size": {
+    "status": "found",
+    "value": "Significant nasal congestion/polyp reduction",
+    "source": "websearch:NAVIGATE Phase 3 (Approved Sep 2017, Mar 2024 CRS)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.523880",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A 16-Week Randomized, Double-Blind, Placebo-Controlled, Parallel-Group, Multicenter Study Evaluating the Efficacy and Safety of Intranasal Administration of 100, 200, and 400 μg of Fluticasone Propionate Twice a Day (BID) Using a Novel Bi Directional Device in Subjects With Bilateral Nasal Polyposis Followed by an 8-Week Open-Label Extension Phase to Assess Safety",
+    "A 16-Week Randomized, Double-blind, Placebo-controlled, Parallel-group, Multicenter Study Evaluating the Efficacy and Safety of Intranasal Administration of 100, 200, and 400 μg of Fluticasone Propionate Twice a Day (Bid) Using a Novel Bi-directional Device in Subjects With Bilateral Nasal Polyposis Followed by an 8-week, Open-label Extension Phase to Assess Safety",
+    "An Open-Label, 2-Part, Randomized, Crossover Study to Compare the Bioavailability of Intranasal Administration of 200 and 400 µg of OPTINOSE™ FLUTICASONE With 400 µg of Flonase® (Fluticasone Propionate) Nasal Spray (Part 1), and Intranasal Administration of 200 and 400 µg or 400 µg Alone of OPTINOSE™ FLUTICASONE With 440 µg of Flovent® HFA (Fluticasone Propionate) Inhalation Aerosol (Part 2) (Current Investigation is Part 2 Only)",
+    "Hypertonic Versus Isotonic Saline Irrigations for Chronic Rhinosinusitis"
+  ],
+  "nct_ids": [
+    "NCT01622569",
+    "NCT01624662",
+    "NCT02266927",
+    "NCT04242368"
+  ],
+  "enrollment": {
+    "count": 323,
+    "type": "ACTUAL",
+    "nct_id": "NCT01622569",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:29:06.127807"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:24:33.766467",
+  "enriched_at": "2026-01-11T19:49:11.100108",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "d7438213bc40",
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": false,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "Corticosteroid",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -2088,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:41.273527",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:43:02.939952"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:43:02.939960"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:48:45.651523",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:48:52.199132",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:48:58.506981",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:49:05.290912",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:49:11.100077",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

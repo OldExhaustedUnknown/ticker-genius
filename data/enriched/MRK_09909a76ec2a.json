@@ -1,0 +1,282 @@
+{
+  "event_id": "09909a76ec2a",
+  "ticker": "MRK",
+  "company_name": "Merck & Co.",
+  "drug_name": "WELIREG belzutifan",
+  "pdufa_date": "20240226",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:LITESPARK-004 Phase 2 (single-arm)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:18:57.858102",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "VHL disease-associated tumors",
+    "source": "websearch:LITESPARK-004 Phase 2 (single-arm)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:18:57.858104",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "belzutifan",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.897005",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:LITESPARK-004 Phase 2 (single-arm)",
+    "confidence": 0.85,
+    "evidence": [
+      "LITESPARK-004 Phase 2 (single-arm)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:18:57.858090",
+    "error": null
+  },
+  "p_value": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "websearch:LITESPARK-004 Phase 2 (single-arm)",
+    "confidence": 0.9,
+    "evidence": [
+      "Single-arm or accelerated approval - no comparator p-value"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:18:57.858098",
+    "error": null
+  },
+  "p_value_numeric": null,
+  "effect_size": {
+    "status": "found",
+    "value": "ORR 49-59% in VHL disease tumors",
+    "source": "websearch:LITESPARK-004 Phase 2 (single-arm)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:18:57.858100",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A Phase 1, Dose-Escalation and Expansion Trial of PT2977, a HIF-2α Inhibitor, in Patients With Advanced Solid Tumors",
+    "An Open-label, Randomized Phase 3 Study of MK-6482 Versus Everolimus in Participants With Advanced Renal Cell Carcinoma That Has Progressed After Prior PD-1/L1 and VEGF-Targeted Therapies"
+  ],
+  "nct_ids": [
+    "NCT02974738",
+    "NCT04195750"
+  ],
+  "enrollment": {
+    "count": 755,
+    "type": "ACTUAL",
+    "nct_id": "NCT04195750",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:24.430198"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:25:09.779580",
+  "enriched_at": "2026-01-11T19:27:11.498499",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "b5470053760d",
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": true
+  },
+  "mechanism_of_action": "HIF-2α inhibitor",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -684,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.675157",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:41:18.354318"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:41:18.354326"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:26:52.050954",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:26:56.967228",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:27:01.725341",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:27:06.604783",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:27:11.498474",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "event_id": "2b42f35491d2",
+  "ticker": "RVNC",
+  "company_name": "Revance Therapeutics",
+  "drug_name": "DaxibotulinumtoxinA",
+  "pdufa_date": "2023-08-19",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:SAKURA Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.588932",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Moderate-to-severe glabellar lines (frown lines) in adults",
+    "source": "websearch:SAKURA Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.588934",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: final_mapping",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Neurology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.052645",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:SAKURA Phase 3",
+    "confidence": 0.85,
+    "evidence": [
+      "SAKURA Phase 3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.588920",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.001",
+    "source": "websearch:SAKURA Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.588927",
+    "error": null
+  },
+  "p_value_numeric": 0.001,
+  "effect_size": {
+    "status": "found",
+    "value": "74% achieved >=2-grade improvement in glabellar lines at week 4; median duration 6 months",
+    "source": "websearch:SAKURA Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.588929",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": true,
+    "source": "known_safety_database",
+    "confidence": 0.95,
+    "tier": 1,
+    "reason": "Black Box - Spread of toxin",
+    "severity": "medium"
+  },
+  "phase3_study_names": [
+    "A Phase 3, Randomized, Double-Blind, Placebo Controlled, Multi-Center Trial to Evaluate the Efficacy and Safety of DaxibotulinumtoxinA for Injection to Treat Moderate to Severe Glabellar Lines (SAKURA-1)",
+    "A Phase 3, Randomized, Double-Blind, Placebo Controlled, Multi-Center Trial to Evaluate the Efficacy and Safety of DaxibotulinumtoxinA for Injection to Treat Moderate to Severe Glabellar Lines (SAKURA-2)",
+    "An Open-Label, Multi-Center Trial to Assess the Safety of Single and Repeat Treatments of DaxibotulinumtoxinA for Injection for Treatment of Moderate to Severe Glabellar Lines (SAKURA OPEN-LABEL SAFETY)",
+    "A Phase 2, Multicenter, Open-Label Study to Evaluate the Efficacy and Safety of DaxibotulinumtoxinA for Injection (DAXI for Injection) for the Combined Treatment of Upper Facial Lines (Glabellar Lines, Dynamic Forehead Lines and Lateral Canthal Lines)",
+    "A Phase 2a, Multicenter, Open-Label, Dose-Escalation Study to Evaluate the Efficacy and Safety of DaxibotulinumtoxinA (DAXI) for Injection for the Treatment of Dynamic Forehead Lines (Frontalis) Following Glabellar Line Injections"
+  ],
+  "nct_ids": [
+    "NCT03014622",
+    "NCT03014635",
+    "NCT03004248",
+    "NCT04259086",
+    "NCT03786770"
+  ],
+  "enrollment": {
+    "count": 2691,
+    "type": "ACTUAL",
+    "nct_id": "NCT03004248",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:30:05.202412"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.15,
+  "collected_at": "2026-01-09T00:27:22.162819",
+  "enriched_at": "2026-01-11T20:09:46.986300",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "686a3b834f81",
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "Neurotoxin",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -875,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:41.872055",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:44:40.428029"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:44:40.428037"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:09:27.760005",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:09:32.522425",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:09:37.300829",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:09:42.073375",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:09:46.986283",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

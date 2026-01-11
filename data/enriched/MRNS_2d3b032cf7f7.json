@@ -1,0 +1,278 @@
+{
+  "event_id": "2d3b032cf7f7",
+  "ticker": "MRNS",
+  "company_name": "Marinus Pharmaceuticals",
+  "drug_name": "Ganaxolone",
+  "pdufa_date": "2022-03-20",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:MARIGOLD Phase 3 (Approved Mar 2022)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.468676",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "CDKL5 deficiency disorder seizures",
+    "source": "websearch:MARIGOLD Phase 3 (Approved Mar 2022)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.468678",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "ganaxolone",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Neurology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.932765",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:MARIGOLD Phase 3 (Approved Mar 2022)",
+    "confidence": 0.95,
+    "evidence": [
+      "MARIGOLD Phase 3 (Approved Mar 2022)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.468664",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "p=0.0036",
+    "source": "websearch:MARIGOLD Phase 3 (Approved Mar 2022)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.468671",
+    "error": null
+  },
+  "p_value_numeric": 0.0036,
+  "effect_size": {
+    "status": "found",
+    "value": "30.7% vs 6.9% seizure reduction",
+    "source": "websearch:MARIGOLD Phase 3 (Approved Mar 2022)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.468673",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A Double-blind, Randomized, Placebo-controlled Trial of Adjunctive Ganaxolone Treatment in Children and Young Adults With Cyclin-dependent Kinase-like 5 (CDKL5) Deficiency Disorder (CDD) Followed by Long-term Open-label Treatment"
+  ],
+  "nct_ids": [
+    "NCT03572933"
+  ],
+  "enrollment": {
+    "count": 101,
+    "type": "ACTUAL",
+    "nct_id": "NCT03572933",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:39.604664"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:32:15.751261",
+  "enriched_at": "2026-01-11T19:36:30.290002",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "af44ab1aaa2b",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "GABA-A receptor modulator",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -1392,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.930146",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:42:02.992301"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:42:02.992310"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:36:11.083346",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:36:15.891888",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:36:20.736644",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:36:25.523595",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:36:30.289985",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

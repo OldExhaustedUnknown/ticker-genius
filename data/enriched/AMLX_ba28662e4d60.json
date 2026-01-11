@@ -1,0 +1,489 @@
+{
+  "event_id": "ba28662e4d60",
+  "ticker": "AMLX",
+  "company_name": "Amylyx Pharmaceuticals",
+  "drug_name": "AMX0035",
+  "result": "withdrawn",
+  "pdufa_date": "2022-09-29",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:CENTAUR Phase 2 (AdCom 7-2)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.111742",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Amyotrophic lateral sclerosis (ALS)",
+    "source": "websearch:CENTAUR Phase 2 (AdCom 7-2)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.111743",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "sodium phenylbutyrate/taurursodiol",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Neurology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.454126",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "Sodium phenylbutyrate/taurursodiol",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:32.017774",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Withdrawn",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:CENTAUR Phase 2 (AdCom 7-2)",
+    "confidence": 0.85,
+    "evidence": [
+      "CENTAUR Phase 2 (AdCom 7-2)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.111729",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "0.03",
+    "source": "websearch:CENTAUR Phase 2 (AdCom 7-2)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.111737",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "ALSFRS-R decline slowed 25% (1.24 vs 1.66 pts/month); OS HR 0.64 in OLE",
+    "source": "websearch:CENTAUR Phase 2 (AdCom 7-2)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.111739",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "withdrawn",
+    "confidence": 1.0,
+    "evidence": [
+      "Application withdrawn"
+    ],
+    "searched_sources": [
+      "internal_dataset"
+    ],
+    "last_searched": "2026-01-09T21:29:37.609697",
+    "error": null
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.75,
+    "tier": 2
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "p_value_numeric": 0.03,
+  "nct_ids": [
+    "NCT03127514"
+  ],
+  "phase3_study_names": [
+    "Evaluation of the Safety, Tolerability, Efficacy and Activity of AMX0035, a Fixed Combination of Phenylbutyrate (PB) and Tauroursodeoxycholic Acid (TUDCA), for the Treatment of ALS"
+  ],
+  "prior_crl_reason": {
+    "status": "found",
+    "value": "Confirmatory PHOENIX trial failed, voluntarily withdrawn",
+    "source": "web_search",
+    "category": "CLINICAL_DATA",
+    "confidence": 0.9,
+    "tier": 2
+  },
+  "enrollment": {
+    "count": 137,
+    "type": "ACTUAL",
+    "nct_id": "NCT03127514",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:24:47.605654"
+  },
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "adcom_info": {
+    "scheduled": true,
+    "held": true,
+    "date": null,
+    "outcome": "favorable",
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": false,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-10T13:11:37.079318",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "us_only",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['UNITED STATES']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-10T13:11:37.079346",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "approval_type_nda",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "approval_type=nda"
+    ],
+    "searched_sources": [
+      "approval_type_nda"
+    ],
+    "last_searched": "2026-01-10T13:11:17.313882",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_fda",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "No FDA warning letter found in search"
+    ],
+    "searched_sources": [
+      "websearch_fda"
+    ],
+    "last_searched": "2026-01-11T04:13:22.557712",
+    "error": null
+  },
+  "fda_483_date": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:31:04.799322",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:31:05.812161",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -1199,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:37.268538",
+  "original_case_id": "06b053e6b238",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:31:09.359334",
+  "enriched_at": "2026-01-11T17:33:08.376238",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:32.017797",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": true,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [
+      "FDA Committee, in Reversal, Favors AMX0035 Approval for ALS FDA advisers back Amylyx ALS drug, rever",
+      "Vote ratio extracted: 77.8%",
+      "FDA Advisory Committee Votes to Recommend AMX0035 for ..."
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:33:08.376227"
+  },
+  "adcom_vote_ratio": {
+    "value": 0.7777777777777778,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "FDA Committee, in Reversal, Favors AMX0035 Approval for ALS FDA advisers back Amylyx ALS drug, rever",
+      "Vote ratio extracted: 77.8%",
+      "FDA Advisory Committee Votes to Recommend AMX0035 for ..."
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:33:08.376235"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:30:37.140201",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Dear FDA: Please Grant Priority Review to AMX0035 and Approve It"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:30:39.881090",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [
+      "Amylyx Pharmaceuticals Reports Second Quarter 2025 ... - BioSpace"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:30:41.304650",
+    "search_status": "FOUND"
+  },
+  "orphan_drug": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Amylyx Pharmaceuticals Receives Orphan Drug Designation From ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:30:38.357453",
+    "search_status": "FOUND"
+  },
+  "accelerated_approval": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "AMX0035 patents and clinical trials: Drug pipeline profiles ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:30:45.873417",
+    "search_status": "FOUND"
+  }
+}

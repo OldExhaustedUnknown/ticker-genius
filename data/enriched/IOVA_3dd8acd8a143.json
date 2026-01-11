@@ -1,0 +1,280 @@
+{
+  "event_id": "3dd8acd8a143",
+  "ticker": "IOVA",
+  "company_name": "Iovance Biotherapeutics",
+  "drug_name": "AMTAGVI Lifileucel",
+  "pdufa_date": "2024-02-24",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:C-144-01 Phase 2 (Accelerated Feb 2024)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.407742",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Unresectable or metastatic melanoma",
+    "source": "websearch:C-144-01 Phase 2 (Accelerated Feb 2024)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.407744",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "lifileucel",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.834621",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:C-144-01 Phase 2 (Accelerated Feb 2024)",
+    "confidence": 0.95,
+    "evidence": [
+      "C-144-01 Phase 2 (Accelerated Feb 2024)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.407730",
+    "error": null
+  },
+  "p_value": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "websearch:C-144-01 Phase 2 (Accelerated Feb 2024)",
+    "confidence": 0.9,
+    "evidence": [
+      "Single-arm or accelerated approval - no comparator p-value"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.407737",
+    "error": null
+  },
+  "p_value_numeric": null,
+  "effect_size": {
+    "status": "found",
+    "value": "ORR 31.5%, CR 4.7%",
+    "source": "websearch:C-144-01 Phase 2 (Accelerated Feb 2024)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.407739",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A Phase 2, Multicenter Study of Autologous Tumor Infiltrating Lymphocytes (LN 144/LN-145/LN-145-S1) in Patients With Solid Tumors"
+  ],
+  "nct_ids": [
+    "NCT03645928"
+  ],
+  "enrollment": {
+    "count": 245,
+    "type": "ESTIMATED",
+    "nct_id": "NCT03645928",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:27:55.153020"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:24:52.270051",
+  "enriched_at": "2026-01-11T19:11:13.838325",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "d2af4b02a0f3",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": true
+  },
+  "mechanism_of_action": "TIL cell therapy",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -686,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.198113",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:39:58.336985"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:39:58.336993"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:10:54.323378",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:10:59.225256",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:11:04.170391",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:11:08.960931",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:11:13.838308",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

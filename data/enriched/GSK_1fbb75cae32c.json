@@ -1,0 +1,331 @@
+{
+  "event_id": "1fbb75cae32c",
+  "ticker": "GSK",
+  "company_name": "GlaxoSmithKline",
+  "drug_name": "Linerixibat",
+  "pdufa_date": "2026-03-24",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:GLISTEN Phase 3 (PDUFA Mar 2026)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:01.010775",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Cholestatic pruritus in PBC",
+    "source": "websearch:GLISTEN Phase 3 (PDUFA Mar 2026)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:01.010776",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "linerixibat",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Gastroenterology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.763466",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:GLISTEN Phase 3 (PDUFA Mar 2026)",
+    "confidence": 0.95,
+    "evidence": [
+      "GLISTEN Phase 3 (PDUFA Mar 2026)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:01.010761",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "0.001",
+    "source": "websearch:GLISTEN Phase 3 (PDUFA Mar 2026)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:01.010769",
+    "error": null
+  },
+  "p_value_numeric": 0.001,
+  "effect_size": {
+    "status": "found",
+    "value": "LS mean -0.72 (WI-NRS scale)",
+    "source": "websearch:GLISTEN Phase 3 (PDUFA Mar 2026)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:01.010771",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: pending_or_withdrawn",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "phase3_study_names": [
+    "Long-term Safety and Tolerability Study of Linerixibat for the Treatment of Cholestatic Pruritus in Participants With Primary Biliary Cholangitis"
+  ],
+  "nct_ids": [
+    "NCT04167358"
+  ],
+  "enrollment": {
+    "value": 245,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_resubmission",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: pending_or_withdrawn",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "warning_letter": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: pending_or_withdrawn",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "result": "pending",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:44:00.357006",
+  "enriched_at": "2026-01-11T18:52:20.807865",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "9f371f76a186",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "IBAT inhibitor",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": 73,
+  "pdufa_status": "upcoming",
+  "risk_tier": "MEDIUM",
+  "days_calculated_at": "2026-01-10T16:59:39.665936",
+  "is_single_arm": {
+    "value": true,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=SINGLE_GROUP",
+      "allocation=NA"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:31:08.931161",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "global",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['MEXICO', 'SPAIN', 'UNITED KINGDOM', 'ISRAEL', 'JAPAN']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:31:08.931201",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:38:27.731631"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:38:27.731639"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:52:01.403247",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Linerixibat New Drug Application (NDA) accepted for ... - GSK"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:52:02.810642",
+    "search_status": "FOUND"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:52:08.529917",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:52:15.252075",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:52:20.807848",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

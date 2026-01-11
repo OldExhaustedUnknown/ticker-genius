@@ -1,0 +1,323 @@
+{
+  "event_id": "493e66384751",
+  "ticker": "ABBV",
+  "company_name": "AbbVie",
+  "drug_name": "ORIAHNN (COPACKAGED)",
+  "pdufa_date": "20251217",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:ELARIS UF-I/UF-II Phase 3 (2020)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.708942",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Heavy menstrual bleeding due to uterine fibroids",
+    "source": "websearch:ELARIS UF-I/UF-II Phase 3 (2020)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.708944",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "elagolix/estradiol/norethindrone acetate",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:05:16.351049",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Metabolic/Endocrine",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.399625",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:05:16.351049",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:ELARIS UF-I/UF-II Phase 3 (2020)",
+    "confidence": 0.95,
+    "evidence": [
+      "ELARIS UF-I/UF-II Phase 3 (2020)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.708926",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.001",
+    "source": "websearch:ELARIS UF-I/UF-II Phase 3 (2020)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.708934",
+    "error": null
+  },
+  "p_value_numeric": 0.001,
+  "effect_size": {
+    "status": "found",
+    "value": "69-76% responders vs 9-10% placebo; 50% MBL reduction",
+    "source": "websearch:ELARIS UF-I/UF-II Phase 3 (2020)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.708937",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A PHASE IIA PROSPECTIVE, OPEN-LABEL, MULTICENTER STUDY TO DETERMINE THE PHARMACOKINETICS (PK) AND SAFETY AND TOLERABILITY OF AZTREONAM-AVIBACTAM (ATM-AVI) FOR THE TREATMENT OF COMPLICATED INTRA-ABDOMINAL INFECTIONS (CIAIS) IN HOSPITALIZED ADULTS",
+    "A Phase 3 Study to Evaluate the Efficacy and Safety of Elagolix in Combination With Estradiol/Norethindrone Acetate for the Management of Heavy Menstrual Bleeding Associated With Uterine Fibroids in Premenopausal Women"
+  ],
+  "nct_ids": [
+    "NCT02655419",
+    "NCT02654054"
+  ],
+  "enrollment": {
+    "value": 40,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:35:31.303735",
+  "enriched_at": "2026-01-11T22:04:48.512724",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "68e1999bf6e4",
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": false,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "GnRH antagonist",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -24,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:36.828053",
+  "is_single_arm": {
+    "value": true,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=NON_RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:27:58.352271",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "ex_us",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['FRANCE', 'GERMANY', 'SPAIN']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:27:58.352295",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:31:31.002830"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:31:31.002837"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T22:04:30.438088",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T22:04:36.995602",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T22:04:43.315778",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "When will the patents on ORIAHNN (COPACKAGED) expire, and ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T22:04:44.332921",
+    "search_status": "FOUND"
+  },
+  "accelerated_approval": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "When will the patents on ORIAHNN (COPACKAGED) expire, and ... label - Food and Drug Administration S"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T22:04:48.512712",
+    "search_status": "FOUND"
+  }
+}

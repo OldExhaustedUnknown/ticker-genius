@@ -1,0 +1,471 @@
+{
+  "event_id": "b0f5f7824871",
+  "ticker": "ALKS",
+  "company_name": "Alkermes",
+  "drug_name": "LYBALVI",
+  "result": "approved",
+  "pdufa_date": "2023-09-25",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:ENLIGHTEN-1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.091392",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Schizophrenia/Bipolar I",
+    "source": "websearch:ENLIGHTEN-1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.091394",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "olanzapine/samidorphan",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:11:33.226880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Psychiatry",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.432740",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "D2/5-HT2A antagonist",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:31.996274",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:11:33.226880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:ENLIGHTEN-1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.95,
+    "evidence": [
+      "ENLIGHTEN-1/2 Phase 3 (Approved May 2021)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.091380",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.001",
+    "source": "websearch:ENLIGHTEN-1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.091387",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "Weight gain mitigation vs olanzapine",
+    "source": "websearch:ENLIGHTEN-1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.091389",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 1,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "p_value_numeric": 0.001,
+  "nct_ids": [
+    "NCT02694328",
+    "NCT02469155"
+  ],
+  "phase3_study_names": [
+    "A Phase 3 Study to Evaluate Weight Gain of ALKS 3831 Compared to Olanzapine in Adults With Schizophrenia",
+    "A Randomized, Double-Blind, Placebo- and Active-Controlled, Multi-Center Study to Assess the Antipsychotic Efficacy of ITI-007 After 6 Weeks of Treatment in Patients With Schizophrenia"
+  ],
+  "prior_crl_reason": null,
+  "enrollment": {
+    "value": 561,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "date": null,
+    "outcome": null,
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": false,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:28:13.090817",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "global",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['UNITED STATES', 'PUERTO RICO']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:28:13.090847",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "approval_type_nda",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "approval_type=nda"
+    ],
+    "searched_sources": [
+      "approval_type_nda"
+    ],
+    "last_searched": "2026-01-10T13:11:17.293830",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_fda",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "No FDA warning letter found in search"
+    ],
+    "searched_sources": [
+      "websearch_fda"
+    ],
+    "last_searched": "2026-01-11T04:13:10.647038",
+    "error": null
+  },
+  "fda_483_date": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:30:23.401298",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:30:22.404817",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -838,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:37.102095",
+  "original_case_id": "e8e34cf56b31",
+  "data_quality_score": 0.15,
+  "collected_at": "2026-01-09T00:42:56.696389",
+  "enriched_at": "2026-01-11T17:32:33.683267",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:31.996298",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:32:33.683256"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:32:33.683264"
+  },
+  "breakthrough_therapy": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Alkermes Inks Avadel Sleep Deal, Posts 32% Lybalvi Sales Gain ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:25:19.344677",
+    "search_status": "FOUND"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:25:32.384297",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:25:38.895339",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:25:26.041548",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:25:45.463240",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

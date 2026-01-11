@@ -1,0 +1,472 @@
+{
+  "event_id": "9fb6050bc276",
+  "ticker": "BGNE",
+  "company_name": "BeiGene",
+  "drug_name": "TEVIMBRA",
+  "result": "approved",
+  "pdufa_date": "2025-04-22",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:RATIONALE-302, RATIONALE-305 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.180942",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "PD-1 inhibitor for ESCC, Gastric cancer",
+    "source": "websearch:RATIONALE-302, RATIONALE-305 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.180944",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "tislelizumab",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.544581",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "PD-1 inhibitor",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:32.124238",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:RATIONALE-302, RATIONALE-305 Phase 3",
+    "confidence": 0.95,
+    "evidence": [
+      "RATIONALE-302, RATIONALE-305 Phase 3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.180930",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "0.0001",
+    "source": "websearch:RATIONALE-302, RATIONALE-305 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.180937",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "OS: 8.6 vs 6.3 mo (ESCC); HR=0.70; 15.0 vs 12.9 mo (Gastric)",
+    "source": "websearch:RATIONALE-302, RATIONALE-305 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.180939",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "p_value_numeric": 0.0001,
+  "nct_ids": [
+    "NCT03783442",
+    "NCT03412773"
+  ],
+  "phase3_study_names": [
+    "A Randomized, Placebo-Controlled, Double-Blind Phase 3 Study to Evaluate the Efficacy and Safety of Tislelizumab (BGB-A317) in Combination With Chemotherapy as First-Line Treatment in Patients With Unresectable, Locally Advanced Recurrent or Metastatic Esophageal Squamous Cell Carcinoma",
+    "A Randomized, Open-label, Multicenter Phase 3 Study to Compare the Efficacy and Safety of BGB-A317 Versus Sorafenib as First-Line Treatment in Patients With Unresectable Hepatocellular Carcinoma"
+  ],
+  "prior_crl_reason": null,
+  "enrollment": {
+    "value": 649,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "date": null,
+    "outcome": null,
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": false,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:29:33.788873",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "global",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['SPAIN', 'UNITED KINGDOM', 'SOUTH KOREA', 'JAPAN', 'POLAND']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:29:33.788922",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "approval_type_nda",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "approval_type=nda"
+    ],
+    "searched_sources": [
+      "approval_type_nda"
+    ],
+    "last_searched": "2026-01-10T13:11:17.397336",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_fda",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "No FDA warning letter found in search"
+    ],
+    "searched_sources": [
+      "websearch_fda"
+    ],
+    "last_searched": "2026-01-11T04:14:38.485236",
+    "error": null
+  },
+  "fda_483_date": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:33:59.852530",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:34:00.860708",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -263,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:37.947669",
+  "original_case_id": "e7fc45d1b7ef",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:37:11.516128",
+  "enriched_at": "2026-01-11T17:55:07.005520",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:32.124260",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": true,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [
+      "BeiGene's TEVIMBRA Gains FDA Panel Support for PD-1 ...",
+      "Vote ratio extracted: 83.3%",
+      "Review - accessdata.fda.gov"
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:23:38.237776"
+  },
+  "adcom_vote_ratio": {
+    "value": 0.8333333333333334,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "BeiGene's TEVIMBRA Gains FDA Panel Support for PD-1 ...",
+      "Vote ratio extracted: 83.3%",
+      "Review - accessdata.fda.gov"
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:23:38.237783"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:54:47.107130",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:54:56.941230",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:55:01.694802",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:54:52.072569",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:55:07.005444",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

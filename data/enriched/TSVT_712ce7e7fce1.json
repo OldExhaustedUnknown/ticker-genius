@@ -1,0 +1,279 @@
+{
+  "event_id": "712ce7e7fce1",
+  "ticker": "TSVT",
+  "company_name": "2seventy bio",
+  "drug_name": "ABECMA IDE-CE bb2121",
+  "pdufa_date": "2023-12-16",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:KarMMa Phase 3 (Approved Mar 2021, Apr 2024 2L)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.654911",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "R/R multiple myeloma",
+    "source": "websearch:KarMMa Phase 3 (Approved Mar 2021, Apr 2024 2L)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.654912",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: brand_to_generic_map",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.138034",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:KarMMa Phase 3 (Approved Mar 2021, Apr 2024 2L)",
+    "confidence": 0.95,
+    "evidence": [
+      "KarMMa Phase 3 (Approved Mar 2021, Apr 2024 2L)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.654899",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.0001",
+    "source": "websearch:KarMMa Phase 3 (Approved Mar 2021, Apr 2024 2L)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.654906",
+    "error": null
+  },
+  "p_value_numeric": 0.0001,
+  "effect_size": {
+    "status": "found",
+    "value": "ORR 71-72%, PFS 13.3 vs 4.4 mo",
+    "source": "websearch:KarMMa Phase 3 (Approved Mar 2021, Apr 2024 2L)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.654907",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": true,
+    "source": "known_safety_database",
+    "confidence": 0.95,
+    "tier": 1,
+    "reason": "REMS - CRS/ICANS",
+    "severity": "high"
+  },
+  "phase3_study_names": [
+    "A Phase 2, Multicenter Study to Determine the Efficacy and Safety of bb2121 in Subjects With Relapsed and Refractory Multiple Myeloma"
+  ],
+  "nct_ids": [
+    "NCT03361748"
+  ],
+  "enrollment": {
+    "count": 149,
+    "type": "ACTUAL",
+    "nct_id": "NCT03361748",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:31:09.272115"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:26:02.823816",
+  "enriched_at": "2026-01-11T20:28:56.027765",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "377f4c575473",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": false,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": true
+  },
+  "mechanism_of_action": "CAR-T cell therapy",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -756,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:42.452987",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:46:20.893696"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:46:20.893704"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:28:36.611750",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:28:41.554813",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:28:46.339321",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:28:51.200368",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:28:56.027744",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "event_id": "d208b0da1be7",
+  "ticker": "SESN",
+  "company_name": "Sesen Bio",
+  "drug_name": "Vicineum",
+  "pdufa_date": "2021-09-01",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:VISTA Phase 3 (CRL Aug 2021)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.608394",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "BCG-unresponsive NMIBC",
+    "source": "websearch:VISTA Phase 3 (CRL Aug 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.608395",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: final_mapping",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.071781",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": false,
+    "source": "websearch:VISTA Phase 3 (CRL Aug 2021)",
+    "confidence": 0.5,
+    "evidence": [
+      "VISTA Phase 3 (CRL Aug 2021)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.608381",
+    "error": null
+  },
+  "p_value": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "websearch:VISTA Phase 3 (CRL Aug 2021)",
+    "confidence": 0.9,
+    "evidence": [
+      "Single-arm or accelerated approval - no comparator p-value"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.608388",
+    "error": null
+  },
+  "p_value_numeric": null,
+  "effect_size": {
+    "status": "found",
+    "value": "CR 39% at 3 months",
+    "source": "websearch:VISTA Phase 3 (CRL Aug 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.608390",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "phase3_study_names": [
+    "Open-Label, Multicenter, Ph 3 [Phase 3] Study to Evaluate the Efficacy and Tolerability of Intravesical Vicinium™ in Subjects With Non Muscle-Invasive Carcinoma in Situ and/or High-Grade Papillary Disease of the Bladder Treated With BCG",
+    "A Phase I Single-Arm Study of the Combination of Durvalumab (MEDI4736) and Vicineum (Oportuzumab Monatox, VB4-845) in Subjects With High-Grade Non-Muscle-Invasive Bladder Cancer Previously Treated With Bacillus Calmette-Guerin (BCG)",
+    "Phase II Study to Evaluate the Efficacy and Tolerability of Intravesical Vicinium™ in Patients With Non-Invasive Urothelial Carcinoma in Situ (CIS) Previously Treated With Bacille Calmette-Guérin (BCG)"
+  ],
+  "nct_ids": [
+    "NCT02449239",
+    "NCT03258593",
+    "NCT00462488"
+  ],
+  "enrollment": {
+    "count": 133,
+    "type": "ACTUAL",
+    "nct_id": "NCT02449239",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:30:24.370350"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "prior_crl_reason": {
+    "status": "found",
+    "value": "CMC issues from PAI + clinical data concerns",
+    "source": "web_search",
+    "category": "CMC_ISSUE",
+    "confidence": 0.9,
+    "tier": 2
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 1,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.75,
+    "tier": 2
+  },
+  "result": "crl",
+  "data_quality_score": 0.15,
+  "collected_at": "2026-01-09T00:33:38.587225",
+  "enriched_at": "2026-01-11T20:15:03.530515",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "03507e228c41",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "EpCAM-targeted immunotoxin",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -1592,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:42.017536",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:45:05.402014"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:45:05.402022"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:14:46.295282",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:14:51.704130",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA Grants Priority Review to BLA for Vicineum for Treatment ... Vicineum (oportuzumab monatox-qqrs)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:14:52.849732",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA Grants Priority Review to BLA for Vicineum for Treatment ... oportuzumab monatox Archives - The "
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:14:57.343243",
+    "search_status": "FOUND"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:15:03.530499",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

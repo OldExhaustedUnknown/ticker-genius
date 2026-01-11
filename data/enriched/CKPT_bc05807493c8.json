@@ -1,0 +1,467 @@
+{
+  "event_id": "bc05807493c8",
+  "ticker": "CKPT",
+  "company_name": "Checkpoint Therapeutics",
+  "drug_name": "UNLOXCYT/cosibelimab",
+  "result": "approved",
+  "pdufa_date": "2024-12-13",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:CK-301-101 Phase 1 (2024)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.260897",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Cutaneous squamous cell carcinoma",
+    "source": "websearch:CK-301-101 Phase 1 (2024)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.260898",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "cosibelimab",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:50:18.877864",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.645003",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "PD-L1 inhibitor",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:32.220490",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:50:18.877864",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:CK-301-101 Phase 1 (2024)",
+    "confidence": 0.9,
+    "evidence": [
+      "CK-301-101 Phase 1 (2024)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.260884",
+    "error": null
+  },
+  "p_value": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "websearch:CK-301-101 Phase 1 (2024)",
+    "confidence": 0.9,
+    "evidence": [
+      "Single-arm or accelerated approval - no comparator p-value"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.260891",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "ORR 50% (mCSCC); ORR 54.8% (laCSCC)",
+    "source": "websearch:CK-301-101 Phase 1 (2024)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.260893",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_resubmission",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "p_value_numeric": null,
+  "nct_ids": [
+    "NCT03620123"
+  ],
+  "phase3_study_names": [
+    "A Randomized Phase II Study on the OPTimization of IMmunotherapy in Squamous Carcinoma of the Head and Neck"
+  ],
+  "prior_crl_reason": null,
+  "enrollment": {
+    "value": 54,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "date": null,
+    "outcome": null,
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": false,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:30:16.856340",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "ex_us",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['GERMANY']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:30:16.856361",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "mab_without_biosimilar_suffix",
+    "confidence": 0.8,
+    "tier": 3,
+    "evidence": [
+      "monoclonal antibody without -xxxx suffix: cosibelimab"
+    ],
+    "searched_sources": [
+      "known_db",
+      "patterns",
+      "suffix_pattern",
+      "approval_type"
+    ],
+    "last_searched": "2026-01-10T23:29:31.338983",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_fda",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "No FDA warning letter found in search"
+    ],
+    "searched_sources": [
+      "websearch_fda"
+    ],
+    "last_searched": "2026-01-11T04:15:29.443716",
+    "error": null
+  },
+  "fda_483_date": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:37:06.555533",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:37:07.536211",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -393,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:38.738108",
+  "original_case_id": "a4c4d05fc585",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:42:21.011188",
+  "enriched_at": "2026-01-11T18:21:47.096511",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:32.220514",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:36:36.096452"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:36:36.096459"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:21:27.873887",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:21:37.478291",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:21:42.287579",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:21:32.646692",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:21:47.096495",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

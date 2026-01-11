@@ -1,0 +1,474 @@
+{
+  "event_id": "a6deae24904c",
+  "ticker": "BIIB",
+  "company_name": "Biogen",
+  "drug_name": "Spinraza High Dose",
+  "result": "approved",
+  "pdufa_date": "2019-06-17",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:DEVOTE Phase 2/3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.199888",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "SMA",
+    "source": "websearch:DEVOTE Phase 2/3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.199889",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "nusinersen",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Neurology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.564925",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "ASO (SMN2 splicing modifier)",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:32.146367",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:DEVOTE Phase 2/3",
+    "confidence": 0.95,
+    "evidence": [
+      "DEVOTE Phase 2/3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.199875",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.0001",
+    "source": "websearch:DEVOTE Phase 2/3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.199882",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "26.19 point motor function improvement; 68% reduced death/ventilation risk",
+    "source": "websearch:DEVOTE Phase 2/3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.199884",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 1,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "p_value_numeric": 0.0001,
+  "nct_ids": [
+    "NCT02193074"
+  ],
+  "phase3_study_names": [
+    "A Phase 3, Randomized, Double-Blind, Sham-Procedure Controlled Study to Assess the Clinical Efficacy and Safety of ISIS 396443 Administered Intrathecally in Patients With Infantile-onset Spinal Muscular Atrophy"
+  ],
+  "prior_crl_reason": null,
+  "enrollment": {
+    "count": 122,
+    "type": "ACTUAL",
+    "nct_id": "NCT02193074",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:25:46.495077"
+  },
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "date": null,
+    "outcome": null,
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": false,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-10T13:12:16.300328",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "global",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['BELGIUM', 'SPAIN', 'SWEDEN', 'UNITED STATES', 'FRANCE']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-10T13:12:16.300360",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "originator_keyword_match",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "contains originator keyword: spinraza"
+    ],
+    "searched_sources": [
+      "known_db",
+      "patterns",
+      "suffix_pattern",
+      "approval_type"
+    ],
+    "last_searched": "2026-01-10T23:29:31.299575",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_fda",
+    "confidence": 0.8,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_fda"
+    ],
+    "last_searched": "2026-01-11T04:05:14.856762",
+    "error": null,
+    "note": "No manufacturing warning letters found 2023-2025"
+  },
+  "fda_483_date": {
+    "value": "2022-11-01",
+    "status": "found",
+    "source": "news",
+    "confidence": 0.8,
+    "tier": 3,
+    "evidence": [
+      "Facility: RTP, NC",
+      "Outcome: N/A"
+    ],
+    "searched_sources": [
+      "news"
+    ],
+    "last_searched": "2026-01-11T05:25:26.306964",
+    "error": null,
+    "facility": "RTP, NC"
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:34:39.238810",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:34:40.168504",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -2399,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:38.127006",
+  "original_case_id": "6210347d6832",
+  "data_quality_score": 0.15,
+  "collected_at": "2026-01-09T00:42:26.635565",
+  "enriched_at": "2026-01-11T18:01:37.749474",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:32.146391",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T06:20:43.752874"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T06:20:43.752881"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:01:12.805783",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:01:25.126423",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:01:31.631576",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:01:19.102628",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:01:37.749441",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

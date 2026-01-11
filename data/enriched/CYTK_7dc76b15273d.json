@@ -1,0 +1,487 @@
+{
+  "event_id": "7dc76b15273d",
+  "ticker": "CYTK",
+  "company_name": "Cytokinetics",
+  "drug_name": "Omecamtiv Mecarbil",
+  "result": "crl",
+  "pdufa_date": "2023-02-28",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:GALACTIC-HF Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.283020",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Heart failure with reduced ejection fraction",
+    "source": "websearch:GALACTIC-HF Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.283023",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: final_mapping",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Cardiovascular",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.670769",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "Myosin activator",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:32.245346",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:GALACTIC-HF Phase 3",
+    "confidence": 0.9,
+    "evidence": [
+      "GALACTIC-HF Phase 3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.283007",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "p=0.025",
+    "source": "websearch:GALACTIC-HF Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.283013",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "HR 0.92 CV death/HF event",
+    "source": "websearch:GALACTIC-HF Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.283015",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 1,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.75,
+    "tier": 2
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "p_value_numeric": 0.025,
+  "nct_ids": [
+    "NCT02929329"
+  ],
+  "phase3_study_names": [
+    "A Double-blind, Randomized, Placebo-controlled, Multicenter Study to Assess the Efficacy and Safety of Omecamtiv Mecarbil on Mortality and Morbidity in Subjects With Chronic Heart Failure With Reduced Ejection Fraction (GALACTIC-HF)"
+  ],
+  "prior_crl_reason": {
+    "status": "found",
+    "value": "Single trial insufficient, small effect, no mortality benefit",
+    "source": "web_search",
+    "category": "CLINICAL_DATA",
+    "confidence": 0.9,
+    "tier": 2
+  },
+  "enrollment": {
+    "value": 8256,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "date": null,
+    "outcome": null,
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": false,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:30:28.372207",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "global",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['HUNGARY', 'GREECE', 'UKRAINE', 'RUSSIA', 'ROMANIA']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:30:28.372366",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "approval_type_nda",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "approval_type=nda"
+    ],
+    "searched_sources": [
+      "approval_type_nda"
+    ],
+    "last_searched": "2026-01-10T13:11:17.514315",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "found",
+    "value": "efficacy",
+    "source": "derived_from_prior_crl_reason",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "Single trial insufficient, small effect"
+    ],
+    "searched_sources": [
+      "prior_crl_reason"
+    ],
+    "last_searched": "2026-01-11T13:07:35.280278",
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_fda",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "No FDA warning letter found in search"
+    ],
+    "searched_sources": [
+      "websearch_fda"
+    ],
+    "last_searched": "2026-01-11T04:16:03.001256",
+    "error": null
+  },
+  "fda_483_date": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:37:55.513060",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:37:54.492130",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -1047,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:38.947123",
+  "original_case_id": "cc69388fe942",
+  "data_quality_score": 0.15,
+  "collected_at": "2026-01-09T00:29:54.414606",
+  "enriched_at": "2026-01-11T18:28:15.152108",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:32.245365",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": true,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [
+      "FDA adcomm votes down Cytokinetics heart failure drug",
+      "FDA AdCom votes against omecamtiv mecarbil approval",
+      "Cytokinetics Announces Outcome of FDA Advisory Committee Vote ..."
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:27:18.977277"
+  },
+  "adcom_vote_ratio": {
+    "value": 0.7272727272727273,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "FDA adcomm votes down Cytokinetics heart failure drug",
+      "FDA AdCom votes against omecamtiv mecarbil approval",
+      "Cytokinetics Announces Outcome of FDA Advisory Committee Vote ..."
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:27:18.977285"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:28:00.474330",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "When will the FDA grant approval for Omecamtiv Mecarbil - Feau"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:28:07.594030",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [
+      "FDA Grants Fast Track Designation for Omecamtiv Mecarbil in ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:28:08.778869",
+    "search_status": "FOUND"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:28:06.607541",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:28:15.152092",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

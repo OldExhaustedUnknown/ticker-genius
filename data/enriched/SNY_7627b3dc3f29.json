@@ -1,0 +1,290 @@
+{
+  "event_id": "7627b3dc3f29",
+  "ticker": "SNY",
+  "company_name": "Sanofi",
+  "drug_name": "FEXINIDAZOLE",
+  "pdufa_date": "20211215",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:Phase II/III DNDi (Approved Jul 2021)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.929318",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Human African trypanosomiasis",
+    "source": "websearch:Phase II/III DNDi (Approved Jul 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.929319",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "fexinidazole",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Infectious Disease",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.089050",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:Phase II/III DNDi (Approved Jul 2021)",
+    "confidence": 0.9,
+    "evidence": [
+      "Phase II/III DNDi (Approved Jul 2021)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.929303",
+    "error": null
+  },
+  "p_value": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "websearch:Phase II/III DNDi (Approved Jul 2021)",
+    "confidence": 0.9,
+    "evidence": [
+      "Single-arm or accelerated approval - no comparator p-value"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.929312",
+    "error": null
+  },
+  "p_value_numeric": null,
+  "effect_size": {
+    "status": "found",
+    "value": "First all-oral sleeping sickness treatment",
+    "source": "websearch:Phase II/III DNDi (Approved Jul 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.929314",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "Efficacy and Safety of Fexinidazole in Patients With Human African Trypanosomiasis (HAT) Due to Trypanosoma Brucei Rhodesiense: a Multicentre, Open-label Clinical Trial",
+    "Efficacy and Safety of Fexinidazole in Patients With Stage 1 or Early Stage 2 Human African Trypanosomiasis (HAT) Due to T.b. Gambiense: a Prospective, Multicentre, Open-label Cohort Study, plug-in to the Pivotal Study",
+    "Efficacy and Safety of Fexinidazole Compared to Nifurtimox-Eflornithine Combination Therapy (NECT) in Patients With Late-stage Human African Trypanosomiasis (HAT) Due to T.b. Gambiense: Pivotal, Non-inferiority, Multicentre, Randomised, Open-label Study"
+  ],
+  "nct_ids": [
+    "NCT03974178",
+    "NCT02169557",
+    "NCT01685827"
+  ],
+  "enrollment": {
+    "count": 394,
+    "type": "ACTUAL",
+    "nct_id": "NCT01685827",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:30:39.742202"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": false,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:38:06.040824",
+  "enriched_at": "2026-01-11T20:17:24.674047",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "378a1b80f913",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "Antiprotozoal",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -1487,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:42.131677",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:45:24.693161"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:45:24.693168"
+  },
+  "breakthrough_therapy": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA Approvals Roundup: Rezurock, Fexinidazole, Bylvay - RAPS"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:10.131455",
+    "search_status": "FOUND"
+  },
+  "orphan_drug": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Fexinidazole - Wikipedia"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:11.125572",
+    "search_status": "FOUND"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [
+      "Sanofi nets valuable FDA voucher with approval for first oral ... Media Update: US FDA approves fexi"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:12.135645",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:18.123787",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:24.674024",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "event_id": "0106ee9c5776",
+  "ticker": "MYOV",
+  "company_name": "Myovant Sciences",
+  "drug_name": "MYFEMBREE Relugolix",
+  "pdufa_date": "20250827",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:LIBERTY 1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.474881",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Uterine fibroids heavy bleeding",
+    "source": "websearch:LIBERTY 1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.474882",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: brand_to_generic_map",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Endocrine",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.939168",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:LIBERTY 1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.95,
+    "evidence": [
+      "LIBERTY 1/2 Phase 3 (Approved May 2021)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.474869",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.001",
+    "source": "websearch:LIBERTY 1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.474875",
+    "error": null
+  },
+  "p_value_numeric": 0.001,
+  "effect_size": {
+    "status": "found",
+    "value": "Significant MBL reduction",
+    "source": "websearch:LIBERTY 1/2 Phase 3 (Approved May 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.474877",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "LIBERTY 1: An International Phase 3 Randomized, Double-Blind, Placebo-Controlled Efficacy and Safety Study to Evaluate Relugolix Co-Administered With and Without Low-Dose Estradiol and Norethindrone Acetate in Women With Heavy Menstrual Bleeding Associated With Uterine Fibroids"
+  ],
+  "nct_ids": [
+    "NCT03049735"
+  ],
+  "enrollment": {
+    "count": 388,
+    "type": "ACTUAL",
+    "nct_id": "NCT03049735",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:42.058493"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:31:34.676855",
+  "enriched_at": "2026-01-11T19:38:08.680320",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "097d4483a956",
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": false,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "GnRH antagonist",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -136,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.972174",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:42:10.636850"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:42:10.636858"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:37:49.269144",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:37:54.164870",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:37:59.015303",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:38:03.803276",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:38:08.680283",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

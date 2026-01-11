@@ -1,0 +1,282 @@
+{
+  "event_id": "e237d09da496",
+  "ticker": "NERV",
+  "company_name": "Minerva Neurosciences",
+  "drug_name": "Roluperidone 5-HT2A antagonist",
+  "pdufa_date": "2024-02-26",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:Phase 3 (RTF Oct 2022)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.485993",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Schizophrenia negative symptoms",
+    "source": "websearch:Phase 3 (RTF Oct 2022)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.485995",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: extracted_from_drug_name",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Psychiatry",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.948827",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": false,
+    "source": "websearch:Phase 3 (RTF Oct 2022)",
+    "confidence": 0.4,
+    "evidence": [
+      "Phase 3 (RTF Oct 2022)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.485982",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "p=0.064",
+    "source": "websearch:Phase 3 (RTF Oct 2022)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.485988",
+    "error": null
+  },
+  "p_value_numeric": 0.064,
+  "effect_size": {
+    "status": "found",
+    "value": "Effect size 0.2 (not significant)",
+    "source": "websearch:Phase 3 (RTF Oct 2022)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.485990",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "phase3_study_names": [
+    "A Multicenter, Randomized, Double-Blind, Parallel-Group, Placebo-Controlled, Monotherapy, 12-Week Study to Evaluate the Efficacy and Safety of 2 Fixed Doses of MIN-101 in Adult Patients With Negative Symptoms of Schizophrenia, Followed by a 40-Week Open-Label Extension"
+  ],
+  "nct_ids": [
+    "NCT03397134"
+  ],
+  "enrollment": {
+    "count": 515,
+    "type": "ACTUAL",
+    "nct_id": "NCT03397134",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:46.870411"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_crl_context",
+    "confidence": 0.7,
+    "tier": 2
+  },
+  "prior_crl_reason": {
+    "status": "found",
+    "value": "Single study insufficient, no concomitant antipsychotic data",
+    "source": "web_search",
+    "category": "CLINICAL_DATA",
+    "confidence": 0.9,
+    "tier": 2
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 1,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.75,
+    "tier": 2
+  },
+  "result": "crl",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:24:47.668598",
+  "enriched_at": "2026-01-11T19:40:34.981911",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "43aece1e4a7a",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "5-HT2A/sigma-2 antagonist",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -684,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:41.036649",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:42:22.200781"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:42:22.200789"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:40:15.585830",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:40:20.359606",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:40:25.156514",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:40:29.939920",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:40:34.981892",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

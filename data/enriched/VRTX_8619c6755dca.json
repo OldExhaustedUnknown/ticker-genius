@@ -1,0 +1,294 @@
+{
+  "event_id": "8619c6755dca",
+  "ticker": "VRTX",
+  "company_name": "Vertex Pharmaceuticals",
+  "drug_name": "TRIKAFTA",
+  "pdufa_date": "20250925",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:VX-445-102 Phase 3 (Approved Oct 2019)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:05:55.358304",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Cystic fibrosis (F508del)",
+    "source": "websearch:VX-445-102 Phase 3 (Approved Oct 2019)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:05:55.358306",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "elexacaftor/tezacaftor/ivacaftor",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:39:43.834535",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Respiratory",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.180261",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:39:43.834535",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:VX-445-102 Phase 3 (Approved Oct 2019)",
+    "confidence": 0.95,
+    "evidence": [
+      "VX-445-102 Phase 3 (Approved Oct 2019)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:05:55.358292",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.001",
+    "source": "websearch:VX-445-102 Phase 3 (Approved Oct 2019)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:05:55.358298",
+    "error": null
+  },
+  "p_value_numeric": 0.001,
+  "effect_size": {
+    "status": "found",
+    "value": "14.3 ppFEV1 improvement",
+    "source": "websearch:VX-445-102 Phase 3 (Approved Oct 2019)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T19:05:55.358301",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "iPS Cell Response to CFTR Modulators: Study of Trikafta in CF Patients Carrying Partial Function Mutations or N1303K CFTR",
+    "A Phase 3, Randomized, Double-blind, Controlled Study Evaluating the Efficacy and Safety of VX-445 Combination Therapy in Subjects With Cystic Fibrosis Who Are Heterozygous for the F508del Mutation and a Minimal Function Mutation (F/MF)",
+    "A Phase 3, Randomized, Double-blind, Controlled Study Evaluating the Efficacy and Safety of VX-445 Combination Therapy in Subjects With Cystic Fibrosis Who Are Homozygous for the F508del Mutation (F/F)",
+    "Long-term Effects of Elexacaftor/Tezacaftor/Ivacaftor (Trikafta) on Exertional Symptoms, Exercise Performance, Ventilatory Responses, and Body Composition in Adults With Cystic Fibrosis",
+    "A Phase 3 Double-blind, Randomized, Placebo-controlled Study Evaluating the Efficacy and Safety of ELX/TEZ/IVA in Cystic Fibrosis Subjects 6 Years of Age and Older With a Non-F508del ELX/TEZ/IVA-responsive CFTR Mutation"
+  ],
+  "nct_ids": [
+    "NCT03506061",
+    "NCT03525444",
+    "NCT03525548",
+    "NCT05279040",
+    "NCT05274269"
+  ],
+  "enrollment": {
+    "count": 405,
+    "type": "ACTUAL",
+    "nct_id": "NCT03525444",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:31:41.576694"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:29:14.117684",
+  "enriched_at": "2026-01-11T20:40:08.312894",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "32c81778cf93",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "CFTR modulator",
+  "adcom_info": {
+    "scheduled": true,
+    "held": true,
+    "outcome": "favorable",
+    "vote": "positive"
+  },
+  "days_to_pdufa": -107,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:42.770394",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:47:15.114198"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:47:15.114206"
+  },
+  "breakthrough_therapy": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "When did Trikafta come out? A guide to its FDA approval timeline"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:39:57.237515",
+    "search_status": "FOUND"
+  },
+  "orphan_drug": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "2023 Affordability Review Summary Report: Trikafta"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:40:00.584111",
+    "search_status": "FOUND"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "FDA approves new breakthrough therapy for cystic fibrosis"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:40:01.642980",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Trikafta approved in CF for 94 more CFTR gene mutations When Was Trikafta Approved in the US? An FDA"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:40:02.919492",
+    "search_status": "FOUND"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:40:08.312868",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

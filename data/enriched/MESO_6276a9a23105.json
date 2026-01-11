@@ -1,0 +1,284 @@
+{
+  "event_id": "6276a9a23105",
+  "ticker": "MESO",
+  "company_name": "Mesoblast",
+  "drug_name": "Ryoncil remestemcel-L-rknd",
+  "pdufa_date": "2025-01-07",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:MSB-GVHD001 Phase 3 (Approved Dec 2024)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.444062",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Pediatric SR-aGvHD",
+    "source": "websearch:MSB-GVHD001 Phase 3 (Approved Dec 2024)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.444064",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "remestemcel-L-rknd",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Hematology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.881961",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:MSB-GVHD001 Phase 3 (Approved Dec 2024)",
+    "confidence": 0.95,
+    "evidence": [
+      "MSB-GVHD001 Phase 3 (Approved Dec 2024)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.444050",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "p=0.0003",
+    "source": "websearch:MSB-GVHD001 Phase 3 (Approved Dec 2024)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.444057",
+    "error": null
+  },
+  "p_value_numeric": 0.0003,
+  "effect_size": {
+    "status": "found",
+    "value": "ORR 70%, CR 30%",
+    "source": "websearch:MSB-GVHD001 Phase 3 (Approved Dec 2024)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.444059",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A Single-arm, Prospective Study of Remestemcel-L, Ex-vivo Culture-Expanded Adult Human Mesenchymal Stromal Cells, for the Treatment of Pediatric Patients Who Have Failed to Respond to Steroid Treatment for Acute GVHD"
+  ],
+  "nct_ids": [
+    "NCT02336230"
+  ],
+  "enrollment": {
+    "count": 55,
+    "type": "ACTUAL",
+    "nct_id": "NCT02336230",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:17.133587"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:20:40.397067",
+  "enriched_at": "2026-01-11T19:23:20.966587",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "1f5d3cce2acf",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "MSC therapy",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": "9-1"
+  },
+  "days_to_pdufa": -368,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.559725",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:40:58.566147"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:40:58.566155"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:23:11.298290",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Remestemcel - Wikipedia"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:23:12.397514",
+    "search_status": "FOUND"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Remestemcel - Wikipedia"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:23:13.520196",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Remestemcel - Wikipedia"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:23:14.524700",
+    "search_status": "FOUND"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:23:20.966571",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

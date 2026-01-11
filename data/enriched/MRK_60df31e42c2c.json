@@ -1,0 +1,278 @@
+{
+  "event_id": "60df31e42c2c",
+  "ticker": "MRK",
+  "company_name": "Merck & Co.",
+  "drug_name": "KEYTRUDA+ carboplatin and paclitaxel",
+  "pdufa_date": "20251121",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:KEYNOTE-689, KEYNOTE-811, KEYNOTE-905",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T17:37:40.335539",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Multiple (HNSCC, Gastric, MIBC)",
+    "source": "websearch:KEYNOTE-689, KEYNOTE-811, KEYNOTE-905",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T17:37:40.335540",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "pembrolizumab",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.908496",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:KEYNOTE-689, KEYNOTE-811, KEYNOTE-905",
+    "confidence": 0.95,
+    "evidence": [
+      "KEYNOTE-689, KEYNOTE-811, KEYNOTE-905"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T17:37:40.335527",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.0001",
+    "source": "websearch:KEYNOTE-689, KEYNOTE-811, KEYNOTE-905",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T17:37:40.335533",
+    "error": null
+  },
+  "p_value_numeric": 0.0001,
+  "effect_size": {
+    "status": "found",
+    "value": "HR=0.40-0.79 across indications",
+    "source": "websearch:KEYNOTE-689, KEYNOTE-811, KEYNOTE-905",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T17:37:40.335536",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "Adjuvant Immunotherapy With Anti-PD-1 Monoclonal Antibody Pembrolizumab (MK-3475) Versus Placebo After Complete Resection of High-risk Stage III Melanoma: A Randomized, Double- Blind Phase 3 Trial of the EORTC Melanoma Group"
+  ],
+  "nct_ids": [
+    "NCT02362594"
+  ],
+  "enrollment": {
+    "count": 1019,
+    "type": "ACTUAL",
+    "nct_id": "NCT02362594",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:28.824063"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:22:44.600498",
+  "enriched_at": "2026-01-11T19:30:01.380328",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "2d1395ed37dd",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": true
+  },
+  "mechanism_of_action": "PD-1 inhibitor",
+  "adcom_info": {
+    "scheduled": true,
+    "held": true,
+    "outcome": "favorable",
+    "vote": "positive"
+  },
+  "days_to_pdufa": -50,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.756669",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:41:31.881838"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:41:31.881845"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:29:41.920918",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:29:46.698729",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:29:51.697645",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:29:56.611188",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:30:01.380311",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

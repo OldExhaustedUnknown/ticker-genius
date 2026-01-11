@@ -1,0 +1,286 @@
+{
+  "event_id": "87b446566ad2",
+  "ticker": "PHAT",
+  "company_name": "Phathom Pharmaceuticals",
+  "drug_name": "Vonoprazen",
+  "pdufa_date": "2023-10-30",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:PHALCON-EE Phase 3 (Approved Nov 2023)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.549709",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Erosive esophagitis/GERD",
+    "source": "websearch:PHALCON-EE Phase 3 (Approved Nov 2023)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.549711",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: comprehensive_mapping",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Gastroenterology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.015496",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:PHALCON-EE Phase 3 (Approved Nov 2023)",
+    "confidence": 0.95,
+    "evidence": [
+      "PHALCON-EE Phase 3 (Approved Nov 2023)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.549696",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.0001",
+    "source": "websearch:PHALCON-EE Phase 3 (Approved Nov 2023)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.549703",
+    "error": null
+  },
+  "p_value_numeric": 0.0001,
+  "effect_size": {
+    "status": "found",
+    "value": "Healing 93% vs 84% (omeprazole) at 8 weeks",
+    "source": "websearch:PHALCON-EE Phase 3 (Approved Nov 2023)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.549706",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A Randomized, Double-Blind, Proof-of-Concept, Phase 2 Study to Evaluate the Efficacy and Safety of Once Daily Oral Vonoprazan 20 mg or Vonoprazan 40 mg Compared to Esomeprazole 40 mg for the Treatment of Subjects With Symptomatic Gastro-Esophageal Reflux Disease Who Have a Partial Response Following Treatment With a High Dose of Proton Pump Inhibitor",
+    "A Phase 3, Randomized, Double-Blind, Multicenter Study to Evaluate the Efficacy and Safety of Vonoprazan 10 and 20 mg Compared to Placebo for Relief of Heartburn in Subjects With Symptomatic Non-Erosive Gastroesophageal Reflux Disease (NERD) After 4 Weeks and to Evaluate the Efficacy and Safety of Vonoprazan 10 and 20 mg for Relief of Heartburn in Subjects With NERD After 6 Months",
+    "Effectiveness of Vonoprazan vs Omeprazole as Empiric Therapy for Gastroesophageal Reflux Disease (GERD) Patients Without Alarm Features in a Primary Care Setting: A Pragmatic, Randomized, Single Blind Study",
+    "A Phase 3, Randomized, Double-Blind, Two Phase, Multicenter Study to Evaluate the Efficacy and Safety of Vonoprazan 20 mg Compared to Lansoprazole 30 mg for Healing in Patients With Erosive Esophagitis and to Evaluate the Efficacy and Safety of Vonoprazan (10 mg and 20 mg) Compared to Lansoprazole 15 mg for the Maintenance of Healing in Patients With Healed Erosive Esophagitis",
+    "A Phase 2, Randomized, Double-Blind, Multicenter Study to Evaluate the Efficacy and Safety of Vonoprazan 10 mg, 20 mg, and 40 mg Compared to Placebo for Relief of Episodic Heartburn in Subjects With Symptomatic Non-Erosive Gastroesophageal Reflux Disease"
+  ],
+  "nct_ids": [
+    "NCT02743949",
+    "NCT05195528",
+    "NCT04028466",
+    "NCT04124926",
+    "NCT04799158"
+  ],
+  "enrollment": {
+    "count": 1027,
+    "type": "ACTUAL",
+    "nct_id": "NCT04124926",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:29:37.527043"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:26:39.225479",
+  "enriched_at": "2026-01-11T19:59:13.924319",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "8b766051285a",
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": false,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "P-CAB",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -803,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:41.546807",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:43:49.538388"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:43:49.538397"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:58:54.440327",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:58:59.202118",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:59:04.257985",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:59:09.010629",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:59:13.924305",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "event_id": "d781cbfb006e",
+  "ticker": "LLY",
+  "company_name": "Eli Lilly",
+  "drug_name": "RETEVMO",
+  "pdufa_date": "20241218",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:LIBRETTO-431, LIBRETTO-531 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.740186",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "RET-fusion positive cancers",
+    "source": "websearch:LIBRETTO-431, LIBRETTO-531 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.740187",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "selpercatinib",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.869647",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T07:18:32.440880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:LIBRETTO-431, LIBRETTO-531 Phase 3",
+    "confidence": 0.95,
+    "evidence": [
+      "LIBRETTO-431, LIBRETTO-531 Phase 3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.740174",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.001",
+    "source": "websearch:LIBRETTO-431, LIBRETTO-531 Phase 3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.740180",
+    "error": null
+  },
+  "p_value_numeric": 0.001,
+  "effect_size": {
+    "status": "found",
+    "value": "Median PFS 24.8 vs 11.2 mo (HR 0.46); ORR 84% vs 65%",
+    "source": "websearch:LIBRETTO-431, LIBRETTO-531 Phase 3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.740183",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A Phase 1/2 Study of Oral Selpercatinib (LOXO-292) in Patients With Advanced Solid Tumors, Including RET Fusion-Positive Solid Tumors, Medullary Thyroid Cancer, and Other Tumors With RET Activation (LIBRETTO-001)",
+    "A Phase 1/2 Study of the Oral RET Inhibitor LOXO 292 in Pediatric Patients With Advanced RET-Altered Solid or Primary Central Nervous System Tumors"
+  ],
+  "nct_ids": [
+    "NCT03157128",
+    "NCT03899792"
+  ],
+  "enrollment": {
+    "count": 857,
+    "type": "ACTUAL",
+    "nct_id": "NCT03157128",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:28:11.093957"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_resubmission",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:35:28.397446",
+  "enriched_at": "2026-01-11T19:20:37.437871",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "9e23c7511be9",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": true
+  },
+  "mechanism_of_action": "RET inhibitor",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -388,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:40.471958",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:40:42.979645"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:40:42.979653"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:29.254864",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Selpercatinib - Wikipedia"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:30.464800",
+    "search_status": "FOUND"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA grants traditional approval to Lilly’s Retevmo ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:31.456927",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:36.347943",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "FDA approves selpercatinib for locally advanced or metastatic ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T19:20:37.437859",
+    "search_status": "FOUND"
+  }
+}

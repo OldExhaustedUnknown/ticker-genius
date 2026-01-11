@@ -1,0 +1,480 @@
+{
+  "event_id": "c72a93ee7a09",
+  "ticker": "BMY",
+  "company_name": "Bristol-Myers Squibb",
+  "drug_name": "Abecma idecabtagene vicleucel",
+  "result": "approved",
+  "pdufa_date": "2023-12-16",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:KarMMa-3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.874179",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "R/R MM CAR-T",
+    "source": "websearch:KarMMa-3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.874180",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "idecabtagene vicleucel",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.606919",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "CAR-T cell therapy",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:32.183524",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:KarMMa-3",
+    "confidence": 0.85,
+    "evidence": [
+      "KarMMa-3"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.874166",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.0001",
+    "source": "websearch:KarMMa-3",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.874173",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "PFS HR 0.49 (13.3 vs 4.4 mo)",
+    "source": "websearch:KarMMa-3",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T20:53:00.874175",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": true,
+    "source": "known_safety_database",
+    "confidence": 0.95,
+    "tier": 1,
+    "reason": "REMS - CRS/ICANS",
+    "severity": "high"
+  },
+  "p_value_numeric": 0.0001,
+  "nct_ids": [
+    "NCT03361748"
+  ],
+  "phase3_study_names": [
+    "A Phase 2, Multicenter Study to Determine the Efficacy and Safety of bb2121 in Subjects With Relapsed and Refractory Multiple Myeloma"
+  ],
+  "prior_crl_reason": null,
+  "enrollment": {
+    "value": 149,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": false,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": true
+  },
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "date": null,
+    "outcome": null,
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": true,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=SINGLE_GROUP",
+      "allocation=NA"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:29:59.934803",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "global",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['SPAIN', 'JAPAN', 'GERMANY', 'FRANCE', 'ITALY']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:29:59.934840",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "cell_therapy_pattern",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "cell therapy pattern: vicleucel"
+    ],
+    "searched_sources": [
+      "known_db",
+      "patterns",
+      "suffix_pattern",
+      "approval_type"
+    ],
+    "last_searched": "2026-01-10T23:29:31.323183",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": "2022-10-31",
+    "status": "found",
+    "source": "fda.gov",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "Phoenix AZ fill/finish plant - contamination issues with Abraxane production"
+    ],
+    "searched_sources": [
+      "fda.gov"
+    ],
+    "last_searched": "2026-01-11T04:05:14.804460",
+    "error": null,
+    "note": null
+  },
+  "fda_483_date": {
+    "value": "2022-03-01",
+    "status": "found",
+    "source": "news",
+    "confidence": 0.8,
+    "tier": 3,
+    "evidence": [
+      "Facility: Phoenix, AZ",
+      "Outcome: N/A"
+    ],
+    "searched_sources": [
+      "news"
+    ],
+    "last_searched": "2026-01-11T05:25:26.275782",
+    "error": null,
+    "facility": "Phoenix, AZ"
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:35:54.538896",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:35:55.329190",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -756,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:38.418881",
+  "original_case_id": "1ce5a25f8540",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:25:54.050575",
+  "enriched_at": "2026-01-11T18:12:03.024735",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:32.183544",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": true,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [
+      "FDA ODAC Review of Abecma | Int'l Myeloma Foundation",
+      "FDA Votes in Favor of Potential Myeloma Therapy Following ...",
+      "USFDA Committee votes in favour of BMS's Abecma"
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:25:26.189422"
+  },
+  "adcom_vote_ratio": {
+    "value": 0.7272727272727273,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [
+      "FDA ODAC Review of Abecma | Int'l Myeloma Foundation",
+      "FDA Votes in Favor of Potential Myeloma Therapy Following ...",
+      "USFDA Committee votes in favour of BMS's Abecma"
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:25:26.189430"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:11:43.496467",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:11:53.257973",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:11:58.124157",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:11:48.494606",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T18:12:03.024718",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

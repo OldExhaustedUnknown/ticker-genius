@@ -1,0 +1,290 @@
+{
+  "event_id": "8fe739a0c750",
+  "ticker": "VRDN",
+  "company_name": "Viridian Therapeutics",
+  "drug_name": "Veligrotug",
+  "pdufa_date": "2026-06-30",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:THRIVE Phase 3 (PDUFA Jun 2026)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.684287",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Thyroid eye disease",
+    "source": "websearch:THRIVE Phase 3 (PDUFA Jun 2026)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.684288",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: comprehensive_mapping",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Ophthalmology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.171945",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:THRIVE Phase 3 (PDUFA Jun 2026)",
+    "confidence": 0.95,
+    "evidence": [
+      "THRIVE Phase 3 (PDUFA Jun 2026)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.684275",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "<0.001",
+    "source": "websearch:THRIVE Phase 3 (PDUFA Jun 2026)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.684281",
+    "error": null
+  },
+  "p_value_numeric": 0.001,
+  "effect_size": {
+    "status": "found",
+    "value": "67% vs 5% ORR, proptosis -2.34mm",
+    "source": "websearch:THRIVE Phase 3 (PDUFA Jun 2026)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.684283",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: pending_or_withdrawn",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "phase3_study_names": [
+    "A Multiple Ascending Dose (MAD) Safety, Tolerability and Efficacy Study of Veligrotug (VRDN-001), a Humanized Monoclonal Antibody Directed Against the IGF-1 Receptor, in Normal Healthy Volunteers (NHV(s) and Subjects With Thyroid Eye Disease (TED)"
+  ],
+  "nct_ids": [
+    "NCT05176639"
+  ],
+  "enrollment": {
+    "count": 113,
+    "type": "ACTUAL",
+    "nct_id": "NCT05176639",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:31:30.769967"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.9,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: pending_or_withdrawn",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "warning_letter": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: pending_or_withdrawn",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "result": "pending",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:44:08.253751",
+  "enriched_at": "2026-01-11T20:38:17.918203",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "fd351e545b75",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "Gene therapy",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": 171,
+  "pdufa_status": "upcoming",
+  "risk_tier": "LOW",
+  "days_calculated_at": "2026-01-10T16:59:42.709652",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:47:05.358491"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:47:05.358498"
+  },
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:37:58.580378",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:38:03.466208",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:38:08.254565",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:38:13.155137",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:38:17.918186",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

@@ -1,0 +1,484 @@
+{
+  "event_id": "499df3669d2b",
+  "ticker": "BIIB",
+  "company_name": "Biogen",
+  "drug_name": "LEQEMBI lecanemab",
+  "result": "approved",
+  "pdufa_date": "2025-08-21",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:CLARITY AD Phase 3, NEJM 2023",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.193264",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Early Alzheimer's Disease",
+    "source": "websearch:CLARITY AD Phase 3, NEJM 2023",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.193265",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "lecanemab",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Neurology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.558558",
+    "error": null
+  },
+  "mechanism_of_action": {
+    "status": "found",
+    "value": "Anti-amyloid antibody",
+    "source": "legacy_migration",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": "2026-01-10T12:42:32.139352",
+    "error": null,
+    "note": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Approved",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:34:43.330127",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:CLARITY AD Phase 3, NEJM 2023",
+    "confidence": 0.95,
+    "evidence": [
+      "CLARITY AD Phase 3, NEJM 2023"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.193251",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "0.00005",
+    "source": "websearch:CLARITY AD Phase 3, NEJM 2023",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.193258",
+    "error": null
+  },
+  "effect_size": {
+    "status": "found",
+    "value": "27% slowing of decline (CDR-SB -0.45)",
+    "source": "websearch:CLARITY AD Phase 3, NEJM 2023",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.193260",
+    "error": null
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_first_submission",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 0,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": true,
+    "source": "known_safety_database",
+    "confidence": 0.95,
+    "tier": 1,
+    "reason": "ARIA risk",
+    "severity": "medium"
+  },
+  "p_value_numeric": 5e-05,
+  "nct_ids": [
+    "NCT03887455",
+    "NCT04468659"
+  ],
+  "phase3_study_names": [
+    "A Placebo-Controlled, Double-Blind, Parallel-Group, 18-Month Study With an Open-Label Extension Phase to Confirm Safety and Efficacy of BAN2401 in Subjects With Early Alzheimer's Disease",
+    "AHEAD 3-45 Study: A Placebo-Controlled, Double-Blind, Parallel-Treatment Arm, 216 Week Study With an Extension Phase to Evaluate Efficacy and Safety of Treatment With BAN2401 in Subjects With Preclinical Alzheimer's Disease and Elevated Amyloid (A45 Trial) and in Subjects With Early Preclinical Alzheimer's Disease and Intermediate Amyloid (A3 Trial)"
+  ],
+  "prior_crl_reason": null,
+  "enrollment": {
+    "value": 1906,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2
+  },
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": false,
+    "accelerated_approval": true
+  },
+  "adcom_info": {
+    "scheduled": true,
+    "held": true,
+    "date": null,
+    "outcome": "favorable",
+    "vote_for": null,
+    "vote_against": null
+  },
+  "is_single_arm": {
+    "value": false,
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "interventionModel=PARALLEL",
+      "allocation=RANDOMIZED"
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:29:40.170349",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "trial_region": {
+    "value": "global",
+    "status": "found",
+    "source": "clinicaltrials.gov",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "countries=['SPAIN', 'UNITED KINGDOM', 'SOUTH KOREA', 'JAPAN', 'SWEDEN']..."
+    ],
+    "searched_sources": [
+      "clinicaltrials.gov"
+    ],
+    "last_searched": "2026-01-11T08:29:40.170405",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_biosimilar": {
+    "value": false,
+    "status": "found",
+    "source": "originator_keyword_match",
+    "confidence": 0.9,
+    "tier": 2,
+    "evidence": [
+      "contains originator keyword: leqembi"
+    ],
+    "searched_sources": [
+      "known_db",
+      "patterns",
+      "suffix_pattern",
+      "approval_type"
+    ],
+    "last_searched": "2026-01-10T23:29:31.295935",
+    "error": null,
+    "note": null,
+    "has_value": true,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "is_first_in_class": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "crl_reason_type": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "warning_letter_date": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_fda",
+    "confidence": 0.8,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_fda"
+    ],
+    "last_searched": "2026-01-11T04:05:14.852527",
+    "error": null,
+    "note": "No manufacturing warning letters found 2023-2025"
+  },
+  "fda_483_date": {
+    "value": "2022-11-01",
+    "status": "found",
+    "source": "news",
+    "confidence": 0.8,
+    "tier": 3,
+    "evidence": [
+      "Facility: RTP, NC",
+      "Outcome: N/A"
+    ],
+    "searched_sources": [
+      "news"
+    ],
+    "last_searched": "2026-01-11T05:25:26.303247",
+    "error": null,
+    "facility": "RTP, NC"
+  },
+  "fda_483_observations": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "cdmo_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "note": null
+  },
+  "pai_date": {
+    "value": null,
+    "status": "not_found",
+    "source": "",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T13:34:28.104048",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": true,
+    "is_complete": false
+  },
+  "clinical_hold_history": {
+    "value": null,
+    "status": "confirmed_none",
+    "source": "websearch_clinical_hold",
+    "confidence": 0.0,
+    "tier": null,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_clinical_hold"
+    ],
+    "last_searched": "2026-01-10T13:34:27.154526",
+    "error": null,
+    "note": null,
+    "has_value": false,
+    "needs_retry": false,
+    "is_complete": true
+  },
+  "days_to_pdufa": -142,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:38.073352",
+  "original_case_id": "600fa2331963",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:27:51.967426",
+  "enriched_at": "2026-01-11T17:58:35.606319",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "migrated_at": "2026-01-10T12:42:32.139375",
+  "schema_version": "3.0",
+  "adcom_scheduled": {
+    "value": true,
+    "status": "found",
+    "source": "websearch_adcom",
+    "confidence": 0.75,
+    "tier": 3,
+    "evidence": [
+      "FDA panel gives unanimous support to Leqembi | pharmaphorum",
+      "FDA Advisory Committee Confirms Efficacy of Leqembi",
+      "FDA Advisory Committee Confirms Benefits of Leqembi to Treat ..."
+    ],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:24:03.770722"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:24:03.770731"
+  },
+  "breakthrough_therapy": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Lecanemab - Wikipedia"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:58:26.064244",
+    "search_status": "FOUND"
+  },
+  "priority_review": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA Advisory Committee Votes Unanimously to Confirm the ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:58:33.325027",
+    "search_status": "FOUND"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "Eisai Completes Rolling Biologics License Application to FDA ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:58:34.512249",
+    "search_status": "FOUND"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:58:32.343627",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.95,
+    "tier": 2,
+    "evidence": [
+      "FDA Grants Accelerated Approval for Alzheimer’s Disease ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T17:58:35.606306",
+    "search_status": "FOUND"
+  }
+}

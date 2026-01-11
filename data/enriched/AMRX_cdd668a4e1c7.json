@@ -1,0 +1,251 @@
+{
+  "event_id": "cdd668a4e1c7",
+  "ticker": "AMRX",
+  "company_name": "Amneal Pharmaceuticals",
+  "drug_name": "BONCRESA",
+  "pdufa_date": "20251219",
+  "approval_type": {
+    "status": "found",
+    "value": "bla",
+    "source": "websearch:Phase 3 biosimilar comparability",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.118552",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "Osteoporosis (denosumab biosimilar)",
+    "source": "websearch:Phase 3 biosimilar comparability",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.118554",
+    "error": null
+  },
+  "generic_name": {
+    "status": "found",
+    "value": "denosumab-mobz",
+    "source": "websearch_fda",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:11:33.226880",
+    "error": null
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Metabolic",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:58.466073",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "websearch_clinical",
+    "confidence": 0.85,
+    "tier": 2,
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T00:11:33.226880",
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:Phase 3 biosimilar comparability",
+    "confidence": 0.85,
+    "evidence": [
+      "Phase 3 biosimilar comparability"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.118539",
+    "error": null
+  },
+  "p_value": {
+    "status": "found",
+    "value": "biosimilar",
+    "source": "websearch",
+    "confidence": 0.85,
+    "trial": null,
+    "tier": 2,
+    "note": "No numeric p-value applicable"
+  },
+  "p_value_numeric": null,
+  "effect_size": {
+    "status": "found",
+    "value": "BMD change within equivalence margins vs Prolia",
+    "source": "websearch:Phase 3 biosimilar comparability",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:20:41.118549",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": false,
+    "source": "default_for_approved",
+    "confidence": 0.9,
+    "tier": 1,
+    "note": "No blocking safety signals at approval"
+  },
+  "phase3_study_names": [
+    "A Randomized, Double-Blind, Placebo-Controlled Study to Assess the Efficacy and Safety of Nemolizumab in Subjects With Moderate-to-Severe Atopic Dermatitis"
+  ],
+  "nct_ids": [
+    "NCT03989349"
+  ],
+  "enrollment": {
+    "count": 787,
+    "type": "ACTUAL",
+    "nct_id": "NCT03989349",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:24:52.480382"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_resubmission",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "prior_crl_reason": null,
+  "is_resubmission": {
+    "status": "found",
+    "value": true,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_approval",
+    "confidence": 0.95,
+    "tier": 1,
+    "note": "Approved drugs must have passed PAI"
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "inferred_from_approval",
+    "confidence": 0.8,
+    "tier": 2,
+    "note": "Approved drugs unlikely to have blocking warning letters"
+  },
+  "result": "approved",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:40:01.999920",
+  "enriched_at": "2026-01-12T08:48:42.958962",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "e1e5a8d9dc31",
+  "fda_designations": {
+    "breakthrough_therapy": false,
+    "fast_track": false,
+    "priority_review": false,
+    "orphan_drug": false,
+    "accelerated_approval": false
+  },
+  "mechanism_of_action": "Insulin (biosimilar)",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -22,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:37.348688",
+  "breakthrough_therapy": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-12T08:48:22.398942",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-12T08:48:27.450559",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-12T08:48:32.365235",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-12T08:48:37.564067",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "accelerated_approval": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-12T08:48:42.958218",
+    "search_status": "CONFIRMED_NONE"
+  }
+}

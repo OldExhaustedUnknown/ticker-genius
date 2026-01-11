@@ -1,0 +1,296 @@
+{
+  "event_id": "4ad45849f4ed",
+  "ticker": "SPPI",
+  "company_name": "Spectrum Pharmaceuticals",
+  "drug_name": "Poziotinib",
+  "pdufa_date": "2022-11-24",
+  "approval_type": {
+    "status": "found",
+    "value": "nda",
+    "source": "websearch:ZENITH20 Phase 2 (NDA submitted 2021)",
+    "confidence": 0.9,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.931786",
+    "error": null
+  },
+  "indication": {
+    "status": "found",
+    "value": "HER2/EGFR exon 20 NSCLC",
+    "source": "websearch:ZENITH20 Phase 2 (NDA submitted 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.931788",
+    "error": null
+  },
+  "generic_name": {
+    "status": "not_searched",
+    "value": null,
+    "source": null,
+    "confidence": 0.0,
+    "evidence": [],
+    "searched_sources": [],
+    "last_searched": null,
+    "error": null,
+    "_reset_reason": "Was inferred from: comprehensive_mapping",
+    "_reset_at": "2026-01-09T23:49:24.204703"
+  },
+  "therapeutic_area": {
+    "status": "found",
+    "value": "Oncology",
+    "source": "websearch",
+    "confidence": 0.85,
+    "tier": 2,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-10T10:49:59.092297",
+    "error": null
+  },
+  "phase": {
+    "status": "found",
+    "value": "Phase 3",
+    "source": "derived_from_result",
+    "confidence": 0.95,
+    "tier": 1,
+    "searched_sources": [
+      "result_field"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "primary_endpoint_met": {
+    "status": "found",
+    "value": true,
+    "source": "websearch:ZENITH20 Phase 2 (NDA submitted 2021)",
+    "confidence": 0.7,
+    "evidence": [
+      "ZENITH20 Phase 2 (NDA submitted 2021)"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.931772",
+    "error": null
+  },
+  "p_value": {
+    "status": "not_applicable",
+    "value": null,
+    "source": "websearch:ZENITH20 Phase 2 (NDA submitted 2021)",
+    "confidence": 0.9,
+    "evidence": [
+      "Single-arm or accelerated approval - no comparator p-value"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.931780",
+    "error": null
+  },
+  "p_value_numeric": null,
+  "effect_size": {
+    "status": "found",
+    "value": "HER2 exon 20 ORR 27.8%",
+    "source": "websearch:ZENITH20 Phase 2 (NDA submitted 2021)",
+    "confidence": 0.85,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-09T21:07:20.931783",
+    "error": null
+  },
+  "safety_signal": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "phase3_study_names": [
+    "A Phase 2 Study of Poziotinib in Patients With Non-Small Cell Lung Cancer (NSCLC), Locally Advanced or Metastatic, With EGFR or HER2 Exon 20 Insertion Mutation (ZENITH20)",
+    "A Phase II Study to Assess Efficacy of Pan-HER Inhibitor (HM781-36B, Poziotinib) in Stage IV Lung Adenocarcinoma With HER2 Mutation",
+    "A Phase II Study of Poziotinib in EGFR or HER2 Mutant Advanced Solid Tumors",
+    "A Randomized, Phase 3 Study of Poziotinib in Previously Treated Patients With Locally Advanced or Metastatic Non-Small Cell Lung Cancer (NSCLC) Harboring HER2 Exon 20 Mutations (PINNACLE)"
+  ],
+  "nct_ids": [
+    "NCT03318939",
+    "NCT02979821",
+    "NCT03066206",
+    "NCT05378763"
+  ],
+  "enrollment": {
+    "count": 648,
+    "type": "ACTUAL",
+    "nct_id": "NCT03318939",
+    "source": "clinicaltrials.gov",
+    "fetched_at": "2026-01-10T17:30:41.719573"
+  },
+  "has_prior_crl": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_crl_context",
+    "confidence": 0.7,
+    "tier": 2
+  },
+  "prior_crl_reason": {
+    "status": "found",
+    "value": "ODAC voted 9-4 against, high adverse event rates (97.8%)",
+    "source": "web_search",
+    "category": "CLINICAL_DATA",
+    "confidence": 0.9,
+    "tier": 2
+  },
+  "is_resubmission": {
+    "status": "found",
+    "value": 1,
+    "source": "legacy_v12",
+    "confidence": 0.75,
+    "evidence": [],
+    "searched_sources": [
+      "legacy_v12"
+    ],
+    "last_searched": null,
+    "error": null
+  },
+  "pai_passed": {
+    "status": "found",
+    "value": true,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.85,
+    "tier": 2
+  },
+  "warning_letter": {
+    "status": "found",
+    "value": false,
+    "source": "derived_from_crl_reason",
+    "confidence": 0.75,
+    "tier": 2
+  },
+  "result": "crl",
+  "data_quality_score": 0.075,
+  "collected_at": "2026-01-09T00:30:58.997228",
+  "enriched_at": "2026-01-11T20:17:58.880420",
+  "needs_manual_review": false,
+  "review_reasons": [],
+  "original_case_id": "1dcffc130794",
+  "fda_designations": {
+    "breakthrough_therapy": true,
+    "fast_track": true,
+    "priority_review": true,
+    "orphan_drug": true,
+    "accelerated_approval": true
+  },
+  "mechanism_of_action": "HER2/EGFR inhibitor",
+  "adcom_info": {
+    "scheduled": false,
+    "held": false,
+    "outcome": null,
+    "vote": null
+  },
+  "days_to_pdufa": -1143,
+  "pdufa_status": "past",
+  "risk_tier": "HIGH",
+  "days_calculated_at": "2026-01-10T16:59:42.153992",
+  "adcom_scheduled": {
+    "value": false,
+    "status": "confirmed_none",
+    "source": "websearch_adcom",
+    "confidence": 0.7,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:45:28.639005"
+  },
+  "adcom_vote_ratio": {
+    "value": null,
+    "status": "not_applicable",
+    "source": "websearch_adcom",
+    "confidence": 0.6,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch_adcom"
+    ],
+    "last_searched": "2026-01-11T08:45:28.639013"
+  },
+  "breakthrough_therapy": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA accelerated review denial is a blow to Spectrum’s poziotinib"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:43.813124",
+    "search_status": "FOUND"
+  },
+  "orphan_drug": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:50.122872",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "priority_review": {
+    "value": null,
+    "status": "not_found",
+    "source": "websearch",
+    "confidence": 0.0,
+    "tier": 3,
+    "evidence": [],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:56.519712",
+    "search_status": "CONFIRMED_NONE"
+  },
+  "fast_track": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA Grants Fast Track Designation to Poziotinib for HER2 exon ..."
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:57.655810",
+    "search_status": "FOUND"
+  },
+  "accelerated_approval": {
+    "value": true,
+    "status": "found",
+    "source": "websearch",
+    "confidence": 0.75,
+    "tier": 2,
+    "evidence": [
+      "FDA rejects Spectrum's lung cancer drug poziotinib"
+    ],
+    "searched_sources": [
+      "websearch"
+    ],
+    "last_searched": "2026-01-11T20:17:58.880408",
+    "search_status": "FOUND"
+  }
+}
